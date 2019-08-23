@@ -87,6 +87,7 @@
     <Compile Include="ApplicationViewModel.cs" />
     <Compile Include="Authorization.cs" />
     <Compile Include="ContactsData.cs" />
+    <Compile Include="GetContactsList.cs" />
     <Compile Include="GetGroupList.cs" />
     <Compile Include="GroupData.cs" />
     <Compile Include="MainWindow.xaml.cs">
