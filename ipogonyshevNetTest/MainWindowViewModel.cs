@@ -25,12 +25,12 @@ namespace ipogonyshevNetTest
 				Contacts.Add(contactViewModel);
 			}
 
-            var lables = _contactService.GetAllLables();
-            foreach (var lable in lables)
-            {
-                var lableViewModel = new LableViewModel(lable);
-                Lables.Add(lableViewModel);
-            }
+			var lables = _contactService.GetAllLables();
+			foreach (var lable in lables)
+			{
+				var lableViewModel = new LableViewModel(lable);
+				Lables.Add(lableViewModel);
+			}
 
 			AddContactCommand = new RelayCommand(AddContact, () => true);
 			DeleteContactCommand = new RelayCommand(DeleteContact, CanDeleteContact);

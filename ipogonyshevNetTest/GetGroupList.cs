@@ -1,14 +1,10 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.PeopleService.v1;
+﻿using Google.Apis.PeopleService.v1;
 using Google.Apis.PeopleService.v1.Data;
-using System;
-using System.Threading;
 using System.Collections.Generic;
 
 namespace ipogonyshevNetTest
 {
-    class GetGroupList:GroupData
+	class GetGroupList:GroupData
     {
         public static List<GroupData> Getlist(PeopleServiceService service)
         {

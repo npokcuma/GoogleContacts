@@ -11,9 +11,9 @@ namespace ipogonyshevNetTest
 		bool Create(Contact contact);
 
 		bool Update(Contact contact);
-        List<Lable> GetAllLables();
-        bool RenameLable(Lable lable);
-        bool DeleteLable(Lable lable);
+		List<Lable> GetAllLables();
+		bool RenameLable(Lable lable);
+		bool DeleteLable(Lable lable);
 
-    }
+	}
 }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.PeopleService.v1;
+﻿using Google.Apis.PeopleService.v1;
 using Google.Apis.PeopleService.v1.Data;
+using System;
+using System.Collections.Generic;
 
 namespace ipogonyshevNetTest
 {
-	class GetContactsList:Contact
+	class GetContactsList
 	{
 		public static List<Contact> GetList(PeopleServiceService service)
 		{
