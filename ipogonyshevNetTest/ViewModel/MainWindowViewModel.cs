@@ -31,13 +31,19 @@ namespace ipogonyshevNetTest.ViewModel
 			foreach (var lable in lables)
 			{
 				var lableViewModel = new LableViewModel(lable);
-				Lables.Add(lableViewModel);
+				AddLableToList(lableViewModel);
 			}
 
 			AddContactCommand = new RelayCommand(AddContact, () => true);
 			DeleteContactCommand = new RelayCommand(DeleteContact, CanDeleteContact);
 			SaveContactCommand = new RelayCommand(SaveContact, () => true);
 			AddLableCommand = new RelayCommand(AddLable, () => true);
+		}
+
+		private void AddLableToList(LableViewModel lableViewModel)
+		{
+			lableViewModel.OnDelete += LableViewModel_OnDelete;
+			Lables.Add(lableViewModel);
 		}
 
 
@@ -115,9 +121,16 @@ namespace ipogonyshevNetTest.ViewModel
 				if (result)
 				{
 					lableViewModel.Save();
-					Lables.Add(lableViewModel);
+					AddLableToList(lableViewModel);
 				}
 			};
 		}
+
+		private void LableViewModel_OnDelete(object sender, System.EventArgs e)
+		{
+			var lableViewModel = (LableViewModel) sender;
+			Lables.Remove(lableViewModel);
+		}
+
 	}
 }

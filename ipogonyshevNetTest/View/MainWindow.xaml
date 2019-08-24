@@ -43,8 +43,10 @@
 						<StackPanel Margin="5">
 							<TextBlock FontSize="18"
 									   Text="{Binding Path=Name}" />
-							<TextBlock Text="{Binding Path=PhoneNumber}" />
-							<TextBlock Text="{Binding Path=EmailAddress}" />
+							<Button Command="{Binding}"
+									Content="Edit" />
+							<Button Command="{Binding DeleteCommand}"
+									Content="Delete" />
 						</StackPanel>
 					</DataTemplate>
 				</ListBox.ItemTemplate>

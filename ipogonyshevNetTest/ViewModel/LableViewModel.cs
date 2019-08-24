@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.ViewModel
@@ -10,10 +12,14 @@ namespace ipogonyshevNetTest.ViewModel
 		private string _id;
 		private string _name;
 
+		public event EventHandler<EventArgs> OnDelete;
+
 		public LableViewModel()
 		{
 			_lable = new Lable();
 			IsNew = true;
+
+			DeleteCommand = new RelayCommand(Delete, () => true);
 		}
 
 		public LableViewModel(Lable lable)
@@ -22,6 +28,8 @@ namespace ipogonyshevNetTest.ViewModel
 			Id = lable.Id;
 			Name = lable.Name;
 			IsNew = false;
+
+			DeleteCommand = new RelayCommand(Delete, () => true);
 		}
 
 		public string Id
@@ -65,6 +73,7 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		public RelayCommand DeleteCommand { get; set; }
 
 		public Lable GetLable()
 		{
@@ -83,5 +92,12 @@ namespace ipogonyshevNetTest.ViewModel
 
 			IsNew = false;
 		}
+
+		public void Delete()
+		{
+			OnDelete?.Invoke(this, null);
+		}
+
+		
 	}
 }
