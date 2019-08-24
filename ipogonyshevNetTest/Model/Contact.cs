@@ -2,7 +2,7 @@
 
 namespace ipogonyshevNetTest.Model
 {
-	internal class Contact : ViewModelBase
+	public class Contact : ViewModelBase
 	{
 		private string _id;
 		private string _name;

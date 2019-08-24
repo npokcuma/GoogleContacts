@@ -3,14 +3,12 @@ using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.ViewModel
 {
-	class LableViewModel : ViewModelBase
+	public class LableViewModel : ViewModelBase
 	{
 		private readonly Lable _lable;
 		private bool _isNew;
 		private string _id;
 		private string _name;
-		private string _phoneNumber;
-		private string _emailAddress;
 
 		public LableViewModel()
 		{
@@ -45,7 +43,6 @@ namespace ipogonyshevNetTest.ViewModel
 				RaisePropertyChanged(nameof(IsDirty));
 			}
 		}
-
 
 		public bool IsNew
 		{
@@ -84,9 +81,7 @@ namespace ipogonyshevNetTest.ViewModel
 			_lable.Id = Id;
 			_lable.Name = Name;
 
-
 			IsNew = false;
 		}
 	}
 }
-

@@ -15,14 +15,14 @@ namespace ipogonyshevNetTest.Services
 
 		public static PeopleServiceService GetToken()
 		{
-			// Create OAuth credential.
+			// CreateContact OAuth credential.
 			UserCredential credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
 				secrets,
 				new[] { "profile", "https://www.google.com/m8/feeds/contacts/default/full" },
 				"me",
 				CancellationToken.None).Result;
 
-			// Create the service.
+			// CreateContact the service.
 			var service = new PeopleServiceService(new BaseClientService.Initializer()
 			{
 				HttpClientInitializer = credential,

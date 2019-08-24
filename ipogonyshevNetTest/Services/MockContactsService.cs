@@ -49,19 +49,19 @@ namespace ipogonyshevNetTest.Services
 			return _listContacts;
 		}
 
-		public bool Delete(Contact contact)
+		public bool DeleteContact(Contact contact)
 		{
 			_listContacts.Remove(contact);
 			return true;
 		}
 
-		public bool Create(Contact contact)
+		public bool CreateContact(Contact contact)
 		{
 			_listContacts.Add(contact);
 			return false;
 		}
 
-		public bool Update(Contact contact)
+		public bool UpdateContact(Contact contact)
 		{
 			return true;
 		}
@@ -69,6 +69,12 @@ namespace ipogonyshevNetTest.Services
 		public List<Lable> GetAllLables()
 		{
 			return _listLables;
+		}
+
+		public bool CreateLable(Lable lable)
+		{
+			_listLables.Add(lable);
+			return true;
 		}
 
 		public bool RenameLable(Lable lable)

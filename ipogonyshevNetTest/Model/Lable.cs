@@ -1,6 +1,6 @@
 ﻿namespace ipogonyshevNetTest.Model
 {
-	class Lable
+	public class Lable
 	{
 		public string Id { get; set; }
 

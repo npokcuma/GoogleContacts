@@ -3,18 +3,22 @@ using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.Services
 {
-	interface IContactService
+	public interface IContactService
 	{
 		List<Contact> GetAllContacts();
 
-		bool Delete(Contact contact);
+		bool DeleteContact(Contact contact);
 
-		bool Create(Contact contact);
+		bool CreateContact(Contact contact);
 
-		bool Update(Contact contact);
+		bool UpdateContact(Contact contact);
+
 		List<Lable> GetAllLables();
-		bool RenameLable(Lable lable);
-		bool DeleteLable(Lable lable);
 
+		bool CreateLable(Lable lable);
+
+		bool RenameLable(Lable lable);
+
+		bool DeleteLable(Lable lable);
 	}
 }

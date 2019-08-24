@@ -3,7 +3,7 @@ using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.ViewModel
 {
-	class ContactViewModel : ViewModelBase
+	public class ContactViewModel : ViewModelBase
 	{
 		private readonly Contact _contact;
 		private bool _isNew;

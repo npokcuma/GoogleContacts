@@ -107,7 +107,7 @@
 
 			<Button Height="Auto"
 					Command="{Binding DeleteContactCommand}"
-					Content="Delete"
+					Content="DeleteContact"
 					DockPanel.Dock="Bottom" />
 		</DockPanel>
 

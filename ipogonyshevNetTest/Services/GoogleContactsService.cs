@@ -56,24 +56,29 @@ namespace ipogonyshevNetTest.Services
 			return _listContacts;
 		}
 
-		public bool Delete(Contact contact)
+		public bool DeleteContact(Contact contact)
 		{
 			_listContacts.Remove(contact);
 			return true;
 		}
 
-		public bool Create(Contact contact)
+		public bool CreateContact(Contact contact)
 		{
 			_listContacts.Add(contact);
 			return true;
 		}
 
-		public bool Update(Contact contact)
+		public bool UpdateContact(Contact contact)
 		{
 			return true;
 		}
 
 		public List<Lable> GetAllLables()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public bool CreateLable(Lable lable)
 		{
 			throw new System.NotImplementedException();
 		}

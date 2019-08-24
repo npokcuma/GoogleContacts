@@ -7,7 +7,7 @@ using ipogonyshevNetTest.View;
 
 namespace ipogonyshevNetTest.ViewModel
 {
-	class MainWindowViewModel : ViewModelBase
+	public class MainWindowViewModel : ViewModelBase
 	{
 		private readonly IContactService _contactService;
 		private ContactViewModel _selectedContact;
@@ -72,7 +72,7 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void DeleteContact()
 		{
-			var result = _contactService.Delete(SelectedContact.GetContact());
+			var result = _contactService.DeleteContact(SelectedContact.GetContact());
 			if (result)
 			{
 				Contacts.Remove(SelectedContact);
@@ -89,7 +89,7 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			if (SelectedContact.IsNew)
 			{
-				var result = _contactService.Create(SelectedContact.GetContact());
+				var result = _contactService.CreateContact(SelectedContact.GetContact());
 				if (result)
 				{
 					SelectedContact.Save();
@@ -97,7 +97,7 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 			else
 			{
-				var result = _contactService.Update(SelectedContact.GetContact());
+				var result = _contactService.UpdateContact(SelectedContact.GetContact());
 				if (result)
 				{
 					SelectedContact.Save();
@@ -107,8 +107,17 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void AddLable()
 		{
-			var window = new LableWindow();
-			window.ShowDialog();
+			var lableViewModel = new LableViewModel();
+			var window = new LableWindow(lableViewModel);
+			if (window.ShowDialog() == true)
+			{
+				var result = _contactService.CreateLable(lableViewModel.GetLable());
+				if (result)
+				{
+					lableViewModel.Save();
+					Lables.Add(lableViewModel);
+				}
+			};
 		}
 	}
 }
