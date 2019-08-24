@@ -8,9 +8,9 @@ namespace ipogonyshevNetTest
 
 		static PeopleServiceService service = Authorization.GetToken();
 
-		List<GroupData> groupNames = GetGroupList.Getlist(service);
+		//List<GroupData> groupNames = GetGroupList.Getlist(service);
 
-		List<Contact> contacts = GetContactsList.GetList(service);
+		//List<Contact> contacts = GetContactsList.GetList(service);
 
 
 		private readonly List<Contact> _listContacts;
