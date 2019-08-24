@@ -25,6 +25,13 @@ namespace ipogonyshevNetTest
 				Contacts.Add(contactViewModel);
 			}
 
+            var lables = _contactService.GetAllLables();
+            foreach (var lable in lables)
+            {
+                var lableViewModel = new LableViewModel(lable);
+                Lables.Add(lableViewModel);
+            }
+
 			AddContactCommand = new RelayCommand(AddContact, () => true);
 			DeleteContactCommand = new RelayCommand(DeleteContact, CanDeleteContact);
 			SaveContactCommand = new RelayCommand(SaveContact, () => true);
@@ -33,6 +40,7 @@ namespace ipogonyshevNetTest
 
 
 		public ObservableCollection<ContactViewModel> Contacts { get; set; } = new ObservableCollection<ContactViewModel>();
+		public ObservableCollection<LableViewModel> Lables { get; set; } = new ObservableCollection<LableViewModel>();
 
 		public ContactViewModel SelectedContact
 		{

@@ -94,6 +94,7 @@
     <Compile Include="ContactViewModel.cs" />
     <Compile Include="GoogleContactsService.cs" />
     <Compile Include="Lable.cs" />
+    <Compile Include="LableViewModel.cs" />
     <Compile Include="LableWindow.xaml.cs">
       <DependentUpon>LableWindow.xaml</DependentUpon>
     </Compile>

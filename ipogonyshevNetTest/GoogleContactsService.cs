@@ -14,8 +14,9 @@ namespace ipogonyshevNetTest
 
 
 		private readonly List<Contact> _listContacts;
+        private readonly List<Lable> _listLables;
 
-		public GoogleContactsService()
+        public GoogleContactsService()
 		{
 			_listContacts = new List<Contact>
 			{
@@ -34,7 +35,20 @@ namespace ipogonyshevNetTest
 					PhoneNumber = "8 999 666 11 22"
 				}
 			};
-		}
+            _listLables = new List<Lable>
+            {
+                new Lable
+                {
+                    Id = "1",
+                    Name = "Lalka"
+                },
+                new Lable
+                {
+                    Id="2",
+                    Name = "MyBand"
+                }
+            };
+        }
 
 		public List<Contact> GetAllContacts()
 		{
@@ -57,5 +71,20 @@ namespace ipogonyshevNetTest
 		{
 			return true;
 		}
-	}
+
+        public List<Lable> GetAllLables()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool RenameLable(Lable lable)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool DeleteLable(Lable lable)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

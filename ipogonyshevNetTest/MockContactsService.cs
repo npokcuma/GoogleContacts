@@ -5,6 +5,7 @@ namespace ipogonyshevNetTest
 	class MockContactsService : IContactService
 	{
 		private readonly List<Contact> _listContacts;
+		private readonly List<Lable> _listLables;
 
 		public MockContactsService()
 		{
@@ -25,7 +26,22 @@ namespace ipogonyshevNetTest
 					PhoneNumber = "8 999 666 11 22"
 				}
 			};
-		}
+
+            _listLables = new List<Lable>
+            {
+                new Lable
+                {
+                    Id = "1",
+                    Name = "Lalka"
+                },
+                new Lable
+                {
+                    Id="2",
+                    Name = "MyBand"
+                }
+            };
+        }
+
 
 		public List<Contact> GetAllContacts()
 		{
@@ -48,5 +64,21 @@ namespace ipogonyshevNetTest
 		{
 			return true;
 		}
-	}
+
+        public List<Lable> GetAllLables()
+        {
+            return _listLables;
+        }
+
+        public bool RenameLable(Lable lable)
+        {
+            return true;
+        }
+
+        public bool DeleteLable(Lable lable)
+        {
+            _listLables.Remove(lable);
+            return true;
+        }
+    }
 }

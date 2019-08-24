@@ -35,8 +35,8 @@
             <Button Command="{Binding AddLableCommand}"
                     Content="Add label"
                     DockPanel.Dock="Bottom" />
-            <ListBox ItemsSource="{Binding Contacts}"
-                     SelectedItem="{Binding SelectedContact}">
+            <ListBox ItemsSource="{Binding Lables}"
+                     SelectedItem="{Binding SelectedLables}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">

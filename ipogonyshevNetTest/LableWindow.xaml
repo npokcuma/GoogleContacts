@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ipogonyshevNetTest"
         mc:Ignorable="d"
-        Title="LableWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="LableWindow" Height="120" Width="400">
+    <Grid Margin="0,7,0,23">
+        <TextBox HorizontalAlignment="Stretch" Height="25" Margin="0,20,0,10" TextWrapping="Wrap" Text="Type a group name" VerticalAlignment="Stretch"/>
+
     </Grid>
 </Window>
