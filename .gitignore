@@ -1,2 +1,5 @@
 /packages/
 /.vs/
+
+/ipogonyshevNetTest/bin
+/ipogonyshevNetTest/obj
