@@ -33,21 +33,15 @@ namespace ipogonyshevNetTest
         static PeopleServiceService service = Authorization.GetToken();
         List<GroupData> groupNames = GetGroupList.Getlist(service);
         List<ContactsData> contacts = GetContactsList.GetList(service);
+
+
         public ApplicationViewModel()
         {
-
             ContactsList = new ObservableCollection<ContactsData>();
             foreach (var person in contacts)
             {
                 ContactsList.Add(new ContactsData() {Name=person.Name,PhoneNumber=person.PhoneNumber,EmailAddress=person.EmailAddress });
             }
-            //ContactsList = new ObservableCollection<ContactsData>
-            //{
-            //    new ContactsData {Name="Иван Погонышев", PhoneNumber="899999999", EmailAddress="sduhfushfuish@mail.ru" },
-            //    new ContactsData {Name="Петр Сидоров", PhoneNumber="888888888", EmailAddress ="diuhgfiurhgi@gmail.com" },
-            //    new ContactsData {Name="Яков Валентинович", PhoneNumber="8777777777", EmailAddress="oedijguehgiu@hotmail.com" },
-
-            //};
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

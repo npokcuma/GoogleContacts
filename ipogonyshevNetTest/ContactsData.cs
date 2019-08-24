@@ -10,6 +10,7 @@ namespace ipogonyshevNetTest
         private string name;
         private string phoneNumber;
         private string emailAddress;
+        private string contactId;
 
         public string Name
         {
@@ -36,6 +37,15 @@ namespace ipogonyshevNetTest
             {
                 emailAddress = value;
                 OnPropertyChanged("EmailAddress");
+            }
+        }
+        public string ContactId
+        {
+            get { return contactId; }
+            set
+            {
+                contactId = value;
+                //OnPropertyChanged("ContactId");
             }
         }
 

@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace ipogonyshevNetTest
 {
@@ -8,7 +11,17 @@ namespace ipogonyshevNetTest
         {
             InitializeComponent();
             DataContext = new ApplicationViewModel();
-            //applicationViewModel
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DeleteContact.FontWeight = FontWeights.Bold;
+            DeleteContact.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void Click_DeleteContact(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 

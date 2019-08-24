@@ -20,11 +20,11 @@
             <ColumnDefinition Width="0.8*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" ItemsSource="{Binding ContactsList}"
+        <ListBox Grid.Column="0" SelectionChanged="ListBox_SelectionChanged"  ItemsSource="{Binding ContactsList}"
                  SelectedItem="{Binding SelectedContact}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="5">
+                    <StackPanel  Margin="5">
                         <TextBlock FontSize="18" Text="{Binding Path=Name}" />
                         <TextBlock Text="{Binding Path=PhoneNumber}" />
                         <TextBlock Text="{Binding Path=EmailAddress}" />
@@ -41,6 +41,11 @@
             <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Почтовый адрес" />
             <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Click="Click_DeleteContact">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="DeleteContact" Foreground="Gray">delete selected contact</TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
