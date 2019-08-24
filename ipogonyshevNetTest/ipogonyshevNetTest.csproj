@@ -91,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ContactViewModel.cs" />
+    <Compile Include="GoogleContactsService.cs" />
+    <Compile Include="MockContactsService.cs" />
+    <Compile Include="IContactService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
@@ -101,9 +105,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Authorization.cs" />
-    <Compile Include="ContactsData.cs" />
+    <Compile Include="Contact.cs" />
     <Compile Include="DeleteContact.cs" />
     <Compile Include="GetContactsList.cs" />
     <Compile Include="GetGroupList.cs" />

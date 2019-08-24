@@ -2,10 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ipogonyshevNetTest"
-        mc:Ignorable="d"
-        Title="GoogleContats" Height="350" Width="525">
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="GoogleContats"
+        Width="525"
+        Height="350"
+        d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel,
+                                         IsDesignTimeCreatable=True}"
+        mc:Ignorable="d">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="14" />
@@ -20,12 +24,16 @@
             <ColumnDefinition Width="0.8*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" SelectionChanged="ListBox_SelectionChanged"  ItemsSource="{Binding ContactsList}"
+
+
+        <ListBox Grid.Column="0"
+                 ItemsSource="{Binding Contacts}"
                  SelectedItem="{Binding SelectedContact}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel  Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18"
+                                   Text="{Binding Path=Name}" />
                         <TextBlock Text="{Binding Path=PhoneNumber}" />
                         <TextBlock Text="{Binding Path=EmailAddress}" />
                     </StackPanel>
@@ -33,19 +41,36 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Grid.Column="1" DataContext="{Binding SelectedContact}">
-            <TextBlock Text="Выбранный элемент"  />
-            <TextBlock Text="Наименование контакта" />
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Номер телефона" />
-            <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Почтовый адрес" />
-            <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Click="Click_DeleteContact">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="DeleteContact" Foreground="Gray">delete selected contact</TextBlock>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+        <DockPanel Grid.Column="1"
+                   LastChildFill="False">
+            <StackPanel DataContext="{Binding SelectedContact}"
+                        DockPanel.Dock="Top">
+                <TextBlock Text="Выбранный элемент" />
+                <TextBlock Text="Наименование контакта" />
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Номер телефона" />
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Почтовый адрес" />
+                <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="{Binding IsNew, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <Button Height="Auto"
+                    Command="{Binding AddContactCommand}"
+                    Content="Create"
+                    DockPanel.Dock="Bottom" />
+
+            <Button Height="Auto"
+                    Command="{Binding SaveContactCommand}"
+                    Content="Save"
+                    DockPanel.Dock="Bottom" />
+
+            <Button Height="Auto"
+                    Command="{Binding DeleteContactCommand}"
+                    Content="Delete"
+                    DockPanel.Dock="Bottom" />
+        </DockPanel>
+
     </Grid>
 </Window>

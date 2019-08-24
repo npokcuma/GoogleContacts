@@ -15,6 +15,7 @@ namespace ipogonyshevNetTest
             ClientId = "1062889216556-s7mbmuqve920v01a0c48d4l9atfgde2b.apps.googleusercontent.com",
             ClientSecret = "pgKMMKqoItVymM2M3XP0p3HL"
         };
+
          public static  PeopleServiceService GetToken()
         {
             // Create OAuth credential.
