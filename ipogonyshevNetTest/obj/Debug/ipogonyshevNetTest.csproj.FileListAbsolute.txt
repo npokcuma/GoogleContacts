@@ -62,3 +62,16 @@ D:\GitHub\GoogleContacts\ipogonyshevNetTest\obj\Debug\ipogonyshevNetTest.Propert
 D:\GitHub\GoogleContacts\ipogonyshevNetTest\obj\Debug\ipogonyshevNetTest.csproj.GenerateResource.cache
 D:\GitHub\GoogleContacts\ipogonyshevNetTest\obj\Debug\ipogonyshevNetTest.csproj.CoreCompileInputs.cache
 D:\GitHub\GoogleContacts\ipogonyshevNetTest\obj\Debug\ipogonyshevNetTest.csproj.CopyComplete
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\CommonServiceLocator.dll
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.dll
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\System.Windows.Interactivity.dll
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.pdb
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.xml
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+D:\GitHub\GoogleContacts\ipogonyshevNetTest\obj\Debug\App.baml
