@@ -1,13 +1,23 @@
 ﻿using System.Collections.Generic;
+using Google.Apis.PeopleService.v1;
+using ipogonyshevNetTest.Model;
 
-namespace ipogonyshevNetTest
+namespace ipogonyshevNetTest.Services
 {
-	class MockContactsService : IContactService
+	class GoogleContactsService : IContactService
 	{
+
+		static PeopleServiceService service = Authorization.GetToken();
+
+		//List<GroupData> groupNames = GetGroupList.Getlist(service);
+
+		//List<Contact> contacts = GetContactsList.GetList(service);
+
+
 		private readonly List<Contact> _listContacts;
 		private readonly List<Lable> _listLables;
 
-		public MockContactsService()
+		public GoogleContactsService()
 		{
 			_listContacts = new List<Contact>
 			{
@@ -26,7 +36,6 @@ namespace ipogonyshevNetTest
 					PhoneNumber = "8 999 666 11 22"
 				}
 			};
-
 			_listLables = new List<Lable>
 			{
 				new Lable
@@ -42,7 +51,6 @@ namespace ipogonyshevNetTest
 			};
 		}
 
-
 		public List<Contact> GetAllContacts()
 		{
 			return _listContacts;
@@ -57,7 +65,7 @@ namespace ipogonyshevNetTest
 		public bool Create(Contact contact)
 		{
 			_listContacts.Add(contact);
-			return false;
+			return true;
 		}
 
 		public bool Update(Contact contact)
@@ -67,18 +75,17 @@ namespace ipogonyshevNetTest
 
 		public List<Lable> GetAllLables()
 		{
-			return _listLables;
+			throw new System.NotImplementedException();
 		}
 
 		public bool RenameLable(Lable lable)
 		{
-			return true;
+			throw new System.NotImplementedException();
 		}
 
 		public bool DeleteLable(Lable lable)
 		{
-			_listLables.Remove(lable);
-			return true;
+			throw new System.NotImplementedException();
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace ipogonyshevNetTest
+namespace ipogonyshevNetTest.Model
 {
 	internal class Contact : ViewModelBase
 	{

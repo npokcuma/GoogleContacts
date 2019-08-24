@@ -1,9 +1,11 @@
-﻿using GalaSoft.MvvmLight;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using ipogonyshevNetTest.Services;
+using ipogonyshevNetTest.View;
 
-namespace ipogonyshevNetTest
+namespace ipogonyshevNetTest.ViewModel
 {
 	class MainWindowViewModel : ViewModelBase
 	{

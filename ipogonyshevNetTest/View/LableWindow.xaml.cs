@@ -1,4 +1,4 @@
-﻿namespace ipogonyshevNetTest
+﻿namespace ipogonyshevNetTest.View
 {
 	public partial class LableWindow
 	{

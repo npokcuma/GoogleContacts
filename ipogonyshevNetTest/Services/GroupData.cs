@@ -1,4 +1,4 @@
-﻿namespace ipogonyshevNetTest
+﻿namespace ipogonyshevNetTest.Services
 {
 	internal class GroupData
 	{

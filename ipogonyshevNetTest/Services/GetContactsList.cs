@@ -1,11 +1,12 @@
-﻿using Google.Apis.PeopleService.v1;
-using Google.Apis.PeopleService.v1.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Google.Apis.PeopleService.v1;
+using Google.Apis.PeopleService.v1.Data;
+using ipogonyshevNetTest.Model;
 
-namespace ipogonyshevNetTest
+namespace ipogonyshevNetTest.Services
 {
-	class GetContactsList
+	internal class GetContactsList
 	{
 		public static List<Contact> GetList(PeopleServiceService service)
 		{

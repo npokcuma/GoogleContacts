@@ -1,4 +1,7 @@
-﻿namespace ipogonyshevNetTest
+﻿using ipogonyshevNetTest.Services;
+using ipogonyshevNetTest.ViewModel;
+
+namespace ipogonyshevNetTest.View
 {
 	public partial class MainWindow
 	{

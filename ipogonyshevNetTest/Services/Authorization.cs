@@ -1,11 +1,11 @@
-﻿using Google.Apis.Auth.OAuth2;
+﻿using System.Threading;
+using Google.Apis.Auth.OAuth2;
 using Google.Apis.PeopleService.v1;
 using Google.Apis.Services;
-using System.Threading;
 
-namespace ipogonyshevNetTest
+namespace ipogonyshevNetTest.Services
 {
-	class Authorization
+	internal static class Authorization
 	{
 		static readonly ClientSecrets secrets = new ClientSecrets()
 		{

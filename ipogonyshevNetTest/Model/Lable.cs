@@ -1,4 +1,4 @@
-﻿namespace ipogonyshevNetTest
+﻿namespace ipogonyshevNetTest.Model
 {
 	class Lable
 	{

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using ipogonyshevNetTest.Model;
 
-namespace ipogonyshevNetTest
+namespace ipogonyshevNetTest.Services
 {
 	interface IContactService
 	{
