@@ -10,6 +10,10 @@ namespace ipogonyshevNetTest
 		private readonly IContactService _contactService;
 		private ContactViewModel _selectedContact;
 
+		public MainWindowViewModel()
+		{
+		}
+
 		public MainWindowViewModel(IContactService contactService)
 		{
 			_contactService = contactService;
@@ -24,6 +28,7 @@ namespace ipogonyshevNetTest
 			AddContactCommand = new RelayCommand(AddContact, () => true);
 			DeleteContactCommand = new RelayCommand(DeleteContact, CanDeleteContact);
 			SaveContactCommand = new RelayCommand(SaveContact, () => true);
+			AddLableCommand = new RelayCommand(AddLable, () => true);
 		}
 
 
@@ -44,6 +49,8 @@ namespace ipogonyshevNetTest
 		public RelayCommand DeleteContactCommand { get; set; }
 
 		public RelayCommand SaveContactCommand { get; set; }
+
+		public RelayCommand AddLableCommand { get; set; }
 
 
 		private void AddContact()
@@ -86,6 +93,12 @@ namespace ipogonyshevNetTest
 					SelectedContact.Save();
 				}
 			}
+		}
+
+		private void AddLable()
+		{
+			var window = new LableWindow();
+			window.ShowDialog();
 		}
 	}
 }

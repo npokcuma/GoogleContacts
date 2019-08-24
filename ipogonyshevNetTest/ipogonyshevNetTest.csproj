@@ -93,10 +93,18 @@
     </ApplicationDefinition>
     <Compile Include="ContactViewModel.cs" />
     <Compile Include="GoogleContactsService.cs" />
+    <Compile Include="Lable.cs" />
+    <Compile Include="LableWindow.xaml.cs">
+      <DependentUpon>LableWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MockContactsService.cs" />
     <Compile Include="IContactService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="LableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:ipogonyshevNetTest"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="GoogleContats"
-        Width="525"
-        Height="350"
+        Title="GoogleContacts"
+        Width="1200"
+        Height="600"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel,
                                          IsDesignTimeCreatable=True}"
         mc:Ignorable="d">
@@ -20,46 +20,84 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.6*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="0.8*" />
         </Grid.ColumnDefinitions>
 
-
-
-        <ListBox Grid.Column="0"
-                 ItemsSource="{Binding Contacts}"
-                 SelectedItem="{Binding SelectedContact}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5">
-                        <TextBlock FontSize="18"
-                                   Text="{Binding Path=Name}" />
-                        <TextBlock Text="{Binding Path=PhoneNumber}" />
-                        <TextBlock Text="{Binding Path=EmailAddress}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <DockPanel Grid.Column="0"
+                   LastChildFill="True">
+            <TextBlock HorizontalAlignment="Center"
+                       DockPanel.Dock="Top"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Text="Lables" />
+            <Button Command="{Binding AddLableCommand}"
+                    Content="Add label"
+                    DockPanel.Dock="Bottom" />
+            <ListBox ItemsSource="{Binding Contacts}"
+                     SelectedItem="{Binding SelectedContact}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18"
+                                       Text="{Binding Path=Name}" />
+                            <TextBlock Text="{Binding Path=PhoneNumber}" />
+                            <TextBlock Text="{Binding Path=EmailAddress}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
 
         <DockPanel Grid.Column="1"
-                   LastChildFill="False">
-            <StackPanel DataContext="{Binding SelectedContact}"
-                        DockPanel.Dock="Top">
-                <TextBlock Text="Выбранный элемент" />
-                <TextBlock Text="Наименование контакта" />
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Номер телефона" />
-                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Почтовый адрес" />
-                <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="{Binding IsNew, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
+                   LastChildFill="True">
+            <TextBlock HorizontalAlignment="Center"
+                       DockPanel.Dock="Top"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Text="Contacts" />
 
             <Button Height="Auto"
                     Command="{Binding AddContactCommand}"
-                    Content="Create"
+                    Content="Add new contact"
                     DockPanel.Dock="Bottom" />
+
+            <ListBox ItemsSource="{Binding Contacts}"
+                     SelectedItem="{Binding SelectedContact}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18"
+                                       Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{Binding Path=PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{Binding IsNew, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <DockPanel Grid.Column="2"
+                   LastChildFill="False">
+            <TextBlock HorizontalAlignment="Center"
+                       DockPanel.Dock="Top"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Text="Selected element" />
+            <StackPanel DataContext="{Binding SelectedContact}"
+                        DockPanel.Dock="Top">
+                <TextBlock Text="Name" />
+                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Phone" />
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Email" />
+                <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+
 
             <Button Height="Auto"
                     Command="{Binding SaveContactCommand}"
