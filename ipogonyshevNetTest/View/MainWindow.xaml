@@ -28,6 +28,11 @@
 
 		<DockPanel Grid.Column="0"
 				   LastChildFill="True">
+
+			<Button Command="{Binding ShowAllContactsCommand}"
+					Content="All Contacts"
+					DockPanel.Dock="Top" />
+
 			<TextBlock HorizontalAlignment="Center"
 					   DockPanel.Dock="Top"
 					   FontSize="20"
@@ -36,18 +41,29 @@
 			<Button Command="{Binding AddLableCommand}"
 					Content="Add label"
 					DockPanel.Dock="Bottom" />
-			<ListBox ItemsSource="{Binding Lables}"
-					 SelectedItem="{Binding SelectedLables}">
+			<ListBox HorizontalContentAlignment="Stretch"
+					 ItemsSource="{Binding Lables}"
+					 SelectedItem="{Binding SelectedLable}">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<StackPanel Margin="5">
+						<DockPanel Margin="5"
+								   LastChildFill="False">
 							<TextBlock FontSize="18"
 									   Text="{Binding Path=Name}" />
-							<Button Command="{Binding}"
-									Content="Edit" />
-							<Button Command="{Binding DeleteCommand}"
-									Content="Delete" />
-						</StackPanel>
+
+							<TextBlock Margin="5,0"
+									   DockPanel.Dock="Right"
+									   FontSize="18"
+									   Text="{Binding Path=Contacts.Count}" />
+							<Button Margin="5,0"
+									Command="{Binding}"
+									Content="Edit"
+									DockPanel.Dock="Right" />
+							<Button Margin="5,0"
+									Command="{Binding DeleteCommand}"
+									Content="Delete"
+									DockPanel.Dock="Right" />
+						</DockPanel>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>

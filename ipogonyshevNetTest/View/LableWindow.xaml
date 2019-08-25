@@ -17,6 +17,7 @@
 					 Margin="0,20,0,10"
 					 HorizontalAlignment="Stretch"
 					 VerticalAlignment="Stretch"
+					 ForceCursor="True"
 					 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
 					 TextWrapping="Wrap" />
 			<StackPanel Orientation="Horizontal">

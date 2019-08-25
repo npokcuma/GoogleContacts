@@ -10,37 +10,48 @@ namespace ipogonyshevNetTest.Services
 
 		public MockContactsService()
 		{
-			_listContacts = new List<Contact>
-			{
-				new Contact
-				{
-					Id = "id1",
-					EmailAddress = "email1@mail.ru",
-					Name = "Иванов Иван Иванович",
-					PhoneNumber = "8 800 555 35 35"
-				},
-				new Contact
-				{
-					Id = "id2",
-					EmailAddress = "email2@mail.ru",
-					Name = "Петров Петр Иванович",
-					PhoneNumber = "8 999 666 11 22"
-				}
-			};
 
-			_listLables = new List<Lable>
+			_listContacts = new List<Contact>();
+			var contact1 = new Contact
 			{
-				new Lable
-				{
-					Id = "1",
-					Name = "Lalka"
-				},
-				new Lable
-				{
-					Id="2",
-					Name = "MyBand"
-				}
+				Id = "id1",
+				EmailAddress = "email1@mail.ru",
+				Name = "Иванов Иван Иванович",
+				PhoneNumber = "8 800 555 35 35"
 			};
+			var contact2 = new Contact
+			{
+				Id = "id2",
+				EmailAddress = "email2@mail.ru",
+				Name = "Петров Петр Иванович",
+				PhoneNumber = "8 999 666 11 22"
+			};
+			var contact3 = new Contact
+			{
+				Id = "id3",
+				EmailAddress = "email3@mail.ru",
+				Name = "Сидоров Сидор",
+				PhoneNumber = "8 693 000 77 77"
+			};
+			_listContacts.Add(contact1);
+			_listContacts.Add(contact2);
+			_listContacts.Add(contact3);
+
+			_listLables = new List<Lable>();
+			var lable1 = new Lable
+			{
+				Id = "1",
+				Name = "Lalka"
+			};
+			lable1.Contacts.Add(contact1);
+			var lable2 = new Lable
+			{
+				Id = "2",
+				Name = "MyBand"
+			};
+			lable2.Contacts.Add(contact2);
+			_listLables.Add(lable1);
+			_listLables.Add(lable2);
 		}
 
 
