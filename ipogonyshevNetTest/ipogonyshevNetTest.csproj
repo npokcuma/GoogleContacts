@@ -94,6 +94,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="ViewModel\ContactViewModel.cs" />
     <Compile Include="Services\GoogleContactsService.cs" />
     <Compile Include="Model\Lable.cs" />
