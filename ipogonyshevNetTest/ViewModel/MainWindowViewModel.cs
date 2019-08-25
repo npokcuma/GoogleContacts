@@ -1,10 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ipogonyshevNetTest.Model;
 using ipogonyshevNetTest.Services;
 using ipogonyshevNetTest.View;
+using Microsoft.Win32;
 
 namespace ipogonyshevNetTest.ViewModel
 {
@@ -27,7 +30,7 @@ namespace ipogonyshevNetTest.ViewModel
 			foreach (var contact in contacts)
 			{
 				var contactViewModel = new ContactViewModel(contact);
-				Contacts.Add(contactViewModel);
+				AddContactToList(contactViewModel);
 			}
 
 			var lables = _contactService.GetAllLables();
@@ -43,8 +46,9 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 
 			AddContactCommand = new RelayCommand(AddContact, () => true);
-			DeleteContactCommand = new RelayCommand(DeleteContact, CanDeleteContact);
+			DeleteContactCommand = new RelayCommand(DeleteContact, IsAnyContactSelected);
 			SaveContactCommand = new RelayCommand(SaveContact, () => true);
+			AddLableForContactCommand = new RelayCommand(AddLableForContact, IsAnyContactSelected);
 			AddLableCommand = new RelayCommand(AddLable, () => true);
 			ShowAllContactsCommand = new RelayCommand(ShowAllContacts, () => true);
 		}
@@ -72,6 +76,7 @@ namespace ipogonyshevNetTest.ViewModel
 			{
 				Set(() => SelectedContact, ref _selectedContact, value);
 				DeleteContactCommand.RaiseCanExecuteChanged();
+				AddLableForContactCommand.RaiseCanExecuteChanged();
 			}
 		}
 
@@ -85,11 +90,15 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		public LableViewModel SelectedLableForContact { get; set; }
+
 		public RelayCommand AddContactCommand { get; set; }
 
 		public RelayCommand DeleteContactCommand { get; set; }
 
 		public RelayCommand SaveContactCommand { get; set; }
+
+		public RelayCommand AddLableForContactCommand { get; set; }
 
 		public RelayCommand AddLableCommand { get; set; }
 
@@ -105,15 +114,30 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void DeleteContact()
 		{
+			var confirm = MessageBox.Show("Are you really want delete contact?", 
+											"Delete contact", 
+											MessageBoxButton.YesNo, 
+											MessageBoxImage.Warning);
+			if (confirm != MessageBoxResult.Yes)
+				return;
+
 			var result = _contactService.DeleteContact(SelectedContact.GetContact());
 			if (result)
 			{
-				Contacts.Remove(SelectedContact);
+				RemoveContactFromList(SelectedContact);
+				foreach (var lable in Lables)
+				{
+					if (lable.Contacts.Contains(SelectedContact))
+					{
+						lable.Contacts.Remove(SelectedContact);
+					}
+				}
+
 				SelectedContact = Contacts.FirstOrDefault();
 			}
 		}
 
-		private bool CanDeleteContact()
+		private bool IsAnyContactSelected()
 		{
 			return SelectedContact != null;
 		}
@@ -137,6 +161,15 @@ namespace ipogonyshevNetTest.ViewModel
 				}
 			}
 		}
+
+		private void AddLableForContact()
+		{
+			if (!SelectedLableForContact.Contacts.Contains(SelectedContact))
+			{
+				SelectedLableForContact.Contacts.Add(SelectedContact);
+			}
+		}
+
 
 		private void AddLable()
 		{
@@ -162,6 +195,24 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			var lableViewModel = (LableViewModel) sender;
 			RemoveLableFromList(lableViewModel);
+		}
+
+		private void ContactViewModel_OnRemoveFromLable(object sender, EventArgs e)
+		{
+			var contactViewModel = (ContactViewModel) sender;
+			SelectedLable.Contacts.Remove(contactViewModel);
+		}
+
+		private void AddContactToList(ContactViewModel contactViewModel)
+		{
+			contactViewModel.OnRemoveFromLable += ContactViewModel_OnRemoveFromLable;
+			_contacts.Add(contactViewModel);
+		}
+
+		private void RemoveContactFromList(ContactViewModel contactViewModel)
+		{
+			contactViewModel.OnRemoveFromLable -= ContactViewModel_OnRemoveFromLable;
+			_contacts.Remove(contactViewModel);
 		}
 
 		private void AddLableToList(LableViewModel lableViewModel)

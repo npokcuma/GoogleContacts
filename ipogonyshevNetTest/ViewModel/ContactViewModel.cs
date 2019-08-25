@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.ViewModel
@@ -17,6 +19,8 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			_contact = new Contact();
 			IsNew = true;
+
+			RemoveFromLableCommand = new RelayCommand(RemoveFromLable, () => true);
 		}
 
 		public ContactViewModel(Contact contact)
@@ -27,7 +31,12 @@ namespace ipogonyshevNetTest.ViewModel
 			PhoneNumber = contact.PhoneNumber;
 			EmailAddress = contact.EmailAddress;
 			IsNew = false;
+
+			RemoveFromLableCommand = new RelayCommand(RemoveFromLable, () => true);
 		}
+
+		public event EventHandler<EventArgs> OnRemoveFromLable;
+
 
 		public string Id
 		{
@@ -93,6 +102,8 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		public RelayCommand RemoveFromLableCommand { get; set; }
+
 
 		public Contact GetContact()
 		{
@@ -114,6 +125,11 @@ namespace ipogonyshevNetTest.ViewModel
 			_contact.EmailAddress = EmailAddress;
 
 			IsNew = false;
+		}
+
+		private void RemoveFromLable()
+		{
+			OnRemoveFromLable?.Invoke(this, null);
 		}
 	}
 }
