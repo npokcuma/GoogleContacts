@@ -238,15 +238,7 @@ namespace ipogonyshevNetTest.ViewModel
 			var window = new LableWindow(lableViewModel);
 			if (window.ShowDialog() == true)
 			{
-				if (lableViewModel.IsNew)
-				{
-					var result = _contactService.CreateLable(lableViewModel.GetLable());
-					if (result)
-					{
-						lableViewModel.Save();
-					}
-				}
-				else
+				if (lableViewModel.IsDirty)
 				{
 					var result = _contactService.UpdateLable(lableViewModel.GetLable());
 					if (result)
