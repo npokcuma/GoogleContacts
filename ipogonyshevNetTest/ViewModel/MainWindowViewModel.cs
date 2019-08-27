@@ -202,6 +202,11 @@ namespace ipogonyshevNetTest.ViewModel
 			var contactViewModel = (ContactViewModel) sender;
 			SelectedLable.Contacts.Remove(contactViewModel);
 		}
+		private void LableViewModel_OnEdit(object sender, System.EventArgs e)
+		{
+			var lableViewModel = (LableViewModel)sender;
+			EditLableOnList(lableViewModel);
+		}
 
 		private void AddContactToList(ContactViewModel contactViewModel)
 		{
@@ -218,6 +223,7 @@ namespace ipogonyshevNetTest.ViewModel
 		private void AddLableToList(LableViewModel lableViewModel)
 		{
 			lableViewModel.OnDelete += LableViewModel_OnDelete;
+			lableViewModel.OnEdit += LableViewModel_OnEdit;
 			Lables.Add(lableViewModel);
 		}
 
@@ -226,5 +232,31 @@ namespace ipogonyshevNetTest.ViewModel
 			lableViewModel.OnDelete -= LableViewModel_OnDelete;
 			Lables.Remove(lableViewModel);
 		}
+
+		private void EditLableOnList(LableViewModel lableViewModel)
+		{
+			var window = new LableWindow(lableViewModel);
+			if (window.ShowDialog() == true)
+			{
+				if (lableViewModel.IsNew)
+				{
+					var result = _contactService.CreateLable(lableViewModel.GetLable());
+					if (result)
+					{
+						lableViewModel.Save();
+					}
+				}
+				else
+				{
+					var result = _contactService.UpdateLable(lableViewModel.GetLable());
+					if (result)
+					{
+						lableViewModel.Save();
+					}
+				}
+			};
+
+		}
+
 	}
 }

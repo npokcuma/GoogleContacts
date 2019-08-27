@@ -15,6 +15,8 @@ namespace ipogonyshevNetTest.ViewModel
 		private string _name;
 
 		public event EventHandler<EventArgs> OnDelete;
+		public event EventHandler<EventArgs> OnEdit;
+
 
 		public LableViewModel()
 		{
@@ -22,6 +24,7 @@ namespace ipogonyshevNetTest.ViewModel
 			IsNew = true;
 
 			DeleteCommand = new RelayCommand(Delete, () => true);
+			EditCommand=new RelayCommand(Edit,()=>true);
 		}
 
 		public LableViewModel(Lable lable)
@@ -32,6 +35,7 @@ namespace ipogonyshevNetTest.ViewModel
 			IsNew = false;
 
 			DeleteCommand = new RelayCommand(Delete, () => true);
+			EditCommand = new RelayCommand(Edit, () => true);
 		}
 
 		public string Id
@@ -78,6 +82,7 @@ namespace ipogonyshevNetTest.ViewModel
 		public ObservableCollection<ContactViewModel> Contacts { get; set; } = new ObservableCollection<ContactViewModel>();
 
 		public RelayCommand DeleteCommand { get; set; }
+		public RelayCommand EditCommand { get; set; }
 
 		public Lable Entity => _lable;
 
@@ -104,6 +109,10 @@ namespace ipogonyshevNetTest.ViewModel
 			OnDelete?.Invoke(this, null);
 		}
 
-		
+		public void Edit()
+		{
+			OnEdit?.Invoke(this, null);
+		}
+
 	}
 }

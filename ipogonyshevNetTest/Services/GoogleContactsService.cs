@@ -92,5 +92,10 @@ namespace ipogonyshevNetTest.Services
 		{
 			throw new System.NotImplementedException();
 		}
+
+		public bool UpdateLable(Lable lable)
+		{
+			return true;
+		}
 	}
 }

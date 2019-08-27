@@ -57,7 +57,7 @@
 									   FontSize="18"
 									   Text="{Binding Path=Contacts.Count}" />
 							<Button Margin="5,0"
-									Command="{Binding}"
+									Command="{Binding EditCommand}"
 									Content="Edit"
 									DockPanel.Dock="Right" />
 							<Button Margin="5,0"

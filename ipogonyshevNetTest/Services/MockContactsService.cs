@@ -98,5 +98,10 @@ namespace ipogonyshevNetTest.Services
 			_listLables.Remove(lable);
 			return true;
 		}
+
+		public bool UpdateLable(Lable lable)
+		{
+			return true;
+		}
 	}
 }
