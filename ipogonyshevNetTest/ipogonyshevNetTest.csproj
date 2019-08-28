@@ -99,6 +99,7 @@
     <Compile Include="Services\GoogleContactsService.cs" />
     <Compile Include="Model\Lable.cs" />
     <Compile Include="ViewModel\LableViewModel.cs" />
+    <Compile Include="ViewModel\LableWindowViewModel.cs" />
     <Compile Include="View\LableWindow.xaml.cs">
       <DependentUpon>LableWindow.xaml</DependentUpon>
     </Compile>

@@ -4,10 +4,10 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:viewModel="clr-namespace:ipogonyshevNetTest.ViewModel"
-		Title="Create new lable"
+		Title="{Binding Title}"
 		Width="400"
 		Height="150"
-		d:DataContext="{d:DesignInstance Type=viewModel:LableViewModel,
+		d:DataContext="{d:DesignInstance Type=viewModel:LableWindowViewModel,
 										 IsDesignTimeCreatable=True}"
 		ResizeMode="NoResize"
 		mc:Ignorable="d">
@@ -18,11 +18,12 @@
 					 HorizontalAlignment="Stretch"
 					 VerticalAlignment="Stretch"
 					 ForceCursor="True"
-					 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+					 Text="{Binding LabelName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
 					 TextWrapping="Wrap" />
 			<StackPanel Orientation="Horizontal">
 
-				<Button Click="Save_OnClick"
+				<Button Command="{Binding SaveCommand}"
+						Click="ButtonBase_OnClick"
 						Content="Save" />
 				<Button Click="Cancel_OnClick"
 						Content="Cancel" />
