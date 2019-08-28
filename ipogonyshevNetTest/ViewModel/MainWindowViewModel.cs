@@ -240,6 +240,13 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void RemoveLableFromList(LableViewModel lableViewModel)
 		{
+
+			var confirm = MessageBox.Show("Are you really want delete lable?",
+				"Delete lable",
+				MessageBoxButton.YesNo,
+				MessageBoxImage.Warning);
+			if (confirm != MessageBoxResult.Yes)
+				return;
 			lableViewModel.OnDelete -= LableViewModel_OnDelete;
 			Lables.Remove(lableViewModel);
 		}
