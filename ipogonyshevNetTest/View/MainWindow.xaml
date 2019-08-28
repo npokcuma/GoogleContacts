@@ -94,8 +94,7 @@
 										   Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 								<TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
 								<TextBlock Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
-								<TextBlock Text="{Binding IsNew, UpdateSourceTrigger=PropertyChanged}" />
-								<TextBlock Text="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged}" />
+
 							</StackPanel>
 							<Button Margin="5,0"
 									Command="{Binding RemoveFromLableCommand}"
