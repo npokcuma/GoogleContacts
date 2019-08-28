@@ -14,8 +14,7 @@ namespace ipogonyshevNetTest.ViewModel
 		private string _id;
 		private string _name;
 
-		public event EventHandler<EventArgs> OnDelete;
-		public event EventHandler<EventArgs> OnEdit;
+
 
 
 		public LableViewModel()
@@ -38,6 +37,9 @@ namespace ipogonyshevNetTest.ViewModel
 			EditCommand = new RelayCommand(Edit, () => true);
 		}
 
+		public event EventHandler<EventArgs> OnDelete;
+		public event EventHandler<EventArgs> OnEdit;
+
 		public string Id
 		{
 			get => _id;
@@ -57,7 +59,6 @@ namespace ipogonyshevNetTest.ViewModel
 				RaisePropertyChanged(nameof(IsDirty));
 			}
 		}
-
 		public bool IsNew
 		{
 			get => _isNew;

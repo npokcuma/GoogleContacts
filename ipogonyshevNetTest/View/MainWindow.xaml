@@ -8,8 +8,7 @@
 		Title="GoogleContacts"
 		Width="1200"
 		Height="600"
-		d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel,
-										 IsDesignTimeCreatable=True}"
+		d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel,IsDesignTimeCreatable=True}"
 		mc:Ignorable="d">
 	<Window.Resources>
 		<Style TargetType="TextBlock">
@@ -92,9 +91,9 @@
 
 							<StackPanel Margin="5">
 								<TextBlock FontSize="18"
-										   Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
-								<TextBlock Text="{Binding Path=PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-								<TextBlock Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
+										   Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+								<TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+								<TextBlock Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
 								<TextBlock Text="{Binding IsNew, UpdateSourceTrigger=PropertyChanged}" />
 								<TextBlock Text="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged}" />
 							</StackPanel>

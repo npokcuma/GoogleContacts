@@ -17,7 +17,7 @@ namespace ipogonyshevNetTest.ViewModel
 		private ContactViewModel _selectedContact;
 		private ObservableCollection<ContactViewModel> _contacts = new ObservableCollection<ContactViewModel>();
 		private LableViewModel _selectedLable;
-
+		
 		public MainWindowViewModel()
 		{
 		}
@@ -177,12 +177,23 @@ namespace ipogonyshevNetTest.ViewModel
 			var window = new LableWindow(lableViewModel);
 			if (window.ShowDialog() == true)
 			{
-				var result = _contactService.CreateLable(lableViewModel.GetLable());
-				if (result)
+				foreach (var lable in Lables)
 				{
-					lableViewModel.Save();
-					AddLableToList(lableViewModel);
+					if (lable.Name != lableViewModel.Name)
+					{
+
+					}
 				}
+				if (lableViewModel.IsNew)
+				{
+					var result = _contactService.CreateLable(lableViewModel.GetLable());
+					if (result)
+					{
+						lableViewModel.Save();
+						AddLableToList(lableViewModel);
+					}
+				}
+
 			};
 		}
 
@@ -236,6 +247,7 @@ namespace ipogonyshevNetTest.ViewModel
 		private void EditLableOnList(LableViewModel lableViewModel)
 		{
 			var window = new LableWindow(lableViewModel);
+			window.Title = "Edit contact";
 			if (window.ShowDialog() == true)
 			{
 				if (lableViewModel.IsDirty)
