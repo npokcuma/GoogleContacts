@@ -34,25 +34,36 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="70" />
 		</Grid.RowDefinitions>
+
 		<GroupBox
 			Grid.Row="1"
 			Margin="10"
 			Padding="10">
-			<StackPanel>
-				<ListBox ItemsSource="{Binding Lables}" SelectedItem="{Binding SelectedLable}">
+			<GroupBox.Header>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock FontSize="18">Labels</TextBlock>
+				</StackPanel>
+			</GroupBox.Header>
+			<DockPanel>
+				<ListBox
+					BorderThickness="0"
+					ItemsSource="{Binding Lables}"
+					SelectedItem="{Binding SelectedLable}">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<StackPanel>
-								<TextBlock FontSize="18" Text="{Binding Path=Name}" />
-
-								<TextBlock FontSize="18" Text="{Binding Path=Contacts.Count}" />
+							<StackPanel Orientation="Horizontal">
+								<TextBlock
+									MinWidth="159"
+									FontSize="18"
+									Text="{Binding Path=Name}" />
 								<Button Command="{Binding EditCommand}" Content="Edit" />
 								<Button Command="{Binding DeleteCommand}" Content="Delete" />
+								<TextBlock FontSize="18" Text="{Binding Path=Contacts.Count}" />
 							</StackPanel>
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
-			</StackPanel>
+			</DockPanel>
 		</GroupBox>
 
 		<StackPanel Grid.Column="0">
@@ -93,32 +104,30 @@
 					<TextBlock FontSize="18">Contacts</TextBlock>
 				</StackPanel>
 			</GroupBox.Header>
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<StackPanel>
-					<ListBox
-						BorderThickness="0"
-						ItemsSource="{Binding Contacts}"
-						SelectedItem="{Binding SelectedContact}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
+			<DockPanel>
+				<ListBox
+					BorderThickness="0"
+					ItemsSource="{Binding Contacts}"
+					SelectedItem="{Binding SelectedContact}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel>
 								<StackPanel>
-									<StackPanel>
-										<TextBlock FontSize="18" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-										<TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-										<TextBlock Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
-									</StackPanel>
-									<Button
-										Command="{Binding RemoveFromLableCommand}"
-										Content="Remove from lable"
-										Visibility="{Binding DataContext.SelectedLable, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
+									<TextBlock FontSize="18" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+									<TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+									<TextBlock Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
 								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
-				</StackPanel>
-			</ScrollViewer>
-
+								<Button
+									Command="{Binding RemoveFromLableCommand}"
+									Content="Remove from lable"
+									Visibility="{Binding DataContext.SelectedLable, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</DockPanel>
 		</GroupBox>
+
 		<GroupBox
 			Grid.Row="1"
 			Grid.Column="2"
