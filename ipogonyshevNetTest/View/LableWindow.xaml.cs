@@ -5,21 +5,21 @@ namespace ipogonyshevNetTest.View
 {
 	public partial class LableWindow
 	{
-		public LableWindow(LableViewModel viewModel)
+		public LableWindow(LableWindowViewModel viewModel)
 		{
 			InitializeComponent();
 			DataContext = viewModel;
 		}
 
 
-		private void Save_OnClick(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-		}
-
 		private void Cancel_OnClick(object sender, RoutedEventArgs e)
 		{
 			DialogResult = false;
+		}
+
+		private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+		{
+			DialogResult = true;
 		}
 	}
 }

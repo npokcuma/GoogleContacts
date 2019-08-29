@@ -20,6 +20,7 @@ namespace ipogonyshevNetTest.ViewModel
 		public LableViewModel()
 		{
 			_lable = new Lable();
+			Id = _lable.Id;
 			IsNew = true;
 
 			DeleteCommand = new RelayCommand(Delete, () => true);
