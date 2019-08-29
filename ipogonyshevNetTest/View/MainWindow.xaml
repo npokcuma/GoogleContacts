@@ -14,7 +14,9 @@
 	mc:Ignorable="d">
 	<Window.Resources>
 		<Style TargetType="TextBlock">
-			<Setter Property="FontSize" Value="14" />
+			<Setter Property="FontSize" Value="16" />
+			<Setter Property="FontWeight" Value="Bold" />
+			<Setter Property="Foreground" Value="Gray" />
 		</Style>
 		<Style TargetType="TextBox">
 			<Setter Property="FontSize" Value="14" />
@@ -32,47 +34,29 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="70" />
 		</Grid.RowDefinitions>
-		<StackPanel Grid.Row="1" Orientation="Vertical">
-			<TextBlock
-				HorizontalAlignment="Center"
-				FontSize="20"
-				FontWeight="Bold"
-				Text="Lables" />
-			<ListBox
-				HorizontalContentAlignment="Stretch"
-				ItemsSource="{Binding Lables}"
-				SelectedItem="{Binding SelectedLable}">
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<StackPanel Margin="5">
-							<TextBlock FontSize="18" Text="{Binding Path=Name}" />
+		<GroupBox
+			Grid.Row="1"
+			Margin="10"
+			Padding="10">
+			<StackPanel>
+				<ListBox ItemsSource="{Binding Lables}" SelectedItem="{Binding SelectedLable}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel>
+								<TextBlock FontSize="18" Text="{Binding Path=Name}" />
 
-							<TextBlock
-								Margin="5,0"
-								FontSize="18"
-								Text="{Binding Path=Contacts.Count}" />
-							<Button
-								Margin="5,0"
-								Command="{Binding EditCommand}"
-								Content="Edit" />
-							<Button
-								Margin="5,0"
-								Command="{Binding DeleteCommand}"
-								Content="Delete" />
-						</StackPanel>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
-		</StackPanel>
+								<TextBlock FontSize="18" Text="{Binding Path=Contacts.Count}" />
+								<Button Command="{Binding EditCommand}" Content="Edit" />
+								<Button Command="{Binding DeleteCommand}" Content="Delete" />
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</GroupBox>
+
 		<StackPanel Grid.Column="0">
-
-			<Button
-				Command="{Binding ShowAllContactsCommand}"
-				Content="All Contacts"
-				DockPanel.Dock="Top" />
-
-
-
+			<Button Command="{Binding ShowAllContactsCommand}" Content="All Contacts" />
 		</StackPanel>
 
 		<StackPanel Grid.Column="1">
@@ -80,8 +64,7 @@
 				HorizontalAlignment="Center"
 				FontSize="20"
 				FontWeight="Bold"
-				Text="Add Lable" />
-
+				Text="Add Label" />
 			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 				<ComboBox
 					Width="250"
@@ -95,50 +78,57 @@
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
-				<Button Command="{Binding AddLableForContactCommand}" Content="Add lable" />
+				<Button Command="{Binding AddLableForContactCommand}" Content="Add label" />
 			</StackPanel>
-			<TextBlock
-				HorizontalAlignment="Left"
-				FontSize="20"
-				FontWeight="Bold"
-				Text="Contacts" />
-			<StackPanel Height="57" />
-
-
-
-
-			<ListBox
-				Margin="0,50,0,150"
-				ItemsSource="{Binding Contacts}"
-				SelectedItem="{Binding SelectedContact}">
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<StackPanel Margin="5">
-
-							<StackPanel Margin="5">
-								<TextBlock FontSize="18" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-								<TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-								<TextBlock Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
-
-							</StackPanel>
-							<Button
-								Margin="5,0"
-								Command="{Binding RemoveFromLableCommand}"
-								Content="Remove from lable"
-								Visibility="{Binding DataContext.SelectedLable, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
-						</StackPanel>
-
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
 		</StackPanel>
 
-		<StackPanel Grid.Row="1" Grid.Column="2">
-			<TextBlock
-				HorizontalAlignment="Center"
-				FontSize="20"
-				FontWeight="Bold"
-				Text="Edit contact" />
+
+		<GroupBox
+			Grid.Row="1"
+			Grid.Column="1"
+			Margin="10"
+			Padding="10">
+			<GroupBox.Header>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock FontSize="18">Contacts</TextBlock>
+				</StackPanel>
+			</GroupBox.Header>
+			<ScrollViewer VerticalScrollBarVisibility="Auto">
+				<StackPanel>
+					<ListBox
+						BorderThickness="0"
+						ItemsSource="{Binding Contacts}"
+						SelectedItem="{Binding SelectedContact}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<StackPanel>
+										<TextBlock FontSize="18" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+										<TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+										<TextBlock Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
+									</StackPanel>
+									<Button
+										Command="{Binding RemoveFromLableCommand}"
+										Content="Remove from lable"
+										Visibility="{Binding DataContext.SelectedLable, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+			</ScrollViewer>
+
+		</GroupBox>
+		<GroupBox
+			Grid.Row="1"
+			Grid.Column="2"
+			Margin="10"
+			Padding="10">
+			<GroupBox.Header>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock FontSize="18">Edit contact</TextBlock>
+				</StackPanel>
+			</GroupBox.Header>
 			<StackPanel DataContext="{Binding SelectedContact}">
 				<TextBlock Text="Name" />
 				<TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
@@ -147,7 +137,8 @@
 				<TextBlock Text="Email" />
 				<TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" />
 			</StackPanel>
-		</StackPanel>
+		</GroupBox>
+
 		<StackPanel
 			Grid.Row="2"
 			Grid.Column="1"
