@@ -8,6 +8,7 @@ namespace ipogonyshevNetTest.View
 		public LableWindow(LableWindowViewModel viewModel)
 		{
 			InitializeComponent();
+			Txbx1.Focus();
 			DataContext = viewModel;
 		}
 
@@ -21,5 +22,6 @@ namespace ipogonyshevNetTest.View
 		{
 			DialogResult = true;
 		}
+		
 	}
 }
