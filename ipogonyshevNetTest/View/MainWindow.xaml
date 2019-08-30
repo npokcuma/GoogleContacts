@@ -13,11 +13,11 @@
 	                                 IsDesignTimeCreatable=True}"
 	mc:Ignorable="d">
 	<Window.Resources>
-		<!--<Style TargetType="TextBlock">
+		<Style TargetType="TextBlock">
 			<Setter Property="FontSize" Value="17" />
 			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="Foreground" Value="Gray" />
-		</Style>-->
+		</Style>
 		<Style TargetType="TextBox">
 			<Setter Property="FontSize" Value="14" />
 		</Style>
