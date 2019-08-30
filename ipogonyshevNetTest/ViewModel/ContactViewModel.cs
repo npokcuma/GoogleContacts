@@ -18,6 +18,7 @@ namespace ipogonyshevNetTest.ViewModel
 		public ContactViewModel()
 		{
 			_contact = new Contact();
+			Name = "Новый контакт";
 			IsNew = true;
 
 			RemoveFromLableCommand = new RelayCommand(RemoveFromLable, () => true);
