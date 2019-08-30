@@ -63,40 +63,37 @@
 					ItemsSource="{Binding Lables}"
 					SelectedItem="{Binding SelectedLable}"
 					HorizontalContentAlignment="Stretch">
-					<ListBox.ItemContainerStyle>
-						<Style>
-							<Setter Property="ListBoxItem.FontWeight" Value="Bold"/>
-							<Setter Property="ListBoxItem.Foreground" Value="Gray"/>
-							<Setter Property="ListBoxItem.FontSize" Value="17"/>
-						</Style>
-					</ListBox.ItemContainerStyle>
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<DockPanel LastChildFill="False">
-								<StackPanel>
-									<TextBlock 
-
+				<ListBox.ItemContainerStyle>
+					<Style>
+						<Setter Property="ListBoxItem.FontWeight" Value="Bold"/>
+						<Setter Property="ListBoxItem.Foreground" Value="Gray"/>
+						<Setter Property="ListBoxItem.FontSize" Value="17"/>
+					</Style>
+				</ListBox.ItemContainerStyle>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<DockPanel LastChildFill="False">
+							<StackPanel>
+								<TextBlock 
 										Text="{Binding Path=Name}"
 										TextTrimming="WordEllipsis" />
-								</StackPanel>
-								<StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-									<Button
+							</StackPanel>
+							<StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+								<Button
 									Margin="0,0,5,0"
 									Command="{Binding EditCommand}"
 									Content="Edit"/>
-									<Button 
+								<Button 
 										Margin="0,0,5,0"
 										Command="{Binding DeleteCommand}"
 										Content="Delete"/>
 								<TextBlock
 										Text="{Binding Path=Contacts.Count}" />
-								</StackPanel>
-
-
-							</DockPanel>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+							</StackPanel>
+						</DockPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
 		</GroupBox>
 
 
@@ -140,40 +137,37 @@
 					BorderThickness="0"
 					ItemsSource="{Binding Contacts}"
 					SelectedItem="{Binding SelectedContact}">
-					<ListBox.ItemContainerStyle>
-						<Style>
-							<Setter Property="ListBoxItem.FontWeight" Value="Bold"/>
-							<Setter Property="ListBoxItem.Foreground" Value="Gray"/>
-							<Setter Property="ListBoxItem.FontSize" Value="17"/>
-						</Style>
-					</ListBox.ItemContainerStyle>
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<DockPanel LastChildFill="False">
-								<StackPanel>
-									<TextBlock
-										Width="270"
-										Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+				<ListBox.ItemContainerStyle>
+					<Style>
+						<Setter Property="ListBoxItem.FontWeight" Value="Bold"/>
+						<Setter Property="ListBoxItem.Foreground" Value="Gray"/>
+						<Setter Property="ListBoxItem.FontSize" Value="17"/>
+					</Style>
+				</ListBox.ItemContainerStyle>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<DockPanel LastChildFill="False">
+							<StackPanel Width="255">
+								<TextBlock
+									Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
 										TextTrimming="WordEllipsis" />
-									<TextBlock
-										Width="270"
-										Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+								<TextBlock
+									Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
 										TextTrimming="WordEllipsis" />
-									<TextBlock
-										Width="270"
-										Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"
+								<TextBlock
+									Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"
 										TextTrimming="WordEllipsis" />
-								</StackPanel>
-								<Button
+							</StackPanel>
+							<Button
 									Width="auto"
 									Command="{Binding RemoveFromLableCommand}"
 									Content="Remove from lable"
 									DockPanel.Dock="Right"
 									Visibility="{Binding DataContext.SelectedLable, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
-							</DockPanel>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+						</DockPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
 		</GroupBox>
 
 		<GroupBox

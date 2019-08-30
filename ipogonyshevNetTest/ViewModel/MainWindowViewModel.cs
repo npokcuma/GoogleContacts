@@ -109,6 +109,10 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			var contactViewModel = new ContactViewModel();
 			Contacts.Add(contactViewModel);
+			if (SelectedLable != null)
+			{
+				_contacts.Add(contactViewModel);
+			}
 			SelectedContact = contactViewModel;
 		}
 
