@@ -14,6 +14,7 @@ namespace ipogonyshevNetTest.Services
 		private List<Contact> _listContacts;
 		private List<Label> _listLabels;
 		private IList<Person> _listPerson;
+		private IList<ContactGroup> _listGroups;
 
 		public GoogleContactsService()
 		{
@@ -25,7 +26,8 @@ namespace ipogonyshevNetTest.Services
 			var groupRequest = new ContactGroupsResource(_service).List();
 			var response = groupRequest.Execute();
 
-			var allGroups = response.ContactGroups.Select(group => new Label
+			_listGroups = response.ContactGroups;
+			var allGroups = _listGroups.Select(group => new Label
 			{
 				Id = group.ResourceName,
 				Name = group.FormattedName
@@ -166,13 +168,13 @@ namespace ipogonyshevNetTest.Services
 
 		public string CreateLabel(Label label)
 		{
-			var group = new CreateContactGroupRequest();
-			group.ContactGroup = new ContactGroup
+			var createContactGroupRequest = new CreateContactGroupRequest();
+			createContactGroupRequest.ContactGroup = new ContactGroup
 			{
 				Name = label.Name
 			};
 
-			var groupRequest = new ContactGroupsResource(_service).Create(group);
+			var groupRequest = new ContactGroupsResource(_service).Create(createContactGroupRequest);
 			var response = groupRequest.Execute();
 			
 			return response.ResourceName;
@@ -185,6 +187,18 @@ namespace ipogonyshevNetTest.Services
 
 		public bool UpdateLabel(Label label)
 		{
+			var group = _listGroups.First(g => g.ResourceName == label.Id);
+			group.Name = label.Name;
+			var updateContactGroupRequest = new UpdateContactGroupRequest
+			{
+				ContactGroup = group
+			};
+
+			var groupRequest = new ContactGroupsResource(_service).Update(updateContactGroupRequest, group.ResourceName);
+			groupRequest.Execute();
+
+			ReloadContacts();
+
 			return true;
 		}
 	}
