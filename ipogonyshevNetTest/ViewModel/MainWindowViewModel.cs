@@ -65,6 +65,8 @@ namespace ipogonyshevNetTest.ViewModel
 			set => _contacts = value;
 		}
 
+		public int ContactsCount => _contacts.Count;
+
 		public ObservableCollection<LabelViewModel> Labels { get; set; } = new ObservableCollection<LabelViewModel>();
 
 		public ContactViewModel SelectedContact
@@ -112,6 +114,7 @@ namespace ipogonyshevNetTest.ViewModel
 				_contacts.Insert(0, contactViewModel);
 			}
 			SelectedContact = contactViewModel;
+			RaisePropertyChanged(nameof(ContactsCount));
 		}
 
 		private void SaveContact()
@@ -162,6 +165,7 @@ namespace ipogonyshevNetTest.ViewModel
 				}
 
 				SelectedContact = Contacts.FirstOrDefault();
+				RaisePropertyChanged(nameof(ContactsCount));
 			}
 		}
 
