@@ -15,6 +15,7 @@ namespace ipogonyshevNetTest.ViewModel
 		private ContactViewModel _selectedContact;
 		private ObservableCollection<ContactViewModel> _contacts = new ObservableCollection<ContactViewModel>();
 		private LabelViewModel _selectedLabel;
+		private LabelViewModel _selectedLabelForContact;
 
 		public MainWindowViewModel()
 		{
@@ -45,8 +46,9 @@ namespace ipogonyshevNetTest.ViewModel
 
 			AddContactCommand = new RelayCommand(AddContact, () => true);
 			DeleteContactCommand = new RelayCommand(DeleteContact, IsAnyContactSelected);
-			SaveContactCommand = new RelayCommand(SaveContact, () => true);
-			AddLabelForContactCommand = new RelayCommand(AddLabelForContact, IsAnyContactSelected);
+			SaveContactCommand = new RelayCommand(SaveContact, IsAnyContactSelected);
+			AddLabelForContactCommand = new RelayCommand(AddLabelForContact, () => IsAnyContactSelected() &&
+																				   SelectedLabelForContact != null);
 			AddLabelCommand = new RelayCommand(AddLabel, () => true);
 			ShowAllContactsCommand = new RelayCommand(SelectNoLabel, () => true);
 		}
@@ -76,6 +78,7 @@ namespace ipogonyshevNetTest.ViewModel
 			{
 				Set(() => SelectedContact, ref _selectedContact, value);
 				DeleteContactCommand.RaiseCanExecuteChanged();
+				SaveContactCommand.RaiseCanExecuteChanged();
 				AddLabelForContactCommand.RaiseCanExecuteChanged();
 			}
 		}
@@ -90,7 +93,15 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
-		public LabelViewModel SelectedLabelForContact { get; set; }
+		public LabelViewModel SelectedLabelForContact
+		{
+			get => _selectedLabelForContact;
+			set
+			{
+				Set(() => SelectedLabelForContact, ref _selectedLabelForContact, value);
+				AddLabelForContactCommand.RaiseCanExecuteChanged();
+			}
+		}
 
 		public RelayCommand AddContactCommand { get; set; }
 
