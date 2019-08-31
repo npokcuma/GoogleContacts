@@ -16,21 +16,26 @@ namespace ipogonyshevNetTest.Services
 			{
 				Id = "id1",
 				EmailAddress = "email1@mail.ru",
-				Name = "Иванов Иван Иванович",
+				FirstName = "Иван",
+				Surname = "Иванов",
+				MiddleName = "Иванович",
 				PhoneNumber = "8 800 555 35 35"
 			};
 			var contact2 = new Contact
 			{
 				Id = "id2",
 				EmailAddress = "email2@mail.ru",
-				Name = "Петров Петр Иванович",
+				FirstName = "Петр",
+				Surname = "Петров",
+				MiddleName = "Петрович",
 				PhoneNumber = "8 999 666 11 22"
 			};
 			var contact3 = new Contact
 			{
 				Id = "id3",
 				EmailAddress = "email3@mail.ru",
-				Name = "Сидоров Сидор",
+				FirstName = "Сидор",
+				Surname = "Сидоров",
 				PhoneNumber = "8 693 000 77 77"
 			};
 			_listContacts.Add(contact1);

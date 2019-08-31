@@ -4,33 +4,16 @@ namespace ipogonyshevNetTest.Model
 {
 	public class Contact : ViewModelBase
 	{
-		private string _id;
-		private string _name;
-		private string _phoneNumber;
-		private string _emailAddress;
+		public string Id { get; set; }
 
-		public string Id
-		{
-			get => _id;
-			set => Set(() => Id, ref _id, value);
-		}
+		public string FirstName { get; set; }
 
-		public string Name
-		{
-			get => _name;
-			set => Set(() => Name, ref _name, value);
-		}
+		public string MiddleName { get; set; }
 
-		public string PhoneNumber
-		{
-			get => _phoneNumber;
-			set => Set(() => PhoneNumber, ref _phoneNumber, value);
-		}
+		public string Surname { get; set; }
 
-		public string EmailAddress
-		{
-			get => _emailAddress;
-			set => Set(() => EmailAddress, ref _emailAddress, value);
-		}
+		public string PhoneNumber { get; set; }
+
+		public string EmailAddress { get; set; }
 	}
 }

@@ -136,7 +136,7 @@
 						<DockPanel Background="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DirtyToColorConverter}}"
 								   LastChildFill="False">
 							<StackPanel Width="255">
-								<TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+								<TextBlock Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
 										   TextTrimming="WordEllipsis" />
 								<TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
 										   TextTrimming="WordEllipsis" />
@@ -164,8 +164,12 @@
 				</StackPanel>
 			</GroupBox.Header>
 			<StackPanel DataContext="{Binding SelectedContact}">
-				<TextBlock Text="Name" />
-				<TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBlock Text="First name" />
+				<TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBlock Text="Middle name" />
+				<TextBox Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBlock Text="Surname" />
+				<TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" />
 				<TextBlock Text="Phone" />
 				<TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
 				<TextBlock Text="Email" />

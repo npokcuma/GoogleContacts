@@ -12,7 +12,7 @@ namespace ipogonyshevNetTest.Services
 		private static PeopleServiceService _service;
 		private List<Contact> _listContacts;
 		private List<Label> _listLabels;
-
+		private IList<Person> _listPerson;
 
 		public GoogleContactsService()
 		{
@@ -35,14 +35,17 @@ namespace ipogonyshevNetTest.Services
 			peopleRequest.PersonFields = "addresses,ageRanges,biographies,birthdays,braggingRights,coverPhotos,emailAddresses,events,genders,imClients,interests,locales,memberships,metadata,names,nicknames,occupations,organizations,phoneNumbers,photos,relations,relationshipInterests,relationshipStatuses,residences,sipAddresses,skills,taglines,urls,userDefined";
 			peopleRequest.SortOrder = (PeopleResource.ConnectionsResource.ListRequest.SortOrderEnum)1;
 			peopleRequest.PageSize = 1000;
-			var response1 = peopleRequest.Execute();
+			var personResponse = peopleRequest.Execute();
 
+			_listPerson = personResponse.Connections;
 			_listContacts = new List<Contact>();
-			foreach (var person in response1.Connections)
+			foreach (var person in _listPerson)
 			{
 				var contact = new Contact
 				{
-					Name = person.Names?[0]?.DisplayName,
+					FirstName = person.Names?[0]?.GivenName,
+					Surname = person.Names?[0]?.FamilyName,
+					MiddleName = person.Names?[0]?.MiddleName,
 					PhoneNumber = Convert.ToString(person.PhoneNumbers?[0]?.CanonicalForm),
 					EmailAddress = Convert.ToString(person.EmailAddresses?[0]?.Value),
 					Id = person.ResourceName
@@ -74,7 +77,44 @@ namespace ipogonyshevNetTest.Services
 
 		public bool UpdateContact(Contact contact)
 		{
+			var person = _listPerson.First(p => p.ResourceName == contact.Id);
+			if (person.Names == null)
+			{
+				person.Names = new List<Name> { new Name() };
+			}
+			if (person.Names[0] == null)
+			{
+				person.Names[0] = new Name();
+			}
+			person.Names[0].GivenName = contact.FirstName;
+			person.Names[0].FamilyName = contact.Surname;
+			person.Names[0].MiddleName = contact.MiddleName;
 
+			if (person.EmailAddresses == null)
+			{
+				person.EmailAddresses = new List<EmailAddress> { new EmailAddress() };
+			}
+			if (person.EmailAddresses[0] == null)
+			{
+				person.EmailAddresses[0] = new EmailAddress();
+			}
+			person.EmailAddresses[0].Value = contact.EmailAddress;
+
+			if (person.PhoneNumbers == null)
+			{
+				person.PhoneNumbers = new List<PhoneNumber> { new PhoneNumber() };
+			}
+			if (person.PhoneNumbers[0] == null)
+			{
+				person.PhoneNumbers[0] = new PhoneNumber();
+			}
+			person.PhoneNumbers[0].Value = contact.PhoneNumber;
+
+			var peopleRequest = _service.People.UpdateContact(person, person.ResourceName);
+				peopleRequest.UpdatePersonFields = "emailAddresses,memberships,names,phoneNumbers";
+				peopleRequest.Execute();
+
+			ReloadContacts();
 
 			return true;
 		}

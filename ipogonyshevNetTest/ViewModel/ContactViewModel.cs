@@ -10,14 +10,16 @@ namespace ipogonyshevNetTest.ViewModel
 		private readonly Contact _contact;
 		private bool _isNew;
 		private string _id;
-		private string _name;
 		private string _phoneNumber;
 		private string _emailAddress;
+		private string _firstName;
+		private string _middleName;
+		private string _surname;
 
 		public ContactViewModel()
 		{
 			_contact = new Contact();
-			Name = "New contact";
+			FirstName = "New contact";
 			IsNew = true;
 
 			RemoveFromLabelCommand = new RelayCommand(RemoveFromLabel, () => true);
@@ -27,7 +29,9 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			_contact = contact;
 			Id = contact.Id;
-			Name = contact.Name;
+			FirstName = contact.FirstName;
+			MiddleName = contact.MiddleName;
+			Surname = contact.Surname;
 			PhoneNumber = contact.PhoneNumber;
 			EmailAddress = contact.EmailAddress;
 			IsNew = false;
@@ -48,12 +52,37 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
-		public string Name
+		public string DisplayName => $"{FirstName} {MiddleName} {Surname}";
+
+		public string FirstName
 		{
-			get => _name;
+			get => _firstName;
 			set
 			{
-				Set(() => Name, ref _name, value);
+				Set(() => FirstName, ref _firstName, value);
+				RaisePropertyChanged(nameof(DisplayName));
+				RaisePropertyChanged(nameof(IsDirty));
+			}
+		}
+
+		public string MiddleName
+		{
+			get => _middleName;
+			set
+			{
+				Set(() => MiddleName, ref _middleName, value);
+				RaisePropertyChanged(nameof(DisplayName));
+				RaisePropertyChanged(nameof(IsDirty));
+			}
+		}
+
+		public string Surname
+		{
+			get => _surname;
+			set
+			{
+				Set(() => Surname, ref _surname, value);
+				RaisePropertyChanged(nameof(DisplayName));
 				RaisePropertyChanged(nameof(IsDirty));
 			}
 		}
@@ -93,7 +122,9 @@ namespace ipogonyshevNetTest.ViewModel
 			get
 			{
 				bool isDirty = IsNew;
-				isDirty = isDirty || Name != _contact.Name;
+				isDirty = isDirty || FirstName != _contact.FirstName;
+				isDirty = isDirty || MiddleName != _contact.MiddleName;
+				isDirty = isDirty || Surname != _contact.Surname;
 				isDirty = isDirty || PhoneNumber != _contact.PhoneNumber;
 				isDirty = isDirty || EmailAddress != _contact.EmailAddress;
 				return isDirty;
@@ -108,7 +139,9 @@ namespace ipogonyshevNetTest.ViewModel
 			var contact = new Contact
 			{
 				Id = Id,
-				Name = Name,
+				FirstName = FirstName,
+				MiddleName = MiddleName,
+				Surname = Surname,
 				PhoneNumber = PhoneNumber,
 				EmailAddress = EmailAddress
 			};
@@ -118,7 +151,9 @@ namespace ipogonyshevNetTest.ViewModel
 		public void Save()
 		{
 			_contact.Id = Id;
-			_contact.Name = Name;
+			_contact.FirstName = FirstName;
+			_contact.MiddleName = MiddleName;
+			_contact.Surname = Surname;
 			_contact.PhoneNumber = PhoneNumber;
 			_contact.EmailAddress = EmailAddress;
 			IsNew = false;
