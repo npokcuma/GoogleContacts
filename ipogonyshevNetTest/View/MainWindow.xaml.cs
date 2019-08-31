@@ -9,7 +9,7 @@ namespace ipogonyshevNetTest.View
 		{
 			InitializeComponent();
 
-			IContactService contactService = new MockContactsService();
+			IContactService contactService = new GoogleContactsService();
 			DataContext = new MainWindowViewModel(contactService);
 		}
 	}

@@ -7,27 +7,26 @@ namespace ipogonyshevNetTest.Services
 {
 	internal static class Authorization
 	{
-		static readonly ClientSecrets secrets = new ClientSecrets()
+		private static readonly ClientSecrets ClientSecrets = new ClientSecrets
 		{
 			ClientId = "1062889216556-s7mbmuqve920v01a0c48d4l9atfgde2b.apps.googleusercontent.com",
 			ClientSecret = "pgKMMKqoItVymM2M3XP0p3HL"
 		};
 
-		public static PeopleServiceService GetToken()
+		public static PeopleServiceService GetGooglePeopleService()
 		{
-			// CreateContact OAuth credential.
-			UserCredential credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-				secrets,
+			var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+				ClientSecrets,
 				new[] { "profile", "https://www.google.com/m8/feeds/contacts/default/full" },
 				"me",
 				CancellationToken.None).Result;
 
-			// CreateContact the service.
 			var service = new PeopleServiceService(new BaseClientService.Initializer()
 			{
 				HttpClientInitializer = credential,
 				ApplicationName = "NetTest",
 			});
+
 			return service;
 		}
 	}

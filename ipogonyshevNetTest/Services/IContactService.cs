@@ -20,6 +20,7 @@ namespace ipogonyshevNetTest.Services
 		bool RenameLabel(Label label);
 
 		bool DeleteLabel(Label label);
+
 		bool UpdateLabel(Label label);
 	}
 }

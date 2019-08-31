@@ -121,8 +121,6 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Model\Contact.cs" />
-    <Compile Include="Services\GetContactsList.cs" />
-    <Compile Include="Services\GetGroupList.cs" />
     <Compile Include="Services\GroupData.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
