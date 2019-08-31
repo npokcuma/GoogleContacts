@@ -192,7 +192,18 @@ namespace ipogonyshevNetTest.ViewModel
 		private void LableViewModel_OnDelete(object sender, System.EventArgs e)
 		{
 			var lableViewModel = (LableViewModel)sender;
-			RemoveLableFromList(lableViewModel);
+			var confirm = MessageBox.Show("Are you really want delete lable?",
+				"Delete lable",
+				MessageBoxButton.YesNo,
+				MessageBoxImage.Warning);
+			if (confirm != MessageBoxResult.Yes)
+				return;
+
+			var result = _contactService.DeleteLable(lableViewModel.GetLable());
+			if (result)
+			{
+				RemoveLableFromList(lableViewModel);
+			}
 		}
 
 		private void ContactViewModel_OnRemoveFromLable(object sender, EventArgs e)
@@ -200,6 +211,7 @@ namespace ipogonyshevNetTest.ViewModel
 			var contactViewModel = (ContactViewModel)sender;
 			SelectedLable.Contacts.Remove(contactViewModel);
 		}
+
 		private void LableViewModel_OnEdit(object sender, System.EventArgs e)
 		{
 			var lableViewModel = (LableViewModel)sender;
@@ -227,14 +239,8 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void RemoveLableFromList(LableViewModel lableViewModel)
 		{
-
-			var confirm = MessageBox.Show("Are you really want delete lable?",
-				"Delete lable",
-				MessageBoxButton.YesNo,
-				MessageBoxImage.Warning);
-			if (confirm != MessageBoxResult.Yes)
-				return;
 			lableViewModel.OnDelete -= LableViewModel_OnDelete;
+			lableViewModel.OnEdit -= LableViewModel_OnEdit;
 			Lables.Remove(lableViewModel);
 		}
 
