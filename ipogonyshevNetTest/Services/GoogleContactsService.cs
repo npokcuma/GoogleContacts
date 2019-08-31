@@ -182,6 +182,24 @@ namespace ipogonyshevNetTest.Services
 
 		public bool DeleteLabel(Label label)
 		{
+			var group = _listGroups.First(g => g.ResourceName == label.Id);
+
+			try
+			{
+				var groupRequest = new ContactGroupsResource(_service).Delete(group.ResourceName);
+				groupRequest.Execute();
+			}
+			catch (GoogleApiException ex)
+			{
+				Console.WriteLine(ex);
+
+				// Contact was previously deleted from Google Contacts
+				if (ex.Error.Code != 404)
+					return false;
+			}
+
+			_listGroups.Remove(group);
+
 			return true;
 		}
 
