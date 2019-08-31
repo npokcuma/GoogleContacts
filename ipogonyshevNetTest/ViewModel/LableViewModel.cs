@@ -14,9 +14,6 @@ namespace ipogonyshevNetTest.ViewModel
 		private bool _isNew;
 		private string _id;
 		private string _name;
-		private Brush _background;
-
-
 
 
 		public LableViewModel()
@@ -24,7 +21,7 @@ namespace ipogonyshevNetTest.ViewModel
 			_lable = new Lable();
 			Id = _lable.Id;
 			IsNew = true;
-			Background = new SolidColorBrush(Colors.LightGreen);
+
 
 
 			DeleteCommand = new RelayCommand(Delete, () => true);
@@ -92,15 +89,6 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public Lable Entity => _lable;
 
-		public Brush Background
-		{
-			get => _background;
-			set
-			{
-				Set(() => Background, ref _background, value);
-				RaisePropertyChanged(nameof(IsDirty));
-			}
-		}
 
 		public Lable GetLable()
 		{
@@ -116,7 +104,6 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			_lable.Id = Id;
 			_lable.Name = Name;
-			Background = new SolidColorBrush(Colors.White);
 			IsNew = false;
 		}
 

@@ -74,7 +74,7 @@
 				</ListBox.ItemContainerStyle>
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<DockPanel LastChildFill="False" Background="{Binding Background,UpdateSourceTrigger=PropertyChanged}">
+						<DockPanel LastChildFill="False">
 							<StackPanel>
 								<TextBlock 
 										Text="{Binding Path=Name}"
