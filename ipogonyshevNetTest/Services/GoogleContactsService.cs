@@ -91,8 +91,13 @@ namespace ipogonyshevNetTest.Services
 
 		public string CreateContact(Contact contact)
 		{
-			var person = new Person();
-			person.Names = new List<Name> { new Name() };
+			var person = new Person
+			{
+				Names = new List<Name>
+				{
+					new Name()
+				}
+			};
 			person.Names[0].GivenName = contact.FirstName;
 			person.Names[0].FamilyName = contact.Surname;
 			person.Names[0].MiddleName = contact.MiddleName;
@@ -161,7 +166,16 @@ namespace ipogonyshevNetTest.Services
 
 		public string CreateLabel(Label label)
 		{
-			return "";
+			var group = new CreateContactGroupRequest();
+			group.ContactGroup = new ContactGroup
+			{
+				Name = label.Name
+			};
+
+			var groupRequest = new ContactGroupsResource(_service).Create(group);
+			var response = groupRequest.Execute();
+			
+			return response.ResourceName;
 		}
 
 		public bool DeleteLabel(Label label)
