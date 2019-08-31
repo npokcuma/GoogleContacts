@@ -176,7 +176,7 @@ namespace ipogonyshevNetTest.Services
 
 			var groupRequest = new ContactGroupsResource(_service).Create(createContactGroupRequest);
 			var response = groupRequest.Execute();
-			
+
 			return response.ResourceName;
 		}
 
@@ -222,20 +222,31 @@ namespace ipogonyshevNetTest.Services
 
 		public bool AddLabelToContact(Contact contact, Label label)
 		{
+			var modifyContactGroupMembersRequest = new ModifyContactGroupMembersRequest
+			{
+				ResourceNamesToAdd = new List<string>
+				{
+					contact.Id
+				}
+			};
+			var peopleRequest = _service.ContactGroups.Members.Modify(modifyContactGroupMembersRequest, label.Id);
+			peopleRequest.Execute();
 
+			ReloadContacts();
 
 			return true;
 		}
 
 		public bool RemoveLabelFromContact(Contact contact, Label label)
 		{
-			var person = _listPerson.First(p => p.ResourceName == contact.Id);
-
-			var group = person.Memberships.First(m => m.ContactGroupMembership.ContactGroupResourceName == label.Id);
-			person.Memberships.Remove(group);
-
-			var peopleRequest = _service.People.UpdateContact(person, person.ResourceName);
-			peopleRequest.UpdatePersonFields = "emailAddresses,memberships,names,phoneNumbers";
+			var modifyContactGroupMembersRequest = new ModifyContactGroupMembersRequest
+			{
+				ResourceNamesToRemove = new List<string>
+				{
+					contact.Id
+				}
+			};
+			var peopleRequest = _service.ContactGroups.Members.Modify(modifyContactGroupMembersRequest, label.Id);
 			peopleRequest.Execute();
 
 			ReloadContacts();

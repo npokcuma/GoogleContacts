@@ -227,9 +227,13 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void AddLabelForContact()
 		{
-			if (!SelectedLabelForContact.Contacts.Contains(SelectedContact))
+			var result = _contactService.AddLabelToContact(SelectedContact.GetContact(), SelectedLabelForContact.Entity);
+			if (result)
 			{
-				SelectedLabelForContact.Contacts.Add(SelectedContact);
+				if (!SelectedLabelForContact.Contacts.Contains(SelectedContact))
+				{
+					SelectedLabelForContact.Contacts.Add(SelectedContact);
+				}
 			}
 		}
 
