@@ -168,13 +168,15 @@ namespace ipogonyshevNetTest.Services
 
 		public string CreateLabel(Label label)
 		{
-			var createContactGroupRequest = new CreateContactGroupRequest();
-			createContactGroupRequest.ContactGroup = new ContactGroup
+			var createContactGroupRequest = new CreateContactGroupRequest
 			{
-				Name = label.Name
+				ContactGroup = new ContactGroup
+				{
+					Name = label.Name
+				}
 			};
 
-			var groupRequest = new ContactGroupsResource(_service).Create(createContactGroupRequest);
+			var groupRequest = _service.ContactGroups.Create(createContactGroupRequest);
 			var response = groupRequest.Execute();
 
 			return response.ResourceName;
@@ -186,7 +188,7 @@ namespace ipogonyshevNetTest.Services
 
 			try
 			{
-				var groupRequest = new ContactGroupsResource(_service).Delete(group.ResourceName);
+				var groupRequest = _service.ContactGroups.Delete(group.ResourceName);
 				groupRequest.Execute();
 			}
 			catch (GoogleApiException ex)
@@ -212,7 +214,7 @@ namespace ipogonyshevNetTest.Services
 				ContactGroup = group
 			};
 
-			var groupRequest = new ContactGroupsResource(_service).Update(updateContactGroupRequest, group.ResourceName);
+			var groupRequest = _service.ContactGroups.Update(updateContactGroupRequest, group.ResourceName);
 			groupRequest.Execute();
 
 			ReloadContacts();
