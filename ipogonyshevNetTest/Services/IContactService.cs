@@ -25,5 +25,9 @@ namespace ipogonyshevNetTest.Services
 		bool DeleteLabel(Label label);
 
 		bool UpdateLabel(Label label);
+
+		bool AddLabelToContact(Contact contact, Label label);
+
+		bool RemoveLabelFromContact(Contact contact, Label label);
 	}
 }

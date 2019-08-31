@@ -219,5 +219,28 @@ namespace ipogonyshevNetTest.Services
 
 			return true;
 		}
+
+		public bool AddLabelToContact(Contact contact, Label label)
+		{
+
+
+			return true;
+		}
+
+		public bool RemoveLabelFromContact(Contact contact, Label label)
+		{
+			var person = _listPerson.First(p => p.ResourceName == contact.Id);
+
+			var group = person.Memberships.First(m => m.ContactGroupMembership.ContactGroupResourceName == label.Id);
+			person.Memberships.Remove(group);
+
+			var peopleRequest = _service.People.UpdateContact(person, person.ResourceName);
+			peopleRequest.UpdatePersonFields = "emailAddresses,memberships,names,phoneNumbers";
+			peopleRequest.Execute();
+
+			ReloadContacts();
+
+			return true;
+		}
 	}
 }

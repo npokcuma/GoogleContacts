@@ -236,7 +236,11 @@ namespace ipogonyshevNetTest.ViewModel
 		private void ContactViewModel_OnRemoveFromLabel(object sender, EventArgs e)
 		{
 			var contactViewModel = (ContactViewModel)sender;
-			SelectedLabel.Contacts.Remove(contactViewModel);
+			var result = _contactService.RemoveLabelFromContact(contactViewModel.GetContact(), SelectedLabel.Entity);
+			if (result)
+			{
+				SelectedLabel.Contacts.Remove(contactViewModel);
+			}
 		}
 
 		private bool IsAnyContactSelected()

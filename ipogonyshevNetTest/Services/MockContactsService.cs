@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.Services
@@ -101,6 +102,24 @@ namespace ipogonyshevNetTest.Services
 
 		public bool UpdateLabel(Label label)
 		{
+			return true;
+		}
+
+		public bool AddLabelToContact(Contact contact, Label label)
+		{
+			var storedLabel = _listLabels.First(l => l.Id == label.Id);
+			var storedContact = _listContacts.First(c => c.Id == contact.Id);
+
+			storedLabel.Contacts.Remove(storedContact);
+			return true;
+		}
+
+		public bool RemoveLabelFromContact(Contact contact, Label label)
+		{
+			var storedLabel = _listLabels.First(l => l.Id == label.Id);
+			var storedContact = _listContacts.First(c => c.Id == contact.Id);
+
+			storedLabel.Contacts.Add(storedContact);
 			return true;
 		}
 	}
