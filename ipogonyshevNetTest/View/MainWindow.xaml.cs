@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using ipogonyshevNetTest.Services;
+﻿using ipogonyshevNetTest.Services;
 using ipogonyshevNetTest.ViewModel;
 
 namespace ipogonyshevNetTest.View
@@ -13,6 +12,5 @@ namespace ipogonyshevNetTest.View
 			IContactService contactService = new MockContactsService();
 			DataContext = new MainWindowViewModel(contactService);
 		}
-
 	}
 }

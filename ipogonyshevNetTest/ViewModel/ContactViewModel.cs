@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ipogonyshevNetTest.Model;
@@ -78,8 +77,6 @@ namespace ipogonyshevNetTest.ViewModel
 				RaisePropertyChanged(nameof(IsDirty));
 			}
 		}
-
-		public ObservableCollection<LabelViewModel> Labels { get; set; }
 
 		public bool IsNew
 		{

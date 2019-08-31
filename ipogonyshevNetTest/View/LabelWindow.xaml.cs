@@ -22,6 +22,5 @@ namespace ipogonyshevNetTest.View
 		{
 			DialogResult = true;
 		}
-		
 	}
 }

@@ -2,13 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using ipogonyshevNetTest.Model;
 using ipogonyshevNetTest.Services;
 using ipogonyshevNetTest.View;
-using Microsoft.Win32;
 
 namespace ipogonyshevNetTest.ViewModel
 {
@@ -51,7 +48,7 @@ namespace ipogonyshevNetTest.ViewModel
 			SaveContactCommand = new RelayCommand(SaveContact, () => true);
 			AddLabelForContactCommand = new RelayCommand(AddLabelForContact, IsAnyContactSelected);
 			AddLabelCommand = new RelayCommand(AddLabel, () => true);
-			ShowAllContactsCommand = new RelayCommand(ShowAllContacts, () => true);
+			ShowAllContactsCommand = new RelayCommand(SelectNoLabel, () => true);
 		}
 
 
@@ -95,16 +92,15 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public RelayCommand AddContactCommand { get; set; }
 
-		public RelayCommand DeleteContactCommand { get; set; }
-
 		public RelayCommand SaveContactCommand { get; set; }
+
+		public RelayCommand DeleteContactCommand { get; set; }
 
 		public RelayCommand AddLabelForContactCommand { get; set; }
 
 		public RelayCommand AddLabelCommand { get; set; }
 
 		public RelayCommand ShowAllContactsCommand { get; set; }
-
 
 
 		private void AddContact()
@@ -116,36 +112,6 @@ namespace ipogonyshevNetTest.ViewModel
 				_contacts.Add(contactViewModel);
 			}
 			SelectedContact = contactViewModel;
-		}
-
-		private void DeleteContact()
-		{
-			var confirm = MessageBox.Show("Are you really want delete contact?",
-											"Delete contact",
-											MessageBoxButton.YesNo,
-											MessageBoxImage.Warning);
-			if (confirm != MessageBoxResult.Yes)
-				return;
-
-			var result = _contactService.DeleteContact(SelectedContact.GetContact());
-			if (result)
-			{
-				RemoveContactFromList(SelectedContact);
-				foreach (var label in Labels)
-				{
-					if (label.Contacts.Contains(SelectedContact))
-					{
-						label.Contacts.Remove(SelectedContact);
-					}
-				}
-
-				SelectedContact = Contacts.FirstOrDefault();
-			}
-		}
-
-		private bool IsAnyContactSelected()
-		{
-			return SelectedContact != null;
 		}
 
 		private void SaveContact()
@@ -173,23 +139,73 @@ namespace ipogonyshevNetTest.ViewModel
 
 		}
 
-		private void AddLabelForContact()
+		private void DeleteContact()
 		{
-			if (!SelectedLabelForContact.Contacts.Contains(SelectedContact))
+			var confirm = MessageBox.Show("Are you really want delete contact?",
+											"Delete contact",
+											MessageBoxButton.YesNo,
+											MessageBoxImage.Warning);
+			if (confirm != MessageBoxResult.Yes)
+				return;
+
+			var result = _contactService.DeleteContact(SelectedContact.GetContact());
+			if (result)
 			{
-				SelectedLabelForContact.Contacts.Add(SelectedContact);
+				RemoveContactFromList(SelectedContact);
+				foreach (var label in Labels)
+				{
+					if (label.Contacts.Contains(SelectedContact))
+					{
+						label.Contacts.Remove(SelectedContact);
+					}
+				}
+
+				SelectedContact = Contacts.FirstOrDefault();
 			}
 		}
 
 
-
-
-		private void ShowAllContacts()
+		private void AddLabel()
 		{
-			SelectedLabel = null;
+			var labelViewModel = new LabelViewModel();
+			var labelWindowViewModel = new LabelWindowViewModel(labelViewModel, Labels.ToList())
+			{
+				Title = "Add label"
+			};
+			var window = new LabelWindow(labelWindowViewModel);
+			if (window.ShowDialog() == true)
+			{
+				var result = _contactService.CreateLabel(labelViewModel.GetLabel());
+				if (result)
+				{
+					labelViewModel.Save();
+					AddLabelToList(labelViewModel);
+				}
+			};
 		}
 
-		private void LabelViewModel_OnDelete(object sender, System.EventArgs e)
+		private void LabelViewModel_OnEdit(object sender, EventArgs e)
+		{
+			var labelViewModel = (LabelViewModel)sender;
+			var labelWindowViewModel = new LabelWindowViewModel(labelViewModel, Labels.ToList())
+			{
+				Title = "Edit label"
+			};
+			var window = new LabelWindow(labelWindowViewModel);
+			if (window.ShowDialog() == true)
+			{
+				if (labelViewModel.IsDirty)
+				{
+					var result = _contactService.UpdateLabel(labelViewModel.GetLabel());
+					if (result)
+					{
+						labelViewModel.Save();
+					}
+				}
+			};
+		}
+
+		private void LabelViewModel_OnDelete(object sender, EventArgs e)
 		{
 			var labelViewModel = (LabelViewModel)sender;
 			var confirm = MessageBox.Show("Are you really want delete label?",
@@ -206,17 +222,31 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+
+		private void AddLabelForContact()
+		{
+			if (!SelectedLabelForContact.Contacts.Contains(SelectedContact))
+			{
+				SelectedLabelForContact.Contacts.Add(SelectedContact);
+			}
+		}
+
 		private void ContactViewModel_OnRemoveFromLabel(object sender, EventArgs e)
 		{
 			var contactViewModel = (ContactViewModel)sender;
 			SelectedLabel.Contacts.Remove(contactViewModel);
 		}
 
-		private void LabelViewModel_OnEdit(object sender, System.EventArgs e)
+		private bool IsAnyContactSelected()
 		{
-			var labelViewModel = (LabelViewModel)sender;
-			EditLabelOnList(labelViewModel);
+			return SelectedContact != null;
 		}
+
+		private void SelectNoLabel()
+		{
+			SelectedLabel = null;
+		}
+
 
 		private void AddContactToList(ContactViewModel contactViewModel)
 		{
@@ -242,45 +272,6 @@ namespace ipogonyshevNetTest.ViewModel
 			labelViewModel.OnDelete -= LabelViewModel_OnDelete;
 			labelViewModel.OnEdit -= LabelViewModel_OnEdit;
 			Labels.Remove(labelViewModel);
-		}
-
-		private void AddLabel()
-		{
-			var labelViewModel = new LabelViewModel();
-			var labelWindowViewModel = new LabelWindowViewModel(labelViewModel, Labels.ToList())
-			{
-				Title = "Add label"
-			};
-			var window = new LabelWindow(labelWindowViewModel);
-			if (window.ShowDialog() == true)
-			{
-				var result = _contactService.CreateLabel(labelViewModel.GetLabel());
-				if (result)
-				{
-					labelViewModel.Save();
-					AddLabelToList(labelViewModel);
-				}
-			};
-		}
-
-		private void EditLabelOnList(LabelViewModel labelViewModel)
-		{
-			var labelWindowViewModel = new LabelWindowViewModel(labelViewModel, Labels.ToList())
-			{
-				Title = "Edit label"
-			};
-			var window = new LabelWindow(labelWindowViewModel);
-			if (window.ShowDialog() == true)
-			{
-				if (labelViewModel.IsDirty)
-				{
-					var result = _contactService.UpdateLabel(labelViewModel.GetLabel());
-					if (result)
-					{
-						labelViewModel.Save();
-					}
-				}
-			};
 		}
 	}
 }

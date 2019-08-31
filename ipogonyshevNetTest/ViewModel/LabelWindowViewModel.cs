@@ -1,19 +1,15 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 namespace ipogonyshevNetTest.ViewModel
 {
 	public class LabelWindowViewModel : ViewModelBase, IDataErrorInfo
 	{
-		private LabelViewModel _labelViewModel;
-		private List<LabelViewModel> _labelViewModels;
+		private readonly LabelViewModel _labelViewModel;
+		private readonly List<LabelViewModel> _labelViewModels;
 		private string _labelName;
 
 		public LabelWindowViewModel(LabelViewModel labelViewModel, List<LabelViewModel> labelViewModels)
@@ -21,10 +17,11 @@ namespace ipogonyshevNetTest.ViewModel
 			_labelViewModel = labelViewModel;
 			_labelViewModels = labelViewModels;
 
-			SaveCommand = new RelayCommand(Save, IsExecuteCommand);
+			SaveCommand = new RelayCommand(Save, () => IsValid() && IsValidNameLength());
 
 			LabelName = labelViewModel.Name;
 		}
+
 
 		public string Title { get; set; }
 
@@ -39,7 +36,6 @@ namespace ipogonyshevNetTest.ViewModel
 		}
 
 		public RelayCommand SaveCommand { get; set; }
-
 
 		public string this[string property]
 		{
@@ -60,9 +56,8 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
-
-
 		public string Error { get; }
+
 
 		private void Save()
 		{
@@ -74,6 +69,7 @@ namespace ipogonyshevNetTest.ViewModel
 			var result = _labelViewModels.Where(l => l.Id != _labelViewModel.Id).All(l => l.Name != LabelName);
 			return result;
 		}
+
 		private bool IsValidNameLength()
 		{
 			if (LabelName != null)
@@ -83,16 +79,6 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 
 			return true;
-		}
-
-		private bool IsExecuteCommand()
-		{
-			if (IsValid() && IsValidNameLength())
-			{
-				return true;
-			}
-
-			return false;
 		}
 	}
 }
