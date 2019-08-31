@@ -78,7 +78,7 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			if (LabelName != null)
 			{
-				var result = LabelName.Length <= 30;
+				var result = LabelName.Length <= 400;
 				return result;
 			}
 
