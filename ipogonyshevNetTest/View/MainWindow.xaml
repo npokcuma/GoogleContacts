@@ -39,7 +39,7 @@
 		<DataTemplate x:Key="ItemTemplate">
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="270" />
 					<ColumnDefinition Width="40" />
 				</Grid.ColumnDefinitions>
 				<TextBlock Grid.Column="0"
@@ -56,7 +56,7 @@
 		<DataTemplate x:Key="SelectedTemplate">
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="200" />
 					<ColumnDefinition Width="35" />
 					<ColumnDefinition Width="35" />
 					<ColumnDefinition Width="40" />

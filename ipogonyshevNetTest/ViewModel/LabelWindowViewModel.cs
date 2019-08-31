@@ -17,7 +17,7 @@ namespace ipogonyshevNetTest.ViewModel
 			_labelViewModel = labelViewModel;
 			_labelViewModels = labelViewModels;
 
-			SaveCommand = new RelayCommand(Save, () => IsValid() && IsValidNameLength());
+			SaveCommand = new RelayCommand(Save, () => Validate() == null);
 
 			LabelName = labelViewModel.Name;
 		}
@@ -37,24 +37,7 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public RelayCommand SaveCommand { get; set; }
 
-		public string this[string property]
-		{
-			get
-			{
-				if (!IsValid())
-				{
-					return "Label name already exist";
-				}
-
-				if (!IsValidNameLength())
-				{
-					return "The label name you chosen is too long";
-
-				}
-
-				return null;
-			}
-		}
+		public string this[string property] => Validate();
 
 		public string Error { get; }
 
@@ -64,21 +47,24 @@ namespace ipogonyshevNetTest.ViewModel
 			_labelViewModel.Name = LabelName;
 		}
 
-		private bool IsValid()
+		private string Validate()
 		{
-			var result = _labelViewModels.Where(l => l.Id != _labelViewModel.Id).All(l => l.Name != LabelName);
-			return result;
-		}
+			var sameNameExists = _labelViewModels.Where(l => l.Id != _labelViewModel.Id)
+												.Any(l => l.Name == LabelName);
 
-		private bool IsValidNameLength()
-		{
+			if (sameNameExists)
+				return "Label name already exist";
+
 			if (LabelName != null)
 			{
-				var result = LabelName.Length <= 400;
-				return result;
+				if (LabelName.Length >= 400)
+					return "The label name you chosen is too long";
+				
+				if (LabelName.Length == 0)
+					return "Label name cannot be empty";
 			}
 
-			return true;
+			return null;
 		}
 	}
 }
