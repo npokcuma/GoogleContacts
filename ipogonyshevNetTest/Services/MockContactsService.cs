@@ -87,15 +87,10 @@ namespace ipogonyshevNetTest.Services
 			return _listLabels;
 		}
 
-		public bool CreateLabel(Label label)
+		public string CreateLabel(Label label)
 		{
 			_listLabels.Add(label);
-			return true;
-		}
-
-		public bool RenameLabel(Label label)
-		{
-			return true;
+			return label.Id;
 		}
 
 		public bool DeleteLabel(Label label)

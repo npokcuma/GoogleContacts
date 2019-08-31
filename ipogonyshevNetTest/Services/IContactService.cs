@@ -9,15 +9,18 @@ namespace ipogonyshevNetTest.Services
 
 		bool DeleteContact(Contact contact);
 
+		/// <summary>
+		/// Create new contact. 
+		/// </summary>
+		/// <param name="contact">New contact model</param>
+		/// <returns>Return contact Id. If creation was not successful return null</returns>
 		string CreateContact(Contact contact);
 
 		bool UpdateContact(Contact contact);
 
 		List<Label> GetAllLabels();
 
-		bool CreateLabel(Label label);
-
-		bool RenameLabel(Label label);
+		string CreateLabel(Label label);
 
 		bool DeleteLabel(Label label);
 

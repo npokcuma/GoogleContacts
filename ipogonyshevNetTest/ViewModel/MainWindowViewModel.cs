@@ -177,8 +177,9 @@ namespace ipogonyshevNetTest.ViewModel
 			if (window.ShowDialog() == true)
 			{
 				var result = _contactService.CreateLabel(labelViewModel.GetLabel());
-				if (result)
+				if (result != null)
 				{
+					labelViewModel.Id = result;
 					labelViewModel.Save();
 					AddLabelToList(labelViewModel);
 				}

@@ -89,11 +89,6 @@ namespace ipogonyshevNetTest.Services
 			return true;
 		}
 
-		/// <summary>
-		/// Create new contact. 
-		/// </summary>
-		/// <param name="contact">New contact model</param>
-		/// <returns>Return contact Id. If creation was not successful return null</returns>
 		public string CreateContact(Contact contact)
 		{
 			var person = new Person();
@@ -164,14 +159,9 @@ namespace ipogonyshevNetTest.Services
 			return _listLabels;
 		}
 
-		public bool CreateLabel(Label label)
+		public string CreateLabel(Label label)
 		{
-			return true;
-		}
-
-		public bool RenameLabel(Label label)
-		{
-			return true;
+			return "";
 		}
 
 		public bool DeleteLabel(Label label)
