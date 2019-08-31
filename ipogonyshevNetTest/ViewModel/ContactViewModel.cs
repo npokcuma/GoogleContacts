@@ -19,6 +19,7 @@ namespace ipogonyshevNetTest.ViewModel
 		public ContactViewModel()
 		{
 			_contact = new Contact();
+			Id = _contact.Id;
 			FirstName = "New contact";
 			IsNew = true;
 

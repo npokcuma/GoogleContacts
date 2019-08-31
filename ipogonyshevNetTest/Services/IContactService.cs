@@ -9,7 +9,7 @@ namespace ipogonyshevNetTest.Services
 
 		bool DeleteContact(Contact contact);
 
-		bool CreateContact(Contact contact);
+		string CreateContact(Contact contact);
 
 		bool UpdateContact(Contact contact);
 

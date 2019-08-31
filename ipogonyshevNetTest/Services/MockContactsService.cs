@@ -71,10 +71,10 @@ namespace ipogonyshevNetTest.Services
 			return true;
 		}
 
-		public bool CreateContact(Contact contact)
+		public string CreateContact(Contact contact)
 		{
 			_listContacts.Add(contact);
-			return true;
+			return contact.Id;
 		}
 
 		public bool UpdateContact(Contact contact)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Google;
 using Google.Apis.PeopleService.v1;
 using Google.Apis.PeopleService.v1.Data;
 using ipogonyshevNetTest.Model;
@@ -67,12 +68,50 @@ namespace ipogonyshevNetTest.Services
 
 		public bool DeleteContact(Contact contact)
 		{
+			var person = _listPerson.First(p => p.ResourceName == contact.Id);
+
+			try
+			{
+				var peopleRequest = _service.People.DeleteContact(person.ResourceName);
+				peopleRequest.Execute();
+			}
+			catch (GoogleApiException ex)
+			{
+				Console.WriteLine(ex);
+
+				// Contact was previously deleted from Google Contacts
+				if (ex.Error.Code != 404)
+					return false;
+			}
+
+			_listPerson.Remove(person);
+
 			return true;
 		}
 
-		public bool CreateContact(Contact contact)
+		/// <summary>
+		/// Create new contact. 
+		/// </summary>
+		/// <param name="contact">New contact model</param>
+		/// <returns>Return contact Id. If creation was not successful return null</returns>
+		public string CreateContact(Contact contact)
 		{
-			return true;
+			var person = new Person();
+			person.Names = new List<Name> { new Name() };
+			person.Names[0].GivenName = contact.FirstName;
+			person.Names[0].FamilyName = contact.Surname;
+			person.Names[0].MiddleName = contact.MiddleName;
+
+			person.EmailAddresses = new List<EmailAddress> { new EmailAddress() };
+			person.EmailAddresses[0].Value = contact.EmailAddress;
+
+			person.PhoneNumbers = new List<PhoneNumber> { new PhoneNumber() };
+			person.PhoneNumbers[0].Value = contact.PhoneNumber;
+
+			var peopleRequest = _service.People.CreateContact(person);
+			person = peopleRequest.Execute();
+
+			return person.ResourceName;
 		}
 
 		public bool UpdateContact(Contact contact)
@@ -111,8 +150,8 @@ namespace ipogonyshevNetTest.Services
 			person.PhoneNumbers[0].Value = contact.PhoneNumber;
 
 			var peopleRequest = _service.People.UpdateContact(person, person.ResourceName);
-				peopleRequest.UpdatePersonFields = "emailAddresses,memberships,names,phoneNumbers";
-				peopleRequest.Execute();
+			peopleRequest.UpdatePersonFields = "emailAddresses,memberships,names,phoneNumbers";
+			peopleRequest.Execute();
 
 			ReloadContacts();
 

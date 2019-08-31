@@ -106,10 +106,10 @@ namespace ipogonyshevNetTest.ViewModel
 		private void AddContact()
 		{
 			var contactViewModel = new ContactViewModel();
-			Contacts.Add(contactViewModel);
+			Contacts.Insert(0, contactViewModel);
 			if (SelectedLabel != null)
 			{
-				_contacts.Add(contactViewModel);
+				_contacts.Insert(0, contactViewModel);
 			}
 			SelectedContact = contactViewModel;
 		}
@@ -121,8 +121,9 @@ namespace ipogonyshevNetTest.ViewModel
 				if (SelectedContact.IsNew)
 				{
 					var result = _contactService.CreateContact(SelectedContact.GetContact());
-					if (result)
+					if (result != null)
 					{
+						SelectedContact.Id = result;
 						SelectedContact.Save();
 					}
 				}

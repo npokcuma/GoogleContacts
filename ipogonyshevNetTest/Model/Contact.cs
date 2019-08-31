@@ -1,9 +1,15 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using GalaSoft.MvvmLight;
 
 namespace ipogonyshevNetTest.Model
 {
 	public class Contact : ViewModelBase
 	{
+		public Contact()
+		{
+			Id = Guid.NewGuid().ToString();
+		}
+
 		public string Id { get; set; }
 
 		public string FirstName { get; set; }
