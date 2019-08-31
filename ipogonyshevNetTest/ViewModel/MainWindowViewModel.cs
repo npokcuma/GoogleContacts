@@ -152,7 +152,8 @@ namespace ipogonyshevNetTest.ViewModel
 			if (confirm != MessageBoxResult.Yes)
 				return;
 
-			var result = _contactService.DeleteContact(SelectedContact.GetContact());
+			var result = SelectedContact.IsNew ||
+						 _contactService.DeleteContact(SelectedContact.GetContact());
 			if (result)
 			{
 				RemoveContactFromList(SelectedContact);
