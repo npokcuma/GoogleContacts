@@ -21,6 +21,7 @@
 			<Setter Property="FontSize" Value="14" />
 		</Style>
 		<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+		<converters:DirtyToColorConverter x:Key="DirtyToColorConverter" />
 	</Window.Resources>
 
 	<Grid>
@@ -132,7 +133,7 @@
 				</ListBox.ItemContainerStyle>
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<DockPanel Background="{Binding Background, UpdateSourceTrigger=PropertyChanged}"
+						<DockPanel Background="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DirtyToColorConverter}}"
 								   LastChildFill="False">
 							<StackPanel Width="255">
 								<TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"

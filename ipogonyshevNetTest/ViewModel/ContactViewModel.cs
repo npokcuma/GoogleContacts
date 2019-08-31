@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ipogonyshevNetTest.Model;
@@ -16,14 +14,12 @@ namespace ipogonyshevNetTest.ViewModel
 		private string _name;
 		private string _phoneNumber;
 		private string _emailAddress;
-		private Brush _background;
 
 		public ContactViewModel()
 		{
 			_contact = new Contact();
 			Name = "New contact";
 			IsNew = true;
-			Background=new SolidColorBrush(Colors.LightGreen);
 
 			RemoveFromLabelCommand = new RelayCommand(RemoveFromLabel, () => true);
 		}
@@ -109,16 +105,6 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public RelayCommand RemoveFromLabelCommand { get; set; }
 
-		public Brush Background
-		{
-			get => _background;
-			set
-			{
-				Set(() => Background, ref _background, value);
-				RaisePropertyChanged(nameof(IsDirty));
-			}
-		}
-
 
 		public Contact GetContact()
 		{
@@ -138,7 +124,6 @@ namespace ipogonyshevNetTest.ViewModel
 			_contact.Name = Name;
 			_contact.PhoneNumber = PhoneNumber;
 			_contact.EmailAddress = EmailAddress;
-			Background=new SolidColorBrush(Colors.White);
 			IsNew = false;
 		}
 
