@@ -69,7 +69,7 @@ namespace ipogonyshevNetTest.Services
 		public bool CreateContact(Contact contact)
 		{
 			_listContacts.Add(contact);
-			return false;
+			return true;
 		}
 
 		public bool UpdateContact(Contact contact)

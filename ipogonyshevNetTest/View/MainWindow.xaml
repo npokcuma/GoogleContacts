@@ -22,6 +22,8 @@
 			<Setter Property="FontSize" Value="14" />
 		</Style>
 		<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+
+
 	</Window.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -72,7 +74,7 @@
 				</ListBox.ItemContainerStyle>
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<DockPanel LastChildFill="False">
+						<DockPanel LastChildFill="False" Background="{Binding Background,UpdateSourceTrigger=PropertyChanged}">
 							<StackPanel>
 								<TextBlock 
 										Text="{Binding Path=Name}"
@@ -146,7 +148,7 @@
 				</ListBox.ItemContainerStyle>
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<DockPanel LastChildFill="False">
+						<DockPanel  LastChildFill="False" Background="{Binding Background,UpdateSourceTrigger=PropertyChanged}">
 							<StackPanel Width="255">
 								<TextBlock
 									Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ipogonyshevNetTest.Model;
@@ -105,6 +106,7 @@ namespace ipogonyshevNetTest.ViewModel
 		public RelayCommand ShowAllContactsCommand { get; set; }
 
 
+
 		private void AddContact()
 		{
 			var contactViewModel = new ContactViewModel();
@@ -148,22 +150,27 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void SaveContact()
 		{
-			if (SelectedContact.IsNew)
+			if (SelectedContact != null)
 			{
-				var result = _contactService.CreateContact(SelectedContact.GetContact());
-				if (result)
+				if (SelectedContact.IsNew)
 				{
-					SelectedContact.Save();
+					var result = _contactService.CreateContact(SelectedContact.GetContact());
+					if (result)
+					{
+						SelectedContact.Save();
+					}
 				}
-			}
-			else
-			{
-				var result = _contactService.UpdateContact(SelectedContact.GetContact());
-				if (result)
+				else
 				{
-					SelectedContact.Save();
+					var result = _contactService.UpdateContact(SelectedContact.GetContact());
+					if (result)
+					{
+						SelectedContact.Save();
+					}
 				}
+
 			}
+
 		}
 
 		private void AddLableForContact()
