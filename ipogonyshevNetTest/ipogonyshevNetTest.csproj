@@ -97,15 +97,15 @@
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="ViewModel\ContactViewModel.cs" />
     <Compile Include="Services\GoogleContactsService.cs" />
-    <Compile Include="Model\Lable.cs" />
-    <Compile Include="ViewModel\LableViewModel.cs" />
-    <Compile Include="ViewModel\LableWindowViewModel.cs" />
-    <Compile Include="View\LableWindow.xaml.cs">
-      <DependentUpon>LableWindow.xaml</DependentUpon>
+    <Compile Include="Model\Label.cs" />
+    <Compile Include="ViewModel\LabelViewModel.cs" />
+    <Compile Include="ViewModel\LabelWindowViewModel.cs" />
+    <Compile Include="View\LabelWindow.xaml.cs">
+      <DependentUpon>LabelWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\MockContactsService.cs" />
     <Compile Include="Services\IContactService.cs" />
-    <Page Include="View\LableWindow.xaml">
+    <Page Include="View\LabelWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

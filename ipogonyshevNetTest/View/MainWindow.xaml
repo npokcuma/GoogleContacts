@@ -59,8 +59,8 @@
 			</GroupBox.Header>
 			<ListBox HorizontalContentAlignment="Stretch"
 					 BorderThickness="0"
-					 ItemsSource="{Binding Lables}"
-					 SelectedItem="{Binding SelectedLable}">
+					 ItemsSource="{Binding Labels}"
+					 SelectedItem="{Binding SelectedLabel}">
 				<ListBox.ItemContainerStyle>
 					<Style>
 						<Setter Property="ListBoxItem.FontWeight" Value="Bold" />
@@ -97,15 +97,15 @@
 				<ComboBox Width="250"
 						  Height="30"
 						  Margin="0,0,20,0"
-						  ItemsSource="{Binding Lables}"
-						  SelectedItem="{Binding SelectedLableForContact}">
+						  ItemsSource="{Binding Labels}"
+						  SelectedItem="{Binding SelectedLabelForContact}">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<TextBlock Text="{Binding Path=Name}" />
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
-				<Button Command="{Binding AddLableForContactCommand}"
+				<Button Command="{Binding AddLabelForContactCommand}"
 						Content="Add label" />
 			</StackPanel>
 		</StackPanel>
@@ -143,10 +143,10 @@
 										   TextTrimming="WordEllipsis" />
 							</StackPanel>
 							<Button Width="auto"
-									Command="{Binding RemoveFromLableCommand}"
-									Content="Remove from lable"
+									Command="{Binding RemoveFromLabelCommand}"
+									Content="Remove from label"
 									DockPanel.Dock="Right"
-									Visibility="{Binding DataContext.SelectedLable, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
+									Visibility="{Binding DataContext.SelectedLabel, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
 						</DockPanel>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
@@ -202,7 +202,7 @@
 					VerticalAlignment="Center">
 			<Button Width="200"
 					Height="35"
-					Command="{Binding AddLableCommand}"
+					Command="{Binding AddLabelCommand}"
 					Content="Add label" />
 		</StackPanel>
 	</Grid>

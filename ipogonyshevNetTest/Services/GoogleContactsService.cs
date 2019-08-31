@@ -15,7 +15,7 @@ namespace ipogonyshevNetTest.Services
 
 
 		private readonly List<Contact> _listContacts;
-		private readonly List<Lable> _listLables;
+		private readonly List<Label> _listLabels;
 
 		public GoogleContactsService()
 		{
@@ -36,14 +36,14 @@ namespace ipogonyshevNetTest.Services
 					PhoneNumber = "8 999 666 11 22"
 				}
 			};
-			_listLables = new List<Lable>
+			_listLabels = new List<Label>
 			{
-				new Lable
+				new Label
 				{
 					Id = "1",
 					Name = "Lalka"
 				},
-				new Lable
+				new Label
 				{
 					Id="2",
 					Name = "MyBand"
@@ -73,27 +73,27 @@ namespace ipogonyshevNetTest.Services
 			return true;
 		}
 
-		public List<Lable> GetAllLables()
+		public List<Label> GetAllLabels()
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public bool CreateLable(Lable lable)
+		public bool CreateLabel(Label label)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public bool RenameLable(Lable lable)
+		public bool RenameLabel(Label label)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public bool DeleteLable(Lable lable)
+		public bool DeleteLabel(Label label)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public bool UpdateLable(Lable lable)
+		public bool UpdateLabel(Label label)
 		{
 			return true;
 		}

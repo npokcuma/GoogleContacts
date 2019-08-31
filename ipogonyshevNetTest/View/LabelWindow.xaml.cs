@@ -3,9 +3,9 @@ using ipogonyshevNetTest.ViewModel;
 
 namespace ipogonyshevNetTest.View
 {
-	public partial class LableWindow
+	public partial class LabelWindow
 	{
-		public LableWindow(LableWindowViewModel viewModel)
+		public LabelWindow(LabelWindowViewModel viewModel)
 		{
 			InitializeComponent();
 			Txbx1.Focus();

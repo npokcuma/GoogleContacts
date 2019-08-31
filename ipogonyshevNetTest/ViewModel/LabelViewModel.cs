@@ -8,18 +8,18 @@ using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.ViewModel
 {
-	public class LableViewModel : ViewModelBase
+	public class LabelViewModel : ViewModelBase
 	{
-		private readonly Lable _lable;
+		private readonly Label _label;
 		private bool _isNew;
 		private string _id;
 		private string _name;
 
 
-		public LableViewModel()
+		public LabelViewModel()
 		{
-			_lable = new Lable();
-			Id = _lable.Id;
+			_label = new Label();
+			Id = _label.Id;
 			IsNew = true;
 
 
@@ -28,11 +28,11 @@ namespace ipogonyshevNetTest.ViewModel
 			EditCommand=new RelayCommand(Edit,()=>true);
 		}
 
-		public LableViewModel(Lable lable)
+		public LabelViewModel(Label label)
 		{
-			_lable = lable;
-			Id = lable.Id;
-			Name = lable.Name;
+			_label = label;
+			Id = label.Id;
+			Name = label.Name;
 			IsNew = false;
 
 			DeleteCommand = new RelayCommand(Delete, () => true);
@@ -76,7 +76,7 @@ namespace ipogonyshevNetTest.ViewModel
 			get
 			{
 				bool isDirty = IsNew;
-				isDirty = isDirty || Name != _lable.Name;
+				isDirty = isDirty || Name != _label.Name;
 
 				return isDirty;
 			}
@@ -87,23 +87,23 @@ namespace ipogonyshevNetTest.ViewModel
 		public RelayCommand DeleteCommand { get; set; }
 		public RelayCommand EditCommand { get; set; }
 
-		public Lable Entity => _lable;
+		public Label Entity => _label;
 
 
-		public Lable GetLable()
+		public Label GetLabel()
 		{
-			var lable = new Lable
+			var label = new Label
 			{
 				Id = Id,
 				Name = Name,
 			};
-			return lable;
+			return label;
 		}
 
 		public void Save()
 		{
-			_lable.Id = Id;
-			_lable.Name = Name;
+			_label.Id = Id;
+			_label.Name = Name;
 			IsNew = false;
 		}
 

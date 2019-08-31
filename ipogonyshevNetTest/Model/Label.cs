@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ipogonyshevNetTest.Model
 {
-	public class Lable
+	public class Label
 	{
-		public Lable()
+		public Label()
 		{
 			Id = Guid.NewGuid().ToString();
 		}

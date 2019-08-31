@@ -10,20 +10,20 @@ using GalaSoft.MvvmLight.Command;
 
 namespace ipogonyshevNetTest.ViewModel
 {
-	public class LableWindowViewModel : ViewModelBase, IDataErrorInfo
+	public class LabelWindowViewModel : ViewModelBase, IDataErrorInfo
 	{
-		private LableViewModel _lableViewModel;
-		private List<LableViewModel> _lableViewModels;
+		private LabelViewModel _labelViewModel;
+		private List<LabelViewModel> _labelViewModels;
 		private string _labelName;
 
-		public LableWindowViewModel(LableViewModel lableViewModel, List<LableViewModel> lableViewModels)
+		public LabelWindowViewModel(LabelViewModel labelViewModel, List<LabelViewModel> labelViewModels)
 		{
-			_lableViewModel = lableViewModel;
-			_lableViewModels = lableViewModels;
+			_labelViewModel = labelViewModel;
+			_labelViewModels = labelViewModels;
 
 			SaveCommand = new RelayCommand(Save, IsExecuteCommand);
 
-			LabelName = lableViewModel.Name;
+			LabelName = labelViewModel.Name;
 		}
 
 		public string Title { get; set; }
@@ -66,12 +66,12 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void Save()
 		{
-			_lableViewModel.Name = LabelName;
+			_labelViewModel.Name = LabelName;
 		}
 
 		private bool IsValid()
 		{
-			var result = _lableViewModels.Where(l => l.Id != _lableViewModel.Id).All(l => l.Name != LabelName);
+			var result = _labelViewModels.Where(l => l.Id != _labelViewModel.Id).All(l => l.Name != LabelName);
 			return result;
 		}
 		private bool IsValidNameLength()

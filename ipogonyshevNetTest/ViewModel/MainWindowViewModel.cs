@@ -17,7 +17,7 @@ namespace ipogonyshevNetTest.ViewModel
 		private readonly IContactService _contactService;
 		private ContactViewModel _selectedContact;
 		private ObservableCollection<ContactViewModel> _contacts = new ObservableCollection<ContactViewModel>();
-		private LableViewModel _selectedLable;
+		private LabelViewModel _selectedLabel;
 
 		public MainWindowViewModel()
 		{
@@ -34,23 +34,23 @@ namespace ipogonyshevNetTest.ViewModel
 				AddContactToList(contactViewModel);
 			}
 
-			var lables = _contactService.GetAllLables();
-			foreach (var lable in lables)
+			var labels = _contactService.GetAllLabels();
+			foreach (var label in labels)
 			{
-				var lableViewModel = new LableViewModel(lable);
-				foreach (var contact in lableViewModel.Entity.Contacts)
+				var labelViewModel = new LabelViewModel(label);
+				foreach (var contact in labelViewModel.Entity.Contacts)
 				{
 					var contactViewModel = Contacts.First(c => c.Id == contact.Id);
-					lableViewModel.Contacts.Add(contactViewModel);
+					labelViewModel.Contacts.Add(contactViewModel);
 				}
-				AddLableToList(lableViewModel);
+				AddLabelToList(labelViewModel);
 			}
 
 			AddContactCommand = new RelayCommand(AddContact, () => true);
 			DeleteContactCommand = new RelayCommand(DeleteContact, IsAnyContactSelected);
 			SaveContactCommand = new RelayCommand(SaveContact, () => true);
-			AddLableForContactCommand = new RelayCommand(AddLableForContact, IsAnyContactSelected);
-			AddLableCommand = new RelayCommand(AddLable, () => true);
+			AddLabelForContactCommand = new RelayCommand(AddLabelForContact, IsAnyContactSelected);
+			AddLabelCommand = new RelayCommand(AddLabel, () => true);
 			ShowAllContactsCommand = new RelayCommand(ShowAllContacts, () => true);
 		}
 
@@ -59,16 +59,16 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			get
 			{
-				if (SelectedLable != null)
+				if (SelectedLabel != null)
 				{
-					return SelectedLable.Contacts;
+					return SelectedLabel.Contacts;
 				}
 				return _contacts;
 			}
 			set => _contacts = value;
 		}
 
-		public ObservableCollection<LableViewModel> Lables { get; set; } = new ObservableCollection<LableViewModel>();
+		public ObservableCollection<LabelViewModel> Labels { get; set; } = new ObservableCollection<LabelViewModel>();
 
 		public ContactViewModel SelectedContact
 		{
@@ -77,21 +77,21 @@ namespace ipogonyshevNetTest.ViewModel
 			{
 				Set(() => SelectedContact, ref _selectedContact, value);
 				DeleteContactCommand.RaiseCanExecuteChanged();
-				AddLableForContactCommand.RaiseCanExecuteChanged();
+				AddLabelForContactCommand.RaiseCanExecuteChanged();
 			}
 		}
 
-		public LableViewModel SelectedLable
+		public LabelViewModel SelectedLabel
 		{
-			get => _selectedLable;
+			get => _selectedLabel;
 			set
 			{
-				Set(() => SelectedLable, ref _selectedLable, value);
+				Set(() => SelectedLabel, ref _selectedLabel, value);
 				RaisePropertyChanged(nameof(Contacts));
 			}
 		}
 
-		public LableViewModel SelectedLableForContact { get; set; }
+		public LabelViewModel SelectedLabelForContact { get; set; }
 
 		public RelayCommand AddContactCommand { get; set; }
 
@@ -99,9 +99,9 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public RelayCommand SaveContactCommand { get; set; }
 
-		public RelayCommand AddLableForContactCommand { get; set; }
+		public RelayCommand AddLabelForContactCommand { get; set; }
 
-		public RelayCommand AddLableCommand { get; set; }
+		public RelayCommand AddLabelCommand { get; set; }
 
 		public RelayCommand ShowAllContactsCommand { get; set; }
 
@@ -111,7 +111,7 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			var contactViewModel = new ContactViewModel();
 			Contacts.Add(contactViewModel);
-			if (SelectedLable != null)
+			if (SelectedLabel != null)
 			{
 				_contacts.Add(contactViewModel);
 			}
@@ -131,11 +131,11 @@ namespace ipogonyshevNetTest.ViewModel
 			if (result)
 			{
 				RemoveContactFromList(SelectedContact);
-				foreach (var lable in Lables)
+				foreach (var label in Labels)
 				{
-					if (lable.Contacts.Contains(SelectedContact))
+					if (label.Contacts.Contains(SelectedContact))
 					{
-						lable.Contacts.Remove(SelectedContact);
+						label.Contacts.Remove(SelectedContact);
 					}
 				}
 
@@ -173,11 +173,11 @@ namespace ipogonyshevNetTest.ViewModel
 
 		}
 
-		private void AddLableForContact()
+		private void AddLabelForContact()
 		{
-			if (!SelectedLableForContact.Contacts.Contains(SelectedContact))
+			if (!SelectedLabelForContact.Contacts.Contains(SelectedContact))
 			{
-				SelectedLableForContact.Contacts.Add(SelectedContact);
+				SelectedLabelForContact.Contacts.Add(SelectedContact);
 			}
 		}
 
@@ -186,98 +186,98 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void ShowAllContacts()
 		{
-			SelectedLable = null;
+			SelectedLabel = null;
 		}
 
-		private void LableViewModel_OnDelete(object sender, System.EventArgs e)
+		private void LabelViewModel_OnDelete(object sender, System.EventArgs e)
 		{
-			var lableViewModel = (LableViewModel)sender;
-			var confirm = MessageBox.Show("Are you really want delete lable?",
-				"Delete lable",
+			var labelViewModel = (LabelViewModel)sender;
+			var confirm = MessageBox.Show("Are you really want delete label?",
+				"Delete label",
 				MessageBoxButton.YesNo,
 				MessageBoxImage.Warning);
 			if (confirm != MessageBoxResult.Yes)
 				return;
 
-			var result = _contactService.DeleteLable(lableViewModel.GetLable());
+			var result = _contactService.DeleteLabel(labelViewModel.GetLabel());
 			if (result)
 			{
-				RemoveLableFromList(lableViewModel);
+				RemoveLabelFromList(labelViewModel);
 			}
 		}
 
-		private void ContactViewModel_OnRemoveFromLable(object sender, EventArgs e)
+		private void ContactViewModel_OnRemoveFromLabel(object sender, EventArgs e)
 		{
 			var contactViewModel = (ContactViewModel)sender;
-			SelectedLable.Contacts.Remove(contactViewModel);
+			SelectedLabel.Contacts.Remove(contactViewModel);
 		}
 
-		private void LableViewModel_OnEdit(object sender, System.EventArgs e)
+		private void LabelViewModel_OnEdit(object sender, System.EventArgs e)
 		{
-			var lableViewModel = (LableViewModel)sender;
-			EditLableOnList(lableViewModel);
+			var labelViewModel = (LabelViewModel)sender;
+			EditLabelOnList(labelViewModel);
 		}
 
 		private void AddContactToList(ContactViewModel contactViewModel)
 		{
-			contactViewModel.OnRemoveFromLable += ContactViewModel_OnRemoveFromLable;
+			contactViewModel.OnRemoveFromLabel += ContactViewModel_OnRemoveFromLabel;
 			_contacts.Add(contactViewModel);
 		}
 
 		private void RemoveContactFromList(ContactViewModel contactViewModel)
 		{
-			contactViewModel.OnRemoveFromLable -= ContactViewModel_OnRemoveFromLable;
+			contactViewModel.OnRemoveFromLabel -= ContactViewModel_OnRemoveFromLabel;
 			_contacts.Remove(contactViewModel);
 		}
 
-		private void AddLableToList(LableViewModel lableViewModel)
+		private void AddLabelToList(LabelViewModel labelViewModel)
 		{
-			lableViewModel.OnDelete += LableViewModel_OnDelete;
-			lableViewModel.OnEdit += LableViewModel_OnEdit;
-			Lables.Add(lableViewModel);
+			labelViewModel.OnDelete += LabelViewModel_OnDelete;
+			labelViewModel.OnEdit += LabelViewModel_OnEdit;
+			Labels.Add(labelViewModel);
 		}
 
-		private void RemoveLableFromList(LableViewModel lableViewModel)
+		private void RemoveLabelFromList(LabelViewModel labelViewModel)
 		{
-			lableViewModel.OnDelete -= LableViewModel_OnDelete;
-			lableViewModel.OnEdit -= LableViewModel_OnEdit;
-			Lables.Remove(lableViewModel);
+			labelViewModel.OnDelete -= LabelViewModel_OnDelete;
+			labelViewModel.OnEdit -= LabelViewModel_OnEdit;
+			Labels.Remove(labelViewModel);
 		}
 
-		private void AddLable()
+		private void AddLabel()
 		{
-			var lableViewModel = new LableViewModel();
-			var labelWindowViewModel = new LableWindowViewModel(lableViewModel, Lables.ToList())
+			var labelViewModel = new LabelViewModel();
+			var labelWindowViewModel = new LabelWindowViewModel(labelViewModel, Labels.ToList())
 			{
 				Title = "Add label"
 			};
-			var window = new LableWindow(labelWindowViewModel);
+			var window = new LabelWindow(labelWindowViewModel);
 			if (window.ShowDialog() == true)
 			{
-				var result = _contactService.CreateLable(lableViewModel.GetLable());
+				var result = _contactService.CreateLabel(labelViewModel.GetLabel());
 				if (result)
 				{
-					lableViewModel.Save();
-					AddLableToList(lableViewModel);
+					labelViewModel.Save();
+					AddLabelToList(labelViewModel);
 				}
 			};
 		}
 
-		private void EditLableOnList(LableViewModel lableViewModel)
+		private void EditLabelOnList(LabelViewModel labelViewModel)
 		{
-			var labelWindowViewModel = new LableWindowViewModel(lableViewModel, Lables.ToList())
+			var labelWindowViewModel = new LabelWindowViewModel(labelViewModel, Labels.ToList())
 			{
 				Title = "Edit label"
 			};
-			var window = new LableWindow(labelWindowViewModel);
+			var window = new LabelWindow(labelWindowViewModel);
 			if (window.ShowDialog() == true)
 			{
-				if (lableViewModel.IsDirty)
+				if (labelViewModel.IsDirty)
 				{
-					var result = _contactService.UpdateLable(lableViewModel.GetLable());
+					var result = _contactService.UpdateLabel(labelViewModel.GetLabel());
 					if (result)
 					{
-						lableViewModel.Save();
+						labelViewModel.Save();
 					}
 				}
 			};

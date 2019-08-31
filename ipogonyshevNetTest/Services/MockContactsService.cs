@@ -6,7 +6,7 @@ namespace ipogonyshevNetTest.Services
 	class MockContactsService : IContactService
 	{
 		private readonly List<Contact> _listContacts;
-		private readonly List<Lable> _listLables;
+		private readonly List<Label> _listLabels;
 
 		public MockContactsService()
 		{
@@ -37,21 +37,21 @@ namespace ipogonyshevNetTest.Services
 			_listContacts.Add(contact2);
 			_listContacts.Add(contact3);
 
-			_listLables = new List<Lable>();
-			var lable1 = new Lable
+			_listLabels = new List<Label>();
+			var label1 = new Label
 			{
 				Id = "1",
 				Name = "Lalka"
 			};
-			lable1.Contacts.Add(contact1);
-			var lable2 = new Lable
+			label1.Contacts.Add(contact1);
+			var label2 = new Label
 			{
 				Id = "2",
 				Name = "MyBand"
 			};
-			lable2.Contacts.Add(contact2);
-			_listLables.Add(lable1);
-			_listLables.Add(lable2);
+			label2.Contacts.Add(contact2);
+			_listLabels.Add(label1);
+			_listLabels.Add(label2);
 		}
 
 
@@ -77,29 +77,29 @@ namespace ipogonyshevNetTest.Services
 			return true;
 		}
 
-		public List<Lable> GetAllLables()
+		public List<Label> GetAllLabels()
 		{
-			return _listLables;
+			return _listLabels;
 		}
 
-		public bool CreateLable(Lable lable)
+		public bool CreateLabel(Label label)
 		{
-			_listLables.Add(lable);
+			_listLabels.Add(label);
 			return true;
 		}
 
-		public bool RenameLable(Lable lable)
+		public bool RenameLabel(Label label)
 		{
 			return true;
 		}
 
-		public bool DeleteLable(Lable lable)
+		public bool DeleteLabel(Label label)
 		{
-			_listLables.Remove(lable);
+			_listLabels.Remove(label);
 			return true;
 		}
 
-		public bool UpdateLable(Lable lable)
+		public bool UpdateLabel(Label label)
 		{
 			return true;
 		}

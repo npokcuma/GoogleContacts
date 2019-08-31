@@ -25,7 +25,7 @@ namespace ipogonyshevNetTest.ViewModel
 			IsNew = true;
 			Background=new SolidColorBrush(Colors.LightGreen);
 
-			RemoveFromLableCommand = new RelayCommand(RemoveFromLable, () => true);
+			RemoveFromLabelCommand = new RelayCommand(RemoveFromLabel, () => true);
 		}
 
 		public ContactViewModel(Contact contact)
@@ -37,10 +37,10 @@ namespace ipogonyshevNetTest.ViewModel
 			EmailAddress = contact.EmailAddress;
 			IsNew = false;
 
-			RemoveFromLableCommand = new RelayCommand(RemoveFromLable, () => true);
+			RemoveFromLabelCommand = new RelayCommand(RemoveFromLabel, () => true);
 		}
 
-		public event EventHandler<EventArgs> OnRemoveFromLable;
+		public event EventHandler<EventArgs> OnRemoveFromLabel;
 
 
 		public string Id
@@ -83,7 +83,7 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
-		public ObservableCollection<LableViewModel> Lables { get; set; }
+		public ObservableCollection<LabelViewModel> Labels { get; set; }
 
 		public bool IsNew
 		{
@@ -107,7 +107,7 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
-		public RelayCommand RemoveFromLableCommand { get; set; }
+		public RelayCommand RemoveFromLabelCommand { get; set; }
 
 		public Brush Background
 		{
@@ -142,9 +142,9 @@ namespace ipogonyshevNetTest.ViewModel
 			IsNew = false;
 		}
 
-		private void RemoveFromLable()
+		private void RemoveFromLabel()
 		{
-			OnRemoveFromLable?.Invoke(this, null);
+			OnRemoveFromLabel?.Invoke(this, null);
 		}
 	}
 }

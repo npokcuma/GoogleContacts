@@ -13,13 +13,13 @@ namespace ipogonyshevNetTest.Services
 
 		bool UpdateContact(Contact contact);
 
-		List<Lable> GetAllLables();
+		List<Label> GetAllLabels();
 
-		bool CreateLable(Lable lable);
+		bool CreateLabel(Label label);
 
-		bool RenameLable(Lable lable);
+		bool RenameLabel(Label label);
 
-		bool DeleteLable(Lable lable);
-		bool UpdateLable(Lable lable);
+		bool DeleteLabel(Label label);
+		bool UpdateLabel(Label label);
 	}
 }
