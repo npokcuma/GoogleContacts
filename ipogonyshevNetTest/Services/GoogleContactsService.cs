@@ -1,65 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Google;
+using Google.Apis.Auth.OAuth2;
 using Google.Apis.PeopleService.v1;
 using Google.Apis.PeopleService.v1.Data;
+using Google.Apis.Services;
+using Google.Apis.Util;
 using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.Services
 {
 	internal class GoogleContactsService : IContactService
 	{
+		private const string ClientId = "1062889216556-s7mbmuqve920v01a0c48d4l9atfgde2b.apps.googleusercontent.com";
+		private const string ClientSecret = "pgKMMKqoItVymM2M3XP0p3HL";
+
 		private static PeopleServiceService _service;
-		private List<Contact> _listContacts;
-		private List<Label> _listLabels;
+		private List<Contact> _listContacts = new List<Contact>();
+		private List<Label> _listLabels = new List<Label>();
 		private IList<Person> _listPerson;
 		private IList<ContactGroup> _listGroups;
 
 		public GoogleContactsService()
 		{
-			_service = Authorization.GetGooglePeopleService();
+			Authorize();
 		}
 
-		private void ReloadContacts()
+
+		public void Authorize()
 		{
-			var groupRequest = new ContactGroupsResource(_service).List();
-			var response = groupRequest.Execute();
+			var userCredential = GetUserCredential();
 
-			_listGroups = response.ContactGroups;
-			var allGroups = _listGroups.Select(group => new Label
+			if (userCredential.Token.IsExpired(SystemClock.Default))
 			{
-				Id = group.ResourceName,
-				Name = group.FormattedName
-			}).ToList();
-			_listLabels = allGroups;
-
-			var peopleRequest = _service.People.Connections.List("people/me");
-			peopleRequest.PersonFields = "addresses,ageRanges,biographies,birthdays,braggingRights,coverPhotos,emailAddresses,events,genders,imClients,interests,locales,memberships,metadata,names,nicknames,occupations,organizations,phoneNumbers,photos,relations,relationshipInterests,relationshipStatuses,residences,sipAddresses,skills,taglines,urls,userDefined";
-			peopleRequest.SortOrder = (PeopleResource.ConnectionsResource.ListRequest.SortOrderEnum)1;
-			peopleRequest.PageSize = 1000;
-			var personResponse = peopleRequest.Execute();
-
-			_listPerson = personResponse.Connections;
-			_listContacts = new List<Contact>();
-			foreach (var person in _listPerson)
-			{
-				var contact = new Contact
-				{
-					FirstName = person.Names?[0]?.GivenName,
-					Surname = person.Names?[0]?.FamilyName,
-					MiddleName = person.Names?[0]?.MiddleName,
-					PhoneNumber = Convert.ToString(person.PhoneNumbers?[0]?.CanonicalForm),
-					EmailAddress = Convert.ToString(person.EmailAddresses?[0]?.Value),
-					Id = person.ResourceName
-				};
-				_listContacts.Add(contact);
-
-				foreach (var membership in person.Memberships)
-				{
-					_listLabels.First(l => l.Id == membership.ContactGroupMembership.ContactGroupResourceName).Contacts.Add(contact);
-				}
+				var refresh = userCredential.RefreshTokenAsync(CancellationToken.None).Result;
 			}
+
+			var service = new PeopleServiceService(new BaseClientService.Initializer()
+			{
+				HttpClientInitializer = userCredential,
+				ApplicationName = "NetTest",
+			});
+
+			_service = service;
+		}
+
+		public void LogOut()
+		{
+			if (_service != null)
+			{
+				var credential = GetUserCredential();
+
+				if (credential.Token.IsExpired(SystemClock.Default))
+				{
+					var refresh = credential.RefreshTokenAsync(CancellationToken.None).Result;
+				}
+				var revoke = credential.RevokeTokenAsync(CancellationToken.None).Result;
+			}
+
+			_service = null;
+		}
+
+		public bool IsLoggedIn()
+		{
+			return _service != null;
 		}
 
 		public List<Contact> GetAllContacts()
@@ -70,6 +77,9 @@ namespace ipogonyshevNetTest.Services
 
 		public bool DeleteContact(Contact contact)
 		{
+			if (!IsLoggedIn())
+				return false;
+
 			var person = _listPerson.First(p => p.ResourceName == contact.Id);
 
 			try
@@ -93,6 +103,9 @@ namespace ipogonyshevNetTest.Services
 
 		public string CreateContact(Contact contact)
 		{
+			if (!IsLoggedIn())
+				return null;
+
 			var person = new Person
 			{
 				Names = new List<Name>
@@ -118,6 +131,9 @@ namespace ipogonyshevNetTest.Services
 
 		public bool UpdateContact(Contact contact)
 		{
+			if (!IsLoggedIn())
+				return false;
+
 			var person = _listPerson.First(p => p.ResourceName == contact.Id);
 			if (person.Names == null)
 			{
@@ -168,6 +184,9 @@ namespace ipogonyshevNetTest.Services
 
 		public string CreateLabel(Label label)
 		{
+			if (!IsLoggedIn())
+				return null;
+
 			var createContactGroupRequest = new CreateContactGroupRequest
 			{
 				ContactGroup = new ContactGroup
@@ -184,6 +203,9 @@ namespace ipogonyshevNetTest.Services
 
 		public bool DeleteLabel(Label label)
 		{
+			if (!IsLoggedIn())
+				return false;
+
 			var group = _listGroups.First(g => g.ResourceName == label.Id);
 
 			try
@@ -207,6 +229,9 @@ namespace ipogonyshevNetTest.Services
 
 		public bool UpdateLabel(Label label)
 		{
+			if (!IsLoggedIn())
+				return false;
+
 			var group = _listGroups.First(g => g.ResourceName == label.Id);
 			group.Name = label.Name;
 			var updateContactGroupRequest = new UpdateContactGroupRequest
@@ -224,6 +249,9 @@ namespace ipogonyshevNetTest.Services
 
 		public bool AddLabelToContact(Contact contact, Label label)
 		{
+			if (!IsLoggedIn())
+				return false;
+
 			var modifyContactGroupMembersRequest = new ModifyContactGroupMembersRequest
 			{
 				ResourceNamesToAdd = new List<string>
@@ -241,6 +269,9 @@ namespace ipogonyshevNetTest.Services
 
 		public bool RemoveLabelFromContact(Contact contact, Label label)
 		{
+			if (!IsLoggedIn())
+				return false;
+
 			var modifyContactGroupMembersRequest = new ModifyContactGroupMembersRequest
 			{
 				ResourceNamesToRemove = new List<string>
@@ -255,5 +286,62 @@ namespace ipogonyshevNetTest.Services
 
 			return true;
 		}
+
+
+		private static UserCredential GetUserCredential()
+		{
+			var userCredential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+				new ClientSecrets { ClientId = ClientId, ClientSecret = ClientSecret },
+				new[] { "profile", "https://www.google.com/m8/feeds/contacts/default/full" },
+				"me",
+				CancellationToken.None).Result;
+
+			return userCredential;
+		}
+
+		private void ReloadContacts()
+		{
+			if (!IsLoggedIn())
+				return;
+
+			var groupRequest = _service.ContactGroups.List();
+			var response = groupRequest.Execute();
+
+			_listGroups = response.ContactGroups;
+			var allGroups = _listGroups.Select(group => new Label
+			{
+				Id = group.ResourceName,
+				Name = group.FormattedName
+			}).ToList();
+			_listLabels = allGroups;
+
+			var peopleRequest = _service.People.Connections.List("people/me");
+			peopleRequest.PersonFields = "addresses,ageRanges,biographies,birthdays,braggingRights,coverPhotos,emailAddresses,events,genders,imClients,interests,locales,memberships,metadata,names,nicknames,occupations,organizations,phoneNumbers,photos,relations,relationshipInterests,relationshipStatuses,residences,sipAddresses,skills,taglines,urls,userDefined";
+			peopleRequest.SortOrder = (PeopleResource.ConnectionsResource.ListRequest.SortOrderEnum)1;
+			peopleRequest.PageSize = 1000;
+			var personResponse = peopleRequest.Execute();
+
+			_listPerson = personResponse.Connections;
+			_listContacts = new List<Contact>();
+			foreach (var person in _listPerson)
+			{
+				var contact = new Contact
+				{
+					FirstName = person.Names?[0]?.GivenName,
+					Surname = person.Names?[0]?.FamilyName,
+					MiddleName = person.Names?[0]?.MiddleName,
+					PhoneNumber = Convert.ToString(person.PhoneNumbers?[0]?.CanonicalForm),
+					EmailAddress = Convert.ToString(person.EmailAddresses?[0]?.Value),
+					Id = person.ResourceName
+				};
+				_listContacts.Add(contact);
+
+				foreach (var membership in person.Memberships)
+				{
+					_listLabels.First(l => l.Id == membership.ContactGroupMembership.ContactGroupResourceName).Contacts.Add(contact);
+				}
+			}
+		}
+
 	}
 }

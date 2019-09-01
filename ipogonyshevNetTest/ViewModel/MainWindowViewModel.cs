@@ -25,24 +25,13 @@ namespace ipogonyshevNetTest.ViewModel
 		{
 			_contactService = contactService;
 
-			var contacts = _contactService.GetAllContacts();
-			foreach (var contact in contacts)
+			if (_contactService.IsLoggedIn())
 			{
-				var contactViewModel = new ContactViewModel(contact);
-				AddContactToList(contactViewModel);
+				FillContacts();
 			}
 
-			var labels = _contactService.GetAllLabels();
-			foreach (var label in labels)
-			{
-				var labelViewModel = new LabelViewModel(label);
-				foreach (var contact in labelViewModel.Entity.Contacts)
-				{
-					var contactViewModel = Contacts.First(c => c.Id == contact.Id);
-					labelViewModel.Contacts.Add(contactViewModel);
-				}
-				AddLabelToList(labelViewModel);
-			}
+			AuthorizeCommand = new RelayCommand(Authorize, () => true);
+			LogOutCommand = new RelayCommand(LogOut, () => true);
 
 			AddContactCommand = new RelayCommand(AddContact, () => true);
 			DeleteContactCommand = new RelayCommand(DeleteContact, IsAnyContactSelected);
@@ -70,6 +59,8 @@ namespace ipogonyshevNetTest.ViewModel
 		public int ContactsCount => _contacts.Count;
 
 		public ObservableCollection<LabelViewModel> Labels { get; set; } = new ObservableCollection<LabelViewModel>();
+
+		public bool IsAuthorized => _contactService.IsLoggedIn();
 
 		public ContactViewModel SelectedContact
 		{
@@ -103,6 +94,10 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		public RelayCommand AuthorizeCommand { get; set; }
+
+		public RelayCommand LogOutCommand { get; set; }
+
 		public RelayCommand AddContactCommand { get; set; }
 
 		public RelayCommand SaveContactCommand { get; set; }
@@ -115,6 +110,57 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public RelayCommand ShowAllContactsCommand { get; set; }
 
+
+		private void Authorize()
+		{
+			_contactService.Authorize();
+			FillContacts();
+		}
+
+		private void LogOut()
+		{
+			_contactService.LogOut();
+			ClearContacts();
+		}
+
+		private void FillContacts()
+		{
+			var contacts = _contactService.GetAllContacts();
+			_contacts = new ObservableCollection<ContactViewModel>();
+			foreach (var contact in contacts)
+			{
+				var contactViewModel = new ContactViewModel(contact);
+				AddContactToList(contactViewModel);
+			}
+
+			var labels = _contactService.GetAllLabels();
+			Labels = new ObservableCollection<LabelViewModel>();
+			foreach (var label in labels)
+			{
+				var labelViewModel = new LabelViewModel(label);
+				foreach (var contact in labelViewModel.Entity.Contacts)
+				{
+					var contactViewModel = Contacts.First(c => c.Id == contact.Id);
+					labelViewModel.Contacts.Add(contactViewModel);
+				}
+				AddLabelToList(labelViewModel);
+			}
+
+			RaisePropertyChanged(nameof(IsAuthorized));
+			RaisePropertyChanged(nameof(Contacts));
+			RaisePropertyChanged(nameof(ContactsCount));
+			RaisePropertyChanged(nameof(Labels));
+		}
+
+		private void ClearContacts()
+		{
+			_contacts = new ObservableCollection<ContactViewModel>();
+			Labels = new ObservableCollection<LabelViewModel>();
+			RaisePropertyChanged(nameof(IsAuthorized));
+			RaisePropertyChanged(nameof(Contacts));
+			RaisePropertyChanged(nameof(ContactsCount));
+			RaisePropertyChanged(nameof(Labels));
+		}
 
 		private void AddContact()
 		{

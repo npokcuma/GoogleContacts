@@ -92,6 +92,7 @@
 
 		<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 		<converters:DirtyToColorConverter x:Key="DirtyToColorConverter" />
+		<converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 	</Window.Resources>
 
 	<Grid>
@@ -106,10 +107,23 @@
 			<RowDefinition Height="50" />
 		</Grid.RowDefinitions>
 
-		<Button Width="200"
+		<Button Grid.Row="0"
+				Grid.Column="0"
+				Width="200"
 				Height="30"
 				Margin="10"
-				Content="Autorization" />
+				Command="{Binding AuthorizeCommand}"
+				Content="Authorize"
+				Visibility="{Binding IsAuthorized, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='not'}" />
+
+		<Button Grid.Row="0"
+				Grid.Column="0"
+				Width="200"
+				Height="30"
+				Margin="10"
+				Command="{Binding LogOutCommand}"
+				Content="Log out"
+				Visibility="{Binding IsAuthorized, Converter={StaticResource BoolToVisibilityConverter}}" />
 
 		<StackPanel Grid.Row="0"
 					Grid.Column="1"

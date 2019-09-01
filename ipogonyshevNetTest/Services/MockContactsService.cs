@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.Services
@@ -8,6 +9,7 @@ namespace ipogonyshevNetTest.Services
 	{
 		private readonly List<Contact> _listContacts;
 		private readonly List<Label> _listLabels;
+		private bool _isLoggedIn;
 
 		public MockContactsService()
 		{
@@ -60,6 +62,21 @@ namespace ipogonyshevNetTest.Services
 			_listLabels.Add(label2);
 		}
 
+
+		public void Authorize()
+		{
+			_isLoggedIn = true;
+		}
+
+		public void LogOut()
+		{
+			_isLoggedIn = false;
+		}
+
+		public bool IsLoggedIn()
+		{
+			return _isLoggedIn;
+		}
 
 		public List<Contact> GetAllContacts()
 		{

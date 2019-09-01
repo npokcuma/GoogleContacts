@@ -5,6 +5,13 @@ namespace ipogonyshevNetTest.Services
 {
 	public interface IContactService
 	{
+		void Authorize();
+
+		void LogOut();
+
+		bool IsLoggedIn();
+
+
 		List<Contact> GetAllContacts();
 
 		bool DeleteContact(Contact contact);
