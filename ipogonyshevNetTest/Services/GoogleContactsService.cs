@@ -329,7 +329,15 @@ namespace ipogonyshevNetTest.Services
 			var groupRequest = _service.ContactGroups.List();
 			var response = groupRequest.Execute();
 
-			_listGroups = response.ContactGroups;
+			var listGroups = response.ContactGroups;
+			_listGroups = listGroups.Where(g => !(g.ResourceName == "contactGroups/chatBuddies" ||
+																		 g.ResourceName == "contactGroups/all" ||
+																		 g.ResourceName == "contactGroups/friends" ||
+																		 g.ResourceName == "contactGroups/family" ||
+																		 g.ResourceName == "contactGroups/coworkers" ||
+																		 g.ResourceName == "contactGroups/blocked"))
+																		.ToList();
+
 			var allGroups = _listGroups.Select(group => new Label
 			{
 				Id = group.ResourceName,
