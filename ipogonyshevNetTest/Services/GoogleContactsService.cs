@@ -75,32 +75,6 @@ namespace ipogonyshevNetTest.Services
 			return _listContacts;
 		}
 
-		public bool DeleteContact(Contact contact)
-		{
-			if (!IsLoggedIn())
-				return false;
-
-			var person = _listPerson.First(p => p.ResourceName == contact.Id);
-
-			try
-			{
-				var peopleRequest = _service.People.DeleteContact(person.ResourceName);
-				peopleRequest.Execute();
-			}
-			catch (GoogleApiException ex)
-			{
-				Console.WriteLine(ex);
-
-				// Contact was previously deleted from Google Contacts
-				if (ex.Error.Code != 404)
-					return false;
-			}
-
-			_listPerson.Remove(person);
-
-			return true;
-		}
-
 		public string CreateContact(Contact contact)
 		{
 			if (!IsLoggedIn())
@@ -129,6 +103,32 @@ namespace ipogonyshevNetTest.Services
 			ReloadContacts();
 
 			return person.ResourceName;
+		}
+
+		public bool DeleteContact(Contact contact)
+		{
+			if (!IsLoggedIn())
+				return false;
+
+			var person = _listPerson.First(p => p.ResourceName == contact.Id);
+
+			try
+			{
+				var peopleRequest = _service.People.DeleteContact(person.ResourceName);
+				peopleRequest.Execute();
+			}
+			catch (GoogleApiException ex)
+			{
+				Console.WriteLine(ex);
+
+				// Contact was previously deleted from Google Contacts
+				if (ex.Error.Code != 404)
+					return false;
+			}
+
+			_listPerson.Remove(person);
+
+			return true;
 		}
 
 		public bool UpdateContact(Contact contact)
