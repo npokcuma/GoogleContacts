@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Google;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.PeopleService.v1;
@@ -10,13 +9,18 @@ using Google.Apis.PeopleService.v1.Data;
 using Google.Apis.Services;
 using Google.Apis.Util;
 using ipogonyshevNetTest.Model;
-/// <summary>
-/// Here we use google libraries to work on the API.
-/// </summary>
+
 namespace ipogonyshevNetTest.Services
 {
+	/// <summary>
+	/// Here we use google libraries to work on the API.
+	/// </summary>
 	internal class GoogleContactsService : IContactService
 	{
+		/// <summary>
+		/// For authorization, you must obtain ClientId and ClientSecret in advance for our application.
+		/// We will use this to get a token. It is necessary to work on the API with Google.
+		/// </summary>
 		private const string ClientId = "1062889216556-s7mbmuqve920v01a0c48d4l9atfgde2b.apps.googleusercontent.com";
 		private const string ClientSecret = "pgKMMKqoItVymM2M3XP0p3HL";
 

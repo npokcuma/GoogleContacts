@@ -20,6 +20,7 @@ namespace ipogonyshevNetTest.ViewModel
 		public MainWindowViewModel()
 		{
 		}
+
 		/// <summary>
 		/// Create a viewmodel of our application and fill it with functionality
 		/// </summary>
@@ -70,7 +71,6 @@ namespace ipogonyshevNetTest.ViewModel
 		/// <summary>
 		/// If the contact is highlighted, make active the delete, save, add a contact to the group buttons.
 		/// </summary>
-
 		public ContactViewModel SelectedContact
 		{
 			get => _selectedContact;
