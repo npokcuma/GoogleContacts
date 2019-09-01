@@ -4,6 +4,9 @@ using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.Services
 {
+	/// <summary>
+	/// A "mock" for checking the health of an application without working with GoogleContacts.
+	/// </summary>
 	class MockContactsService : IContactService
 	{
 		private readonly List<Contact> _listContacts;

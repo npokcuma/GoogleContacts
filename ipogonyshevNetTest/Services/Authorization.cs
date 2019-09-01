@@ -7,6 +7,10 @@ namespace ipogonyshevNetTest.Services
 {
 	internal static class Authorization
 	{
+		/// <summary>
+		/// For authorization, you must obtain ClientId and ClientSecret in advance for our application.
+		/// We will use this to get a token. It is necessary to work on the API with Google.
+		/// </summary>
 		private static readonly ClientSecrets ClientSecrets = new ClientSecrets
 		{
 			ClientId = "1062889216556-s7mbmuqve920v01a0c48d4l9atfgde2b.apps.googleusercontent.com",

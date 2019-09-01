@@ -5,7 +5,9 @@ using Google;
 using Google.Apis.PeopleService.v1;
 using Google.Apis.PeopleService.v1.Data;
 using ipogonyshevNetTest.Model;
-
+/// <summary>
+/// Here we use google libraries to work on the API.
+/// </summary>
 namespace ipogonyshevNetTest.Services
 {
 	internal class GoogleContactsService : IContactService
@@ -16,10 +18,14 @@ namespace ipogonyshevNetTest.Services
 		private IList<Person> _listPerson;
 		private IList<ContactGroup> _listGroups;
 
+		/// <summary>
+		/// We go through authorization, get a token for working with GoogleContacts.
+		/// </summary>
 		public GoogleContactsService()
 		{
 			_service = Authorization.GetGooglePeopleService();
 		}
+
 
 		private void ReloadContacts()
 		{
@@ -62,6 +68,9 @@ namespace ipogonyshevNetTest.Services
 			}
 		}
 
+		/// <summary>
+		/// Get a list of contacts and groups from google account.
+		/// </summary>
 		public List<Contact> GetAllContacts()
 		{
 			ReloadContacts();

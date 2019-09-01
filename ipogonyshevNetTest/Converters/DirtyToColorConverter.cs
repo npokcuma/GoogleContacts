@@ -4,6 +4,9 @@ using System.Windows.Media;
 
 namespace ipogonyshevNetTest.Converters
 {
+	/// <summary>
+	/// Converter for coloring a new or changed contact green and vice versa when saving.
+	/// </summary>
 	public class DirtyToColorConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
