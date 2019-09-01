@@ -3,6 +3,9 @@ using ipogonyshevNetTest.Model;
 
 namespace ipogonyshevNetTest.Services
 {
+	/// <summary>
+	/// Interface for working with contacts, groups.
+	/// </summary>
 	public interface IContactService
 	{
 		void Authorize();

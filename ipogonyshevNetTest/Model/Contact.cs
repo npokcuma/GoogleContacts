@@ -5,6 +5,9 @@ namespace ipogonyshevNetTest.Model
 {
 	public class Contact : ViewModelBase
 	{
+		/// <summary>
+		/// Create a unique id.
+		/// </summary>
 		public Contact()
 		{
 			Id = Guid.NewGuid().ToString();

@@ -5,6 +5,9 @@ namespace ipogonyshevNetTest.Model
 {
 	public class Label
 	{
+		/// <summary>
+		/// Create a unique id.
+		/// </summary>
 		public Label()
 		{
 			Id = Guid.NewGuid().ToString();

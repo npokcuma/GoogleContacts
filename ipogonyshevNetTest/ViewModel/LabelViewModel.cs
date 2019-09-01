@@ -34,9 +34,14 @@ namespace ipogonyshevNetTest.ViewModel
 			EditCommand = new RelayCommand(Edit, () => true);
 		}
 
-
+		/// <summary>
+		/// Event that occurs when a group is deleted.
+		/// </summary>
 		public event EventHandler<EventArgs> OnDelete;
 
+		/// <summary>
+		/// Event that occurs when a group is renamed.
+		/// </summary>
 		public event EventHandler<EventArgs> OnEdit;
 
 
@@ -64,6 +69,9 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// A Group had changed.
+		/// </summary>
 		public bool IsDirty
 		{
 			get
@@ -79,6 +87,9 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public RelayCommand EditCommand { get; set; }
 
+		/// <summary>
+		/// A group is new.
+		/// </summary>
 		private bool IsNew
 		{
 			get => _isNew;
@@ -90,7 +101,10 @@ namespace ipogonyshevNetTest.ViewModel
 		}
 
 
-
+		/// <summary>
+		/// Create an instance of the group.
+		/// </summary>
+		/// <returns></returns>
 		public Label GetLabel()
 		{
 			var label = new Label
@@ -108,11 +122,17 @@ namespace ipogonyshevNetTest.ViewModel
 			IsNew = false;
 		}
 
+		/// <summary>
+		/// Pass the event to MainWindowViewModel.
+		/// </summary>
 		private void Delete()
 		{
 			OnDelete?.Invoke(this, null);
 		}
 
+		/// <summary>
+		/// Pass the event to MainWindowViewModel.
+		/// </summary>
 		private void Edit()
 		{
 			OnEdit?.Invoke(this, null);

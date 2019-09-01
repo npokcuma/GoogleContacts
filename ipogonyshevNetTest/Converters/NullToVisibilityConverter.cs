@@ -4,6 +4,9 @@ using System.Windows.Data;
 
 namespace ipogonyshevNetTest.Converters
 {
+	/// <summary>
+	/// Converter for working with object visibility in View.
+	/// </summary>
 	public class NullToVisibilityConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

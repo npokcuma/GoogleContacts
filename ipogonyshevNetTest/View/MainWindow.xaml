@@ -276,11 +276,16 @@
 					Grid.Column="1"
 					HorizontalAlignment="Center"
 					Orientation="Horizontal">
-			<Button Width="200"
-					Height="35"
-					Margin="20,0"
-					Command="{Binding AddContactCommand}"
-					Content="Add new contact" />
+			<Button
+				Width="200"
+				Height="35"
+				Margin="20,0"
+				Command="{Binding AddContactCommand}">
+				<WrapPanel>
+					<Image Source="/Properties/GooglePlus.ico" Width="16" Height="16" Margin="0,0,5,0" />
+					<TextBlock Text="Add new contact" Foreground="Black"  FontSize="12" FontWeight="Normal"/>
+				</WrapPanel>
+			</Button>
 			<Button Width="200"
 					Height="35"
 					Margin="20,0"

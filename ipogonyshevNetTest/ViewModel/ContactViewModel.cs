@@ -16,6 +16,9 @@ namespace ipogonyshevNetTest.ViewModel
 		private string _middleName;
 		private string _surname;
 
+		/// <summary>
+		/// Create a new contact and fill it with functionality.
+		/// </summary>
 		public ContactViewModel()
 		{
 			_contact = new Contact();
@@ -26,6 +29,10 @@ namespace ipogonyshevNetTest.ViewModel
 			RemoveFromLabelCommand = new RelayCommand(RemoveFromLabel, () => true);
 		}
 
+		/// <summary>
+		/// Add existing contacts.
+		/// </summary>
+		/// <param name="contact"></param>
 		public ContactViewModel(Contact contact)
 		{
 			_contact = contact;
@@ -40,6 +47,9 @@ namespace ipogonyshevNetTest.ViewModel
 			RemoveFromLabelCommand = new RelayCommand(RemoveFromLabel, () => true);
 		}
 
+		/// <summary>
+		/// The event of removing a contact from the group.
+		/// </summary>
 		public event EventHandler<EventArgs> OnRemoveFromLabel;
 
 
@@ -108,6 +118,9 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// A contact is new.
+		/// </summary>
 		public bool IsNew
 		{
 			get => _isNew;
@@ -118,6 +131,9 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// A contact had changed.
+		/// </summary>
 		public bool IsDirty
 		{
 			get
@@ -160,6 +176,9 @@ namespace ipogonyshevNetTest.ViewModel
 			IsNew = false;
 		}
 
+		/// <summary>
+		/// Pass the event to MainWindowViewModel.
+		/// </summary>
 		private void RemoveFromLabel()
 		{
 			OnRemoveFromLabel?.Invoke(this, null);

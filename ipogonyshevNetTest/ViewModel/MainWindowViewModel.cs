@@ -20,7 +20,10 @@ namespace ipogonyshevNetTest.ViewModel
 		public MainWindowViewModel()
 		{
 		}
-
+		/// <summary>
+		/// Create a viewmodel of our application and fill it with functionality
+		/// </summary>
+		/// <param name="contactService"></param>
 		public MainWindowViewModel(IContactService contactService)
 		{
 			_contactService = contactService;
@@ -42,7 +45,9 @@ namespace ipogonyshevNetTest.ViewModel
 			ShowAllContactsCommand = new RelayCommand(SelectNoLabel, () => true);
 		}
 
-
+		/// <summary>
+		/// Collection of contacts. In the case of a highlighted group, shows its members.
+		/// </summary>
 		public ObservableCollection<ContactViewModel> Contacts
 		{
 			get
@@ -61,6 +66,10 @@ namespace ipogonyshevNetTest.ViewModel
 		public ObservableCollection<LabelViewModel> Labels { get; set; } = new ObservableCollection<LabelViewModel>();
 
 		public bool IsAuthorized => _contactService.IsLoggedIn();
+
+		/// <summary>
+		/// If the contact is highlighted, make active the delete, save, add a contact to the group buttons.
+		/// </summary>
 
 		public ContactViewModel SelectedContact
 		{
@@ -98,16 +107,35 @@ namespace ipogonyshevNetTest.ViewModel
 
 		public RelayCommand LogOutCommand { get; set; }
 
+		/// <summary>
+		/// Adding a new contact.
+		/// </summary>
 		public RelayCommand AddContactCommand { get; set; }
 
+		/// <summary>
+		/// Saving a new contact.
+		/// </summary>
 		public RelayCommand SaveContactCommand { get; set; }
 
+		/// <summary>
+		/// Deleting a new contact.
+		/// </summary>
 		public RelayCommand DeleteContactCommand { get; set; }
 
+		/// <summary>
+		/// Adding a contact to a group.
+		/// </summary>
 		public RelayCommand AddLabelForContactCommand { get; set; }
 
+
+		/// <summary>
+		/// Adding a new label.
+		/// </summary>
 		public RelayCommand AddLabelCommand { get; set; }
 
+		/// <summary>
+		/// Show all contacts.
+		/// </summary>
 		public RelayCommand ShowAllContactsCommand { get; set; }
 
 

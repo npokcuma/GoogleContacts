@@ -35,8 +35,16 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Save new or changed label.
+		/// </summary>
 		public RelayCommand SaveCommand { get; set; }
 
+		/// <summary>
+		/// Validation: Processing input of invalid values.
+		/// </summary>
+		/// <param name="property"></param>
+		/// <returns></returns>
 		public string this[string property] => Validate();
 
 		public string Error { get; }
