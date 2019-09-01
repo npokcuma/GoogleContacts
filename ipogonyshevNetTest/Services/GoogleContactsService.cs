@@ -110,7 +110,13 @@ namespace ipogonyshevNetTest.Services
 			if (!IsLoggedIn())
 				return false;
 
-			var person = _listPerson.First(p => p.ResourceName == contact.Id);
+			var person = _listPerson.FirstOrDefault(p => p.ResourceName == contact.Id);
+			while (person == null)
+			{
+				ReloadContacts();
+				person = _listPerson.FirstOrDefault(p => p.ResourceName == contact.Id);
+				Thread.Sleep(1000);
+			}
 
 			try
 			{
