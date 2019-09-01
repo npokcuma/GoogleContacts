@@ -126,6 +126,8 @@ namespace ipogonyshevNetTest.Services
 			var peopleRequest = _service.People.CreateContact(person);
 			person = peopleRequest.Execute();
 
+			ReloadContacts();
+
 			return person.ResourceName;
 		}
 
@@ -197,6 +199,8 @@ namespace ipogonyshevNetTest.Services
 
 			var groupRequest = _service.ContactGroups.Create(createContactGroupRequest);
 			var response = groupRequest.Execute();
+
+			ReloadContacts();
 
 			return response.ResourceName;
 		}
@@ -321,8 +325,11 @@ namespace ipogonyshevNetTest.Services
 			peopleRequest.PageSize = 1000;
 			var personResponse = peopleRequest.Execute();
 
-			_listPerson = personResponse.Connections;
 			_listContacts = new List<Contact>();
+			if (personResponse.Connections == null)
+				return;
+
+			_listPerson = personResponse.Connections;
 			foreach (var person in _listPerson)
 			{
 				var contact = new Contact

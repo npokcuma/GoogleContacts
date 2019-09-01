@@ -27,7 +27,7 @@ namespace ipogonyshevNetTest.ViewModel
 
 			if (_contactService.IsLoggedIn())
 			{
-				FillContacts();
+				RefreshContacts();
 			}
 
 			AuthorizeCommand = new RelayCommand(Authorize, () => true);
@@ -114,7 +114,7 @@ namespace ipogonyshevNetTest.ViewModel
 		private void Authorize()
 		{
 			_contactService.Authorize();
-			FillContacts();
+			RefreshContacts();
 		}
 
 		private void LogOut()
@@ -123,7 +123,7 @@ namespace ipogonyshevNetTest.ViewModel
 			ClearContacts();
 		}
 
-		private void FillContacts()
+		private void RefreshContacts()
 		{
 			var contacts = _contactService.GetAllContacts();
 			_contacts = new ObservableCollection<ContactViewModel>();
@@ -213,12 +213,13 @@ namespace ipogonyshevNetTest.ViewModel
 						 _contactService.DeleteContact(SelectedContact.GetContact());
 			if (result)
 			{
+				var removedContact = SelectedContact;
 				RemoveContactFromList(SelectedContact);
 				foreach (var label in Labels)
 				{
-					if (label.Contacts.Contains(SelectedContact))
+					if (label.Contacts.Contains(removedContact))
 					{
-						label.Contacts.Remove(SelectedContact);
+						label.Contacts.Remove(removedContact);
 					}
 				}
 
