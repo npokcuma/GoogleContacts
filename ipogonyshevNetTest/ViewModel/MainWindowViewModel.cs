@@ -199,6 +199,7 @@ namespace ipogonyshevNetTest.ViewModel
 				_contacts.Insert(0, contactViewModel);
 			}
 			SelectedContact = contactViewModel;
+			contactViewModel.OnRemoveFromLabel += ContactViewModel_OnRemoveFromLabel;
 			RaisePropertyChanged(nameof(ContactsCount));
 		}
 
