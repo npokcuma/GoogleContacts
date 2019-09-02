@@ -204,12 +204,12 @@
 					<DataTemplate>
 						<Grid Background="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DirtyToColorConverter}}">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition MaxWidth="190"
-								                  MinWidth="160"/>
+								<ColumnDefinition MinWidth="160"
+								                  MaxWidth="300"/>
 								<ColumnDefinition MinWidth="100"
-								                  MaxWidth="160"/>
+								                  MaxWidth="200"/>
 								<ColumnDefinition MinWidth="100"
-								                  MaxWidth="160"/>
+								                  MaxWidth="200"/>
 								<ColumnDefinition MinWidth="100"
 								                  MaxWidth="150"/>
 							</Grid.ColumnDefinitions>
