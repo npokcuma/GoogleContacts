@@ -85,6 +85,16 @@ namespace ipogonyshevNetTest.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
+        internal static System.Drawing.Icon Contacts_icon {
+            get {
+                object obj = ResourceManager.GetObject("Contacts_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
         internal static System.Drawing.Icon GooglePlus {
             get {
                 object obj = ResourceManager.GetObject("GooglePlus", resourceCulture);

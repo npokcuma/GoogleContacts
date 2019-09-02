@@ -121,6 +121,9 @@
   <data name="AssemblyInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>AssemblyInfo.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="Contacts_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Contacts-icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GooglePlus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>GooglePlus.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
