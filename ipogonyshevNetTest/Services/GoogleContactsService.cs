@@ -57,6 +57,11 @@ namespace ipogonyshevNetTest.Services
 			_service = service;
 		}
 
+		/// <summary>
+		/// We exit from the Google account.
+		/// Moreover, if the token is not empty, we update it and then reset it.
+		/// We also check if the token has expired.
+		/// </summary>
 		public void LogOut()
 		{
 			if (_service != null)

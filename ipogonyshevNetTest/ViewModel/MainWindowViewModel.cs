@@ -103,8 +103,14 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// We go through the authorization procedure in Google and get a token for working on API.
+		/// </summary>
 		public RelayCommand AuthorizeCommand { get; set; }
 
+		/// <summary>
+		/// We exit from the Google account.
+		/// </summary>
 		public RelayCommand LogOutCommand { get; set; }
 
 		/// <summary>
@@ -151,6 +157,9 @@ namespace ipogonyshevNetTest.ViewModel
 			ClearContacts();
 		}
 
+		/// <summary>
+		/// We get an updated list of contacts and groups by API.
+		/// </summary>
 		private void RefreshContacts()
 		{
 			var contacts = _contactService.GetAllContacts();
@@ -180,6 +189,9 @@ namespace ipogonyshevNetTest.ViewModel
 			RaisePropertyChanged(nameof(Labels));
 		}
 
+		/// <summary>
+		/// Create an empty list of contacts and groups.
+		/// </summary>
 		private void ClearContacts()
 		{
 			_contacts = new ObservableCollection<ContactViewModel>();
@@ -190,6 +202,9 @@ namespace ipogonyshevNetTest.ViewModel
 			RaisePropertyChanged(nameof(Labels));
 		}
 
+		/// <summary>
+		/// Create a new contact. Check that the group is not selected. Subscribe to the event.
+		/// </summary>
 		private void AddContact()
 		{
 			var contactViewModel = new ContactViewModel();
@@ -203,6 +218,9 @@ namespace ipogonyshevNetTest.ViewModel
 			RaisePropertyChanged(nameof(ContactsCount));
 		}
 
+		/// <summary>
+		/// Save a new or update a changed contact.
+		/// </summary>
 		private void SaveContact()
 		{
 			if (SelectedContact != null)
@@ -229,6 +247,11 @@ namespace ipogonyshevNetTest.ViewModel
 
 		}
 
+		/// <summary>
+		/// Delete the contact.
+		/// Check if it is new and wait for confirmation from Google.
+		/// Also remove it from the groups.
+		/// </summary>
 		private void DeleteContact()
 		{
 			var confirm = MessageBox.Show("Are you really want delete contact?",
@@ -257,7 +280,9 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
-
+		/// <summary>
+		/// Add a new group and check if it matches the current groups.
+		/// </summary>
 		private void AddLabel()
 		{
 			var labelViewModel = new LabelViewModel();
@@ -278,6 +303,11 @@ namespace ipogonyshevNetTest.ViewModel
 			};
 		}
 
+		/// <summary>
+		/// Change the name of the group.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void LabelViewModel_OnEdit(object sender, EventArgs e)
 		{
 			var labelViewModel = (LabelViewModel)sender;
@@ -299,6 +329,11 @@ namespace ipogonyshevNetTest.ViewModel
 			};
 		}
 
+		/// <summary>
+		/// Delete the group from the list.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void LabelViewModel_OnDelete(object sender, EventArgs e)
 		{
 			var labelViewModel = (LabelViewModel)sender;
@@ -316,7 +351,9 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
-
+		/// <summary>
+		/// Add a group to the contact.
+		/// </summary>
 		private void AddLabelForContact()
 		{
 			if (SelectedContact.IsNew)
@@ -337,6 +374,11 @@ namespace ipogonyshevNetTest.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Delete the contact from the group.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ContactViewModel_OnRemoveFromLabel(object sender, EventArgs e)
 		{
 			var contactViewModel = (ContactViewModel)sender;
@@ -357,19 +399,33 @@ namespace ipogonyshevNetTest.ViewModel
 			SelectedLabel = null;
 		}
 
-
+		/// <summary>
+		/// Add the contact to the local list.
+		/// Subscribe to events.
+		/// </summary>
+		/// <param name="contactViewModel"></param>
 		private void AddContactToList(ContactViewModel contactViewModel)
 		{
 			contactViewModel.OnRemoveFromLabel += ContactViewModel_OnRemoveFromLabel;
 			_contacts.Add(contactViewModel);
 		}
 
+		/// <summary>
+		/// Delete the contact from the local list.
+		/// Unsubscribe from events.
+		/// </summary>
+		/// <param name="contactViewModel"></param>
 		private void RemoveContactFromList(ContactViewModel contactViewModel)
 		{
 			contactViewModel.OnRemoveFromLabel -= ContactViewModel_OnRemoveFromLabel;
 			_contacts.Remove(contactViewModel);
 		}
 
+		/// <summary>
+		/// Add the group to the local list.
+		/// Subscribe to events.
+		/// </summary>
+		/// <param name="labelViewModel"></param>
 		private void AddLabelToList(LabelViewModel labelViewModel)
 		{
 			labelViewModel.OnDelete += LabelViewModel_OnDelete;
@@ -377,6 +433,11 @@ namespace ipogonyshevNetTest.ViewModel
 			Labels.Add(labelViewModel);
 		}
 
+		/// <summary>
+		/// Delete the group from the local list.
+		/// Unsubscribe from events.
+		/// </summary>
+		/// <param name="labelViewModel"></param>
 		private void RemoveLabelFromList(LabelViewModel labelViewModel)
 		{
 			labelViewModel.OnDelete -= LabelViewModel_OnDelete;
