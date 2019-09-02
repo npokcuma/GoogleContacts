@@ -1,16 +1,17 @@
-﻿<Window x:Class="ipogonyshevNetTest.View.MainWindow"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:converters="clr-namespace:ipogonyshevNetTest.Converters"
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:viewModel="clr-namespace:ipogonyshevNetTest.ViewModel"
-		Title="GoogleContacts"
-		Width="1600"
-		Height="800"
-		d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel,
-										 IsDesignTimeCreatable=True}"
-		mc:Ignorable="d">
+﻿<Window
+	x:Class="ipogonyshevNetTest.View.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="clr-namespace:ipogonyshevNetTest.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:viewModel="clr-namespace:ipogonyshevNetTest.ViewModel"
+	Title="GoogleContacts"
+	Width="1600"
+	Height="800"
+	d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel,
+	                                 IsDesignTimeCreatable=True}"
+	mc:Ignorable="d">
 	<Window.Resources>
 		<Style TargetType="TextBlock">
 			<Setter Property="FontSize" Value="17" />
@@ -18,15 +19,13 @@
 			<Setter Property="Foreground" Value="Gray" />
 		</Style>
 
-		<Style x:Key="SimpleText"
-			   TargetType="TextBlock">
+		<Style x:Key="SimpleText" TargetType="TextBlock">
 			<Setter Property="FontSize" Value="17" />
 			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="Foreground" Value="Gray" />
 		</Style>
 
-		<Style x:Key="SelectedText"
-			   TargetType="TextBlock">
+		<Style x:Key="SelectedText" TargetType="TextBlock">
 			<Setter Property="FontSize" Value="17" />
 			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="Foreground" Value="White" />
@@ -42,14 +41,16 @@
 					<ColumnDefinition Width="270" />
 					<ColumnDefinition Width="40" />
 				</Grid.ColumnDefinitions>
-				<TextBlock Grid.Column="0"
-						   Style="{StaticResource SimpleText}"
-						   Text="{Binding Path=Name}"
-						   TextTrimming="WordEllipsis" />
-				<TextBlock Grid.Column="1"
-						   HorizontalAlignment="Center"
-						   Style="{StaticResource SimpleText}"
-						   Text="{Binding Path=Contacts.Count}" />
+				<TextBlock
+					Grid.Column="0"
+					Style="{StaticResource SimpleText}"
+					Text="{Binding Path=Name}"
+					TextTrimming="WordEllipsis" />
+				<TextBlock
+					Grid.Column="1"
+					HorizontalAlignment="Center"
+					Style="{StaticResource SimpleText}"
+					Text="{Binding Path=Contacts.Count}" />
 			</Grid>
 		</DataTemplate>
 
@@ -61,27 +62,30 @@
 					<ColumnDefinition Width="35" />
 					<ColumnDefinition Width="40" />
 				</Grid.ColumnDefinitions>
-				<TextBlock Grid.Column="0"
-						   Style="{StaticResource SelectedText}"
-						   Text="{Binding Path=Name}"
-						   TextTrimming="WordEllipsis" />
-				<Button Grid.Column="1"
-						Margin="0,0,5,0"
-						Command="{Binding EditCommand}"
-						Content="Edit" />
-				<Button Grid.Column="2"
-						Margin="0,0,5,0"
-						Command="{Binding DeleteCommand}"
-						Content="Delete" />
-				<TextBlock Grid.Column="3"
-						   HorizontalAlignment="Center"
-						   Style="{StaticResource SelectedText}"
-						   Text="{Binding Path=Contacts.Count}" />
+				<TextBlock
+					Grid.Column="0"
+					Style="{StaticResource SelectedText}"
+					Text="{Binding Path=Name}"
+					TextTrimming="WordEllipsis" />
+				<Button
+					Grid.Column="1"
+					Margin="0,0,5,0"
+					Command="{Binding EditCommand}"
+					Content="Edit" />
+				<Button
+					Grid.Column="2"
+					Margin="0,0,5,0"
+					Command="{Binding DeleteCommand}"
+					Content="Delete" />
+				<TextBlock
+					Grid.Column="3"
+					HorizontalAlignment="Center"
+					Style="{StaticResource SelectedText}"
+					Text="{Binding Path=Contacts.Count}" />
 			</Grid>
 		</DataTemplate>
 
-		<Style x:Key="ContainerStyle"
-			   TargetType="{x:Type ListBoxItem}">
+		<Style x:Key="ContainerStyle" TargetType="{x:Type ListBoxItem}">
 			<Setter Property="ContentTemplate" Value="{StaticResource ItemTemplate}" />
 			<Style.Triggers>
 				<Trigger Property="IsSelected" Value="True">
@@ -107,91 +111,99 @@
 			<RowDefinition Height="50" />
 		</Grid.RowDefinitions>
 
-		<Button Grid.Row="0"
-				Grid.Column="0"
-				Width="200"
-				Height="30"
-				Margin="10"
-				Command="{Binding AuthorizeCommand}"
-				Content="Authorize"
-				Visibility="{Binding IsAuthorized, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='not'}" />
+		<Button
+			Grid.Row="0"
+			Grid.Column="0"
+			Width="200"
+			Height="30"
+			Margin="10"
+			Command="{Binding AuthorizeCommand}"
+			Content="Authorize"
+			Visibility="{Binding IsAuthorized, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='not'}" />
 
-		<Button Grid.Row="0"
-				Grid.Column="0"
-				Width="200"
-				Height="30"
-				Margin="10"
-				Command="{Binding LogOutCommand}"
-				Content="Log out"
-				Visibility="{Binding IsAuthorized, Converter={StaticResource BoolToVisibilityConverter}}" />
+		<Button
+			Grid.Row="0"
+			Grid.Column="0"
+			Width="200"
+			Height="30"
+			Margin="10"
+			Command="{Binding LogOutCommand}"
+			Content="Log out"
+			Visibility="{Binding IsAuthorized, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-		<StackPanel Grid.Row="0"
-					Grid.Column="1"
-					HorizontalAlignment="Right"
-					Orientation="Horizontal">
-			<ComboBox Width="250"
-					  Height="30"
-					  Margin="0,0,5,0"
-					  VerticalContentAlignment="Center"
-					  ItemsSource="{Binding Labels}"
-					  SelectedItem="{Binding SelectedLabelForContact}">
+		<StackPanel
+			Grid.Row="0"
+			Grid.Column="1"
+			HorizontalAlignment="Right"
+			Orientation="Horizontal">
+			<ComboBox
+				Width="250"
+				Height="30"
+				Margin="0,0,5,0"
+				VerticalContentAlignment="Center"
+				ItemsSource="{Binding Labels}"
+				SelectedItem="{Binding SelectedLabelForContact}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Path=Name}" />
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
-			<Button Width="90"
-					Height="30"
-					Command="{Binding AddLabelForContactCommand}"
-					Content="Add label" />
+			<Button
+				Width="90"
+				Height="30"
+				Command="{Binding AddLabelForContactCommand}"
+				Content="Add label" />
 		</StackPanel>
 
-		<Grid Grid.Row="1"
-			  Grid.Column="0"
-			  Margin="5,10,5,0">
+		<Grid
+			Grid.Row="1"
+			Grid.Column="0"
+			Margin="5,10,5,0">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<Button Grid.Row="0"
-					Height="30"
-					HorizontalContentAlignment="Stretch"
-					Command="{Binding ShowAllContactsCommand}">
+			<Button
+				Grid.Row="0"
+				Height="30"
+				HorizontalContentAlignment="Stretch"
+				Command="{Binding ShowAllContactsCommand}">
 				<DockPanel Margin="10,0,20,0">
-					<TextBlock DockPanel.Dock="Right"
-							   Text="{Binding ContactsCount}" />
+					<TextBlock DockPanel.Dock="Right" Text="{Binding ContactsCount}" />
 					<TextBlock Text="Contacts" />
 				</DockPanel>
 			</Button>
-			<GroupBox Grid.Row="1"
-					  Margin="0,5,0,0">
+			<GroupBox Grid.Row="1" Margin="0,5,0,0">
 				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock FontSize="18">Labels</TextBlock>
 					</StackPanel>
 				</GroupBox.Header>
-				<ListBox HorizontalContentAlignment="Stretch"
-				         BorderThickness="0"
-						 ItemContainerStyle="{StaticResource ContainerStyle}"
-						 ItemsSource="{Binding Labels}"
-						 SelectedItem="{Binding SelectedLabel}" />
+				<ListBox
+					HorizontalContentAlignment="Stretch"
+					BorderThickness="0"
+					ItemContainerStyle="{StaticResource ContainerStyle}"
+					ItemsSource="{Binding Labels}"
+					SelectedItem="{Binding SelectedLabel}" />
 			</GroupBox>
 		</Grid>
 
-		<GroupBox Grid.Row="1"
-				  Grid.Column="1"
-				  Margin="0,0,5,0"
-				  Padding="5">
+		<GroupBox
+			Grid.Row="1"
+			Grid.Column="1"
+			Margin="0,0,5,0"
+			Padding="5">
 			<GroupBox.Header>
 				<StackPanel Orientation="Horizontal">
 					<TextBlock FontSize="18">Contacts</TextBlock>
 				</StackPanel>
 			</GroupBox.Header>
-			<ListBox HorizontalContentAlignment="Stretch"
-					 BorderThickness="0"
-					 ItemsSource="{Binding Contacts}"
-					 SelectedItem="{Binding SelectedContact}">
+			<ListBox
+				HorizontalContentAlignment="Stretch"
+				BorderThickness="0"
+				ItemsSource="{Binding Contacts}"
+				SelectedItem="{Binding SelectedContact}">
 				<ListBox.ItemContainerStyle>
 					<Style>
 						<Setter Property="ListBoxItem.FontWeight" Value="Bold" />
@@ -203,50 +215,51 @@
 					<DataTemplate>
 						<Grid Background="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DirtyToColorConverter}}">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition MinWidth="160"
-								                  MaxWidth="300"/>
-								<ColumnDefinition MinWidth="100"
-								                  MaxWidth="200"/>
-								<ColumnDefinition MinWidth="100"
-								                  MaxWidth="200"/>
-								<ColumnDefinition MinWidth="100"
-								                  MaxWidth="150"/>
+								<ColumnDefinition MinWidth="160" MaxWidth="300" />
+								<ColumnDefinition MinWidth="100" MaxWidth="200" />
+								<ColumnDefinition MinWidth="100" MaxWidth="200" />
+								<ColumnDefinition MinWidth="100" MaxWidth="150" />
 							</Grid.ColumnDefinitions>
-							<TextBlock Grid.Column="0"
-							           MaxWidth="180"
-									   Margin="5"
-									   VerticalAlignment="Center"
-									   Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
-									   TextTrimming="CharacterEllipsis" />
-							<TextBlock Grid.Column="1"
-									   MaxWidth="150"
-									   Margin="5"
-									   VerticalAlignment="Center"
-									   Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-									   TextTrimming="WordEllipsis" />
-							<TextBlock Grid.Column="2"
-									   MaxWidth="150"
-									   Margin="5"
-									   VerticalAlignment="Center"
-									   Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"
-									   TextTrimming="WordEllipsis" />
-							<Button Grid.Column="3"
-									Height="30"
-									Margin="5"
-									Command="{Binding RemoveFromLabelCommand}"
-									Content="Remove from label"
-									DockPanel.Dock="Right"
-									Visibility="{Binding DataContext.SelectedLabel, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
+							<TextBlock
+								Grid.Column="0"
+								MaxWidth="180"
+								Margin="5"
+								VerticalAlignment="Center"
+								Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
+								TextTrimming="CharacterEllipsis" />
+							<TextBlock
+								Grid.Column="1"
+								MaxWidth="150"
+								Margin="5"
+								VerticalAlignment="Center"
+								Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+								TextTrimming="WordEllipsis" />
+							<TextBlock
+								Grid.Column="2"
+								MaxWidth="150"
+								Margin="5"
+								VerticalAlignment="Center"
+								Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"
+								TextTrimming="WordEllipsis" />
+							<Button
+								Grid.Column="3"
+								Height="30"
+								Margin="5"
+								Command="{Binding RemoveFromLabelCommand}"
+								Content="Remove from label"
+								DockPanel.Dock="Right"
+								Visibility="{Binding DataContext.SelectedLabel, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource NullToVisibilityConverter}}" />
 						</Grid>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</GroupBox>
 
-		<GroupBox Grid.Row="1"
-				  Grid.Column="2"
-				  Margin="0,0,5,0"
-				  Padding="5">
+		<GroupBox
+			Grid.Row="1"
+			Grid.Column="2"
+			Margin="0,0,5,0"
+			Padding="5">
 			<GroupBox.Header>
 				<StackPanel Orientation="Horizontal">
 					<TextBlock FontSize="18">Edit contact</TextBlock>
@@ -266,43 +279,57 @@
 			</StackPanel>
 		</GroupBox>
 
-		<StackPanel Grid.Row="2"
-					Grid.Column="0"
-					HorizontalAlignment="Center"
-					VerticalAlignment="Center">
-			<Button Width="200"
-					Height="35"
-					Command="{Binding AddLabelCommand}"
-					Content="Add label" />
+		<StackPanel
+			Grid.Row="2"
+			Grid.Column="0"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center">
+			<Button
+				Width="200"
+				Height="35"
+				Command="{Binding AddLabelCommand}"
+				Content="Add label" />
 		</StackPanel>
-		<StackPanel Grid.Row="2"
-					Grid.Column="1"
-					HorizontalAlignment="Center"
-					Orientation="Horizontal">
+		<StackPanel
+			Grid.Row="2"
+			Grid.Column="1"
+			HorizontalAlignment="Center"
+			Orientation="Horizontal">
 			<Button
 				Width="200"
 				Height="35"
 				Margin="20,0"
 				Command="{Binding AddContactCommand}">
 				<WrapPanel>
-					<Image Source="/Properties/GooglePlus.ico" Width="16" Height="16" Margin="0,0,5,0" />
-					<TextBlock Text="Add new contact" Foreground="Black"  FontSize="12" FontWeight="Normal"/>
+					<Image
+						Width="16"
+						Height="16"
+						Margin="0,0,5,0"
+						Source="/Properties/GooglePlus.ico" />
+					<TextBlock
+						FontSize="12"
+						FontWeight="Normal"
+						Foreground="Black"
+						Text="Add new contact" />
 				</WrapPanel>
 			</Button>
-			<Button Width="200"
-					Height="35"
-					Margin="20,0"
-					Command="{Binding DeleteContactCommand}"
-					Content="DeleteContact" />
+			<Button
+				Width="200"
+				Height="35"
+				Margin="20,0"
+				Command="{Binding DeleteContactCommand}"
+				Content="DeleteContact" />
 		</StackPanel>
-		<StackPanel Grid.Row="2"
-					Grid.Column="2"
-					HorizontalAlignment="Center"
-					VerticalAlignment="Center">
-			<Button Width="200"
-					Height="35"
-					Command="{Binding SaveContactCommand}"
-					Content="Save contact" />
+		<StackPanel
+			Grid.Row="2"
+			Grid.Column="2"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center">
+			<Button
+				Width="200"
+				Height="35"
+				Command="{Binding SaveContactCommand}"
+				Content="Save contact" />
 		</StackPanel>
 
 	</Grid>
