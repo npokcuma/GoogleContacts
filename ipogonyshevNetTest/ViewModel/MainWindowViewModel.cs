@@ -318,6 +318,14 @@ namespace ipogonyshevNetTest.ViewModel
 
 		private void AddLabelForContact()
 		{
+			if (SelectedContact.IsNew)
+			{
+				var resultId = _contactService.CreateContact(SelectedContact.GetContact());
+				if (resultId != null)
+				{
+					SelectedContact.Id = resultId;
+				}
+			}
 			var result = _contactService.AddLabelToContact(SelectedContact.GetContact(), SelectedLabelForContact.Entity);
 			if (result)
 			{
