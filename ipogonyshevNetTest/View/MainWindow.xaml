@@ -204,25 +204,29 @@
 					<DataTemplate>
 						<Grid Background="{Binding IsDirty, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DirtyToColorConverter}}">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="140"
-												  MinWidth="140" />
-								<ColumnDefinition Width="180"
-												  MinWidth="180" />
-								<ColumnDefinition Width="80"
-												  MinWidth="80" />
+								<ColumnDefinition MaxWidth="190"
+								                  MinWidth="160"/>
+								<ColumnDefinition MinWidth="100"
+								                  MaxWidth="160"/>
+								<ColumnDefinition MinWidth="100"
+								                  MaxWidth="160"/>
+								<ColumnDefinition MinWidth="100"
+								                  MaxWidth="150"/>
 							</Grid.ColumnDefinitions>
 							<TextBlock Grid.Column="0"
+							           MaxWidth="180"
 									   Margin="5"
 									   VerticalAlignment="Center"
 									   Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
-									   TextTrimming="WordEllipsis" />
+									   TextTrimming="CharacterEllipsis" />
 							<TextBlock Grid.Column="1"
+									   MaxWidth="150"
 									   Margin="5"
 									   VerticalAlignment="Center"
 									   Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
 									   TextTrimming="WordEllipsis" />
 							<TextBlock Grid.Column="2"
+									   MaxWidth="150"
 									   Margin="5"
 									   VerticalAlignment="Center"
 									   Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"
