@@ -165,15 +165,14 @@
 				</DockPanel>
 			</Button>
 			<GroupBox Grid.Row="1"
-					  Margin="0,5,0,0"
-					  Padding="5">
+					  Margin="0,5,0,0">
 				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock FontSize="18">Labels</TextBlock>
 					</StackPanel>
 				</GroupBox.Header>
 				<ListBox HorizontalContentAlignment="Stretch"
-						 BorderThickness="0"
+				         BorderThickness="0"
 						 ItemContainerStyle="{StaticResource ContainerStyle}"
 						 ItemsSource="{Binding Labels}"
 						 SelectedItem="{Binding SelectedLabel}" />
